@@ -1680,7 +1680,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #e7221a;
+  background: #cdff46;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2449,7 +2449,13 @@ hr {
   margin-top: 80px;
 }
 .header {
-  background: #f5f5f5;
+  background: $white;
+}
+.header {
+  border-bottom: 1px solid #d3d3d3;
+}
+.header {
+  height: 90px;
 }
 .header-inner {
   padding: 25px 0 20px;
@@ -2505,7 +2511,7 @@ hr {
   display: block;
   overflow: hidden;
   margin: 0 auto;
-  width: 75%;
+  width: 0%;
 }
 @media (max-width: 767px) {
   .logo-line-before,
