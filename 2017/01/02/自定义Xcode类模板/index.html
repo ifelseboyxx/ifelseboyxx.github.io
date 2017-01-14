@@ -99,14 +99,14 @@
 
 为什么要自定义Xcode类模板 ？当我们用Xcode自带的模板创建一个UIViewController的子类时，我们会发现 .m 文件">
 <meta property="og:image" content="http://yoursite.com/images/VC.gif">
-<meta property="og:image" content="http://yoursite.com/Users/Jason/Documents/blog/source/_posts/img/UIViewController.png">
-<meta property="og:image" content="http://yoursite.com/Users/Jason/Documents/blog/source/_posts/img/UIViewController_01.png">
-<meta property="og:image" content="http://yoursite.com/Users/Jason/Documents/blog/source/_posts/img/UIViewController_02.png">
-<meta property="og:image" content="http://yoursite.com/Users/Jason/Documents/blog/source/_posts/img/UIViewController_03.png">
-<meta property="og:image" content="http://yoursite.com/Users/Jason/Documents/blog/source/_posts/img/UIViewController_04.png">
-<meta property="og:image" content="http://yoursite.com/Users/Jason/Documents/blog/source/_posts/img/05.png">
-<meta property="og:image" content="http://yoursite.com/Users/Jason/Documents/blog/source/_posts/img/06.png">
-<meta property="og:updated_time" content="2017-01-14T15:28:36.000Z">
+<meta property="og:image" content="http://yoursite.com/images/UIViewController.png">
+<meta property="og:image" content="http://yoursite.com/images/UIViewController_01.png">
+<meta property="og:image" content="http://yoursite.com/images/UIViewController_02.png">
+<meta property="og:image" content="http://yoursite.com/images/UIViewController_03.png">
+<meta property="og:image" content="http://yoursite.com/images/UIViewController_04.png">
+<meta property="og:image" content="http://yoursite.com/images/05.png">
+<meta property="og:image" content="http://yoursite.com/images/06.png">
+<meta property="og:updated_time" content="2017-01-14T15:46:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义Xcode类模板">
 <meta name="twitter:description" content="话不多说我们先来体验下：
@@ -370,16 +370,16 @@
         <p>话不多说我们先来体验下：</p>
 <p><img src="/images/VC.gif" alt=""></p>
 <h3 id="什么是Xcode类模板-？"><a href="#什么是Xcode类模板-？" class="headerlink" title="什么是Xcode类模板 ？"></a>什么是Xcode类模板 ？</h3><p>说到Xcode类模板有些人可能觉得陌生，其实作为一名iOS开发，我们每天都会用到Xcode类模板，例如创建一个UIViewController，一个UIView等等，这些其实都是Xcode帮我们集成好的模板。</p>
-<p><img src="/Users/Jason/Documents/blog/source/_posts/img/UIViewController.png" alt=""></p>
+<p><img src="/images/UIViewController.png" alt=""></p>
 <h3 id="为什么要自定义Xcode类模板-？"><a href="#为什么要自定义Xcode类模板-？" class="headerlink" title="为什么要自定义Xcode类模板 ？"></a>为什么要自定义Xcode类模板 ？</h3><p>当我们用Xcode自带的模板创建一个UIViewController的子类时，我们会发现 <code>.m</code> 文件会多出一些方法:</p>
-<p><img src="/Users/Jason/Documents/blog/source/_posts/img/UIViewController_01.png" alt=""></p>
+<p><img src="/images/UIViewController_01.png" alt=""></p>
 <p>而我们平时的开发中，或多或少都有自己的一些规范，尤其是在多人合作开发的情况下，一些好的开发规范是相当必要的。下面是我自己的一个UIViewController规范：</p>
-<p><img src="/Users/Jason/Documents/blog/source/_posts/img/UIViewController_02.png" alt=""></p>
+<p><img src="/images/UIViewController_02.png" alt=""></p>
 <h3 id="创建自己的Xcode类模板"><a href="#创建自己的Xcode类模板" class="headerlink" title="创建自己的Xcode类模板"></a>创建自己的Xcode类模板</h3><ul>
 <li>首先我们新建一个UIViewController的子类，写好自己的规范（就上面我的规范一样）。</li>
 <li><p>接着我们来修改 <code>.h .m</code> 文件：</p>
-<p><img src="/Users/Jason/Documents/blog/source/_posts/img/UIViewController_03.png" alt=""></p>
-<p><img src="/Users/Jason/Documents/blog/source/_posts/img/UIViewController_04.png" alt=""></p>
+<p><img src="/images/UIViewController_03.png" alt=""></p>
+<p><img src="/images/UIViewController_04.png" alt=""></p>
 </li>
 <li><p>接着我们新建个的文件夹命名格式 <code>自定义模板名字+Objective-C</code>,例如：<code>CustomVCObjective-C</code>。</p>
 </li>
@@ -387,8 +387,8 @@
 <li>然后我们去Xcode模板存放路径下拷贝一份 <code>TemplateInfo.plist</code> 文件并放到我们自己的文件夹下。(<code>Xcode8.2.1</code> 系统模板路径如下：<code>/Applications/Xcode.app/Contents/Developer/Library/Xcode/Templates/File/Templates/Source</code>)</li>
 <li>成品自定义模板目录结构大概这样：</li>
 </ul>
-<p><img src="/Users/Jason/Documents/blog/source/_posts/img/05.png" alt=""></p>
-<p>关于 <code>TemplateInfo.plist</code> 文件就不细讲了，有兴趣点 <a href="http://www.bobmccune.com/2012/03/04/creating-custom-xcode-4-file-templates/" target="_blank" rel="external">链接</a> 看看这里的说明。说一些需要注意的点：<br><img src="/Users/Jason/Documents/blog/source/_posts/img/06.png" alt=""></p>
+<p><img src="/images/05.png" alt=""></p>
+<p>关于 <code>TemplateInfo.plist</code> 文件就不细讲了，有兴趣点 <a href="http://www.bobmccune.com/2012/03/04/creating-custom-xcode-4-file-templates/" target="_blank" rel="external">链接</a> 看看这里的说明。说一些需要注意的点：<br><img src="/images/06.png" alt=""></p>
 <ul>
 <li><code>Values</code> 里面的值要和你模板的 <strong>命名</strong> 保持一致。</li>
 <li><code>Suffixes</code> 里面的值是你模板的 <strong>默认名字</strong></li>
