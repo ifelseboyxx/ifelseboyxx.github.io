@@ -84,34 +84,37 @@
 
 
 
-<meta name="description" content="话不多说我们先来体验下：
+<meta name="description" content="话不多说我们先来体验下 :
 
-什么是Xcode类模板 ？说到Xcode类模板有些人可能觉得陌生，其实作为一名iOS开发，我们每天都会用到Xcode类模板，例如创建一个UIViewController，一个UIView等等，这些其实都是Xcode帮我们集成好的模板。
+什么是Xcode类模板 ？说到Xcode类模板有些人可能觉得陌生，其实作为一名iOS开发，我们每天都会用到Xcode类模板，例如创建一个UIViewController，一个Category等等，这些其实都是Xcode帮我们集成好的模板。
+系统VC模版 :
 
-为什么要自定义Xcode类模板 ？当我们用Xcode自带的模板创建一个UIViewController的子类时，我们会发现 .m 文件">
+为什么要自定义Xcode类模板 ？当我们用Xcode自带的模板创建一个UIViewController的子类时">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自定义Xcode类模板">
 <meta property="og:url" content="http://yoursite.com/2017/01/02/自定义Xcode类模板/index.html">
 <meta property="og:site_name" content="ifelseboyxx's Blog">
-<meta property="og:description" content="话不多说我们先来体验下：
+<meta property="og:description" content="话不多说我们先来体验下 :
 
-什么是Xcode类模板 ？说到Xcode类模板有些人可能觉得陌生，其实作为一名iOS开发，我们每天都会用到Xcode类模板，例如创建一个UIViewController，一个UIView等等，这些其实都是Xcode帮我们集成好的模板。
+什么是Xcode类模板 ？说到Xcode类模板有些人可能觉得陌生，其实作为一名iOS开发，我们每天都会用到Xcode类模板，例如创建一个UIViewController，一个Category等等，这些其实都是Xcode帮我们集成好的模板。
+系统VC模版 :
 
-为什么要自定义Xcode类模板 ？当我们用Xcode自带的模板创建一个UIViewController的子类时，我们会发现 .m 文件">
+为什么要自定义Xcode类模板 ？当我们用Xcode自带的模板创建一个UIViewController的子类时">
 <meta property="og:image" content="http://yoursite.com/images/VC.gif">
-<meta property="og:image" content="http://yoursite.com/images/UIViewController.png">
-<meta property="og:image" content="http://yoursite.com/images/UIViewController_01.png">
-<meta property="og:image" content="http://yoursite.com/images/UIViewController_02.png">
-<meta property="og:image" content="http://yoursite.com/images/05.png">
+<meta property="og:image" content="http://yoursite.com/images/01.png">
+<meta property="og:image" content="http://yoursite.com/images/02.png">
+<meta property="og:image" content="http://yoursite.com/images/03.png">
 <meta property="og:image" content="http://yoursite.com/images/06.png">
-<meta property="og:updated_time" content="2017-01-14T16:01:15.000Z">
+<meta property="og:image" content="http://yoursite.com/images/07.gif">
+<meta property="og:updated_time" content="2017-01-16T12:55:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义Xcode类模板">
-<meta name="twitter:description" content="话不多说我们先来体验下：
+<meta name="twitter:description" content="话不多说我们先来体验下 :
 
-什么是Xcode类模板 ？说到Xcode类模板有些人可能觉得陌生，其实作为一名iOS开发，我们每天都会用到Xcode类模板，例如创建一个UIViewController，一个UIView等等，这些其实都是Xcode帮我们集成好的模板。
+什么是Xcode类模板 ？说到Xcode类模板有些人可能觉得陌生，其实作为一名iOS开发，我们每天都会用到Xcode类模板，例如创建一个UIViewController，一个Category等等，这些其实都是Xcode帮我们集成好的模板。
+系统VC模版 :
 
-为什么要自定义Xcode类模板 ？当我们用Xcode自带的模板创建一个UIViewController的子类时，我们会发现 .m 文件">
+为什么要自定义Xcode类模板 ？当我们用Xcode自带的模板创建一个UIViewController的子类时">
 <meta name="twitter:image" content="http://yoursite.com/images/VC.gif">
 
 
@@ -365,42 +368,79 @@
       
 
       
-        <p>话不多说我们先来体验下：</p>
+        <p>话不多说我们先来体验下 :</p>
 <p><img src="/images/VC.gif" alt=""></p>
-<h3 id="什么是Xcode类模板-？"><a href="#什么是Xcode类模板-？" class="headerlink" title="什么是Xcode类模板 ？"></a>什么是Xcode类模板 ？</h3><p>说到Xcode类模板有些人可能觉得陌生，其实作为一名iOS开发，我们每天都会用到Xcode类模板，例如创建一个UIViewController，一个UIView等等，这些其实都是Xcode帮我们集成好的模板。</p>
-<p><img src="/images/UIViewController.png" alt=""></p>
-<h3 id="为什么要自定义Xcode类模板-？"><a href="#为什么要自定义Xcode类模板-？" class="headerlink" title="为什么要自定义Xcode类模板 ？"></a>为什么要自定义Xcode类模板 ？</h3><p>当我们用Xcode自带的模板创建一个UIViewController的子类时，我们会发现 <code>.m</code> 文件会多出一些方法:</p>
-<p><img src="/images/UIViewController_01.png" alt=""></p>
-<p>而我们平时的开发中，或多或少都有自己的一些规范，尤其是在多人合作开发的情况下，一些好的开发规范是相当必要的。下面是我自己的一个UIViewController规范：</p>
-<p><img src="/images/UIViewController_02.png" alt=""></p>
-<h3 id="创建自己的Xcode类模板"><a href="#创建自己的Xcode类模板" class="headerlink" title="创建自己的Xcode类模板"></a>创建自己的Xcode类模板</h3><ul>
-<li>首先我们新建一个UIViewController的子类，写好自己的规范（就上面我的规范一样）。</li>
-<li>接着我们来修改 <code>.h .m</code> 文件：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//</div><div class="line">//  ___FILENAME___</div><div class="line">//  ___PROJECTNAME___</div><div class="line">//</div><div class="line">//  Created by ___FULLUSERNAME___ on ___DATE___.</div><div class="line">//___COPYRIGHT___</div><div class="line">//</div><div class="line"></div><div class="line">___IMPORTHEADER_cocoaSubclass___</div><div class="line"></div><div class="line">@interface ___FILEBASENAMEASIDENTIFIER___ : UIViewController</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">//</div><div class="line">//  ___FILENAME___</div><div class="line">//  ___PROJECTNAME___</div><div class="line">//</div><div class="line">//  Created by ___FULLUSERNAME___ on ___DATE___.</div><div class="line">//___COPYRIGHT___</div><div class="line">//</div><div class="line"></div><div class="line">#import &quot;___FILEBASENAME___.h&quot;</div><div class="line">// VC</div><div class="line"></div><div class="line">// Model</div><div class="line"></div><div class="line">// View</div><div class="line"></div><div class="line">// wheel</div><div class="line"></div><div class="line"></div><div class="line">@interface ___FILEBASENAMEASIDENTIFIER___ ()</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation ___FILEBASENAMEASIDENTIFIER___</div></pre></td></tr></table></figure>
+<h3 id="什么是Xcode类模板-？"><a href="#什么是Xcode类模板-？" class="headerlink" title="什么是Xcode类模板 ？"></a>什么是Xcode类模板 ？</h3><p>说到Xcode类模板有些人可能觉得陌生，其实作为一名iOS开发，我们每天都会用到Xcode类模板，例如创建一个UIViewController，一个Category等等，这些其实都是Xcode帮我们集成好的模板。</p>
+<p><a name="options" style="color:black" ;="">系统VC模版 :</a></p>
+<p><img src="/images/01.png" alt=""></p>
+<h3 id="为什么要自定义Xcode类模板-？"><a href="#为什么要自定义Xcode类模板-？" class="headerlink" title="为什么要自定义Xcode类模板 ？"></a>为什么要自定义Xcode类模板 ？</h3><p>当我们用Xcode自带的模板创建一个UIViewController的子类时，我们会发现 <code>.m</code> 文件会多出一些方法 :</p>
+<p><img src="/images/02.png" alt=""></p>
+<p>而我们平时的开发中，或多或少都有自己的一些规范，尤其是在多人合作开发的情况下，一些好的开发规范是相当必要的。</p>
+<p> <a name="我的VC模版" style="color:black" ;="">我的UIViewController规范</a> :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line">#import &quot;MyViewController.h&quot;</div><div class="line"></div><div class="line">@interface MyViewController ()</div><div class="line">// &lt;UITableViewDelegate,UITableViewDataSource&gt;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation MyViewController</div><div class="line"></div><div class="line">#pragma mark - LifeCyle</div><div class="line"></div><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">&#125;</div><div class="line">/*</div><div class="line">- (void)viewWillAppear:(BOOL)animated &#123;</div><div class="line">    [super viewWillAppear:animated];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)viewDidAppear:(BOOL)animated &#123;</div><div class="line">    [super viewDidAppear:animated];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)viewWillDisappear:(BOOL)animated &#123;</div><div class="line">    [super viewWillDisappear:animated];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(void)viewDidDisappear:(BOOL)animated &#123;</div><div class="line">    [super viewDidDisappear:animated];</div><div class="line">&#125;</div><div class="line">**/</div><div class="line">- (void)dealloc &#123;</div><div class="line">    NSLog(@&quot;%@-释放了&quot;,self.class);</div><div class="line">&#125;</div><div class="line"></div><div class="line">#pragma mark - Intial Methods</div><div class="line"></div><div class="line">#pragma mark - Target Methods</div><div class="line"></div><div class="line">#pragma mark - Private Method</div><div class="line"></div><div class="line">#pragma mark - Setter Getter Methods</div><div class="line"></div><div class="line">#pragma mark - External Delegate</div><div class="line"></div><div class="line">#pragma mark - UITableViewDelegate,UITableViewDataSource</div><div class="line">/*</div><div class="line">- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView &#123;</div><div class="line">    return &lt;#section#&gt;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section &#123;</div><div class="line">    return &lt;#row#&gt;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath &#123;</div><div class="line">    return &lt;# UITableViewCell #&gt;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath &#123;</div><div class="line">    return &lt;#height#&gt;;</div><div class="line">&#125;</div><div class="line">**/</div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>这么一堆东西写起来也是要点时间的，如果每创建个VC就要写一遍也太不优雅了。</p>
+<p><strong>有没有什么办法能够在我们创建VC的时候自动生成这些呢？</strong></p>
+<h3 id="创建自己的Xcode类模板"><a href="#创建自己的Xcode类模板" class="headerlink" title="创建自己的Xcode类模板"></a>创建自己的Xcode类模板</h3><p>一份成品模版结构大概这样 :</p>
+<p><img src="/images/03.png" alt=""></p>
+<p>介绍下里面的东西 (<code>xxx</code> 就是你自定义模版的名字) :</p>
+<blockquote>
+<p><code>xxx.xctemplate</code>:       模版文件。</p>
+<p><code>xxxObjective-C</code>:       OC模版文件，里面包含 <code>___FILEBASENAME___.h</code> 和 <code>___FILEBASENAME___.m</code> 两个文件。</p>
+<p><code>xxxXIBObjective-C</code>:  比 <code>xxxObjective-C</code> 多了个 <code>___FILEBASENAME___.xib</code> 文件，可自定义。</p>
+<p><code>xxxSwift</code>:              Swift模版文件，里面包含一个 <code>___FILEBASENAME___.swift</code> 文件。</p>
+<p><code>xxxXIBSwift</code>:          比 <code>xxxSwift</code> 多了个 <code>___FILEBASENAME___.xib</code> 文件，可自定义。</p>
+<p><code>TemplateIcon.png</code>:      模版显示的图片。</p>
+<p><code>TemplateInfo.plist</code>: 模版的配置信息，<a href="#TemplateInfo.plist">介绍</a>。</p>
+</blockquote>
+<p>重新写一份模版太繁琐，我们<strong>直接拷贝一份系统的模版来修改</strong> ：</p>
 <ul>
-<li>接着我们新建个的文件夹命名格式 <code>自定义模板名字+Objective-C</code>,例如：<code>CustomVCObjective-C</code>。</li>
-<li>把刚才写好的模板修改下名称并拷贝到新建的文件夹下：<code>___FILEBASENAME___.h</code> <code>___FILEBASENAME___.m</code></li>
-<li>然后我们去Xcode模板存放路径下拷贝一份 <code>TemplateInfo.plist</code> 文件并放到我们自己的文件夹下。(<code>Xcode8.2.1</code> 系统模板路径如下：<code>/Applications/Xcode.app/Contents/Developer/Library/Xcode/Templates/File/Templates/Source</code>)</li>
-<li>成品自定义模板目录结构大概这样：</li>
+<li><p>拷贝 <code>Cocoa Class.xctemplate</code>，修改名称并删除不需要的文件。（我这边是  <code>Xcode 8.2.1</code>, 以后路径可能有变）</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Applications/Xcode.app/Contents/Developer/Library/Xcode/Templates/File Templates/Source</div></pre></td></tr></table></figure>
+</li>
 </ul>
-<p><img src="/images/05.png" alt=""></p>
-<p>关于 <code>TemplateInfo.plist</code> 文件就不细讲了，有兴趣点 <a href="http://www.bobmccune.com/2012/03/04/creating-custom-xcode-4-file-templates/" target="_blank" rel="external">链接</a> 看看这里的说明。说一些需要注意的点：<br><img src="/images/06.png" alt=""></p>
 <ul>
-<li><code>Values</code> 里面的值要和你模板的 <strong>命名</strong> 保持一致。</li>
-<li><code>Suffixes</code> 里面的值是你模板的 <strong>默认名字</strong></li>
+<li><p>接着我们来逐个修改 <code>.h</code> <code>.m</code> <code>.swift</code> 以及 <code>.xib</code> 文件：</p>
+<ul>
+<li><p>修改 <code>.h</code> 为 ：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//</div><div class="line">//  ___FILENAME___</div><div class="line">//  ___PROJECTNAME___</div><div class="line">//</div><div class="line">//  Created by ___FULLUSERNAME___ on ___DATE___.</div><div class="line">//___COPYRIGHT___</div><div class="line">//</div><div class="line"></div><div class="line">___IMPORTHEADER_cocoaSubclass___</div><div class="line"></div><div class="line">@interface ___FILEBASENAMEASIDENTIFIER___ : UIViewController</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>.m</code> 只需要添加自己需要的规范就行，可以参考 <a href="#我的VC模版">我的VC模版</a>。</p>
+</li>
+<li><p>修改 <code>.swift</code> 为: </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">	//</div><div class="line">//  ___FILENAME___</div><div class="line">//  ___PROJECTNAME___</div><div class="line">//</div><div class="line">//  Created by ___FULLUSERNAME___ on ___DATE___.</div><div class="line">//___COPYRIGHT___</div><div class="line">	//</div><div class="line"></div><div class="line">	import UIKit</div><div class="line"></div><div class="line">	class ___FILEBASENAMEASIDENTIFIER___: UIViewController &#123;</div><div class="line">   </div><div class="line">  		//MARK: - LifeCyle</div><div class="line">   	override func viewDidLoad() &#123;</div><div class="line">       	super.viewDidLoad()</div><div class="line">      &#125;</div><div class="line">   </div><div class="line">   	deinit &#123;</div><div class="line">       	print(&quot;\(object_getClassName(self)) - 释放了!&quot;)</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   	//MARK: - Intial Methods</div><div class="line">   </div><div class="line">   	//MARK: - Target Methods</div><div class="line">   </div><div class="line">   	//MARK: - Private Method</div><div class="line">   </div><div class="line">   	//MARK: - Setter Getter Methods</div><div class="line">   </div><div class="line">   	//MARK: - External Delegate</div><div class="line">   </div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>上面有些词可能不明白，这里再稍稍解释下：</p>
-<pre><code>1）__DATE__、__YEAR__、__TIME__：标识当前时间；
+</li>
+</ul>
+<pre><code>* 新建 `.xib` 重命名 `___FILEBASENAME___.xib` 并按照下图修改:
+
+    ![](/images/04.png)
+
+    ![](/images/05.png)
+</code></pre><p>上面 <code>.h</code> <code>.m</code> 里面 有些词可能不明白，这里再稍稍解释下：</p>
+<pre><code>1）__DATE__：标识当前时间；
 2）__FILENAME__：带文件后缀的全名；
 3）__FILEBASENAME__：不带文件后缀的名字；
-4）__ORGANIZATIONNAME__：当前设置的Organization；
-5）__USERNAME___：当前的用户名；
+4）__FULLUSERNAME__：当前的用户名；
 6）__PROJECTNAME__：工程名字；
-7）__PACKAGENAME__：包名，初始时和__PROJECTNAME__一样。
-</code></pre><h3 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h3><p>自定义模板还是很有必要的，对于多人开发的规范化还是很有帮助的，“一劳永逸”的事情，我们何乐而不为呢？</p>
-<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>最后放上我自己的一个 <a href="https://github.com/ifelseboyxx/CustomXcodeTempate" target="_blank" rel="external">UIViewController 模板</a>，懒得自己写的可以直接用或者在我的模板基础上修改！</p>
+7）__FILEBASENAMEASIDENTIFIER__： VC类名称；
+8)__IMPORTHEADER_cocoaSubclass__： 导入的头文件。
+</code></pre><h4 id="TemplateInfo-plist"><a href="#TemplateInfo-plist" class="headerlink" title="TemplateInfo.plist"></a><a name="TemplateInfo.plist" style="color:black" ;="">TemplateInfo.plist</a></h4><p><img src="/images/06.png" alt=""></p>
+<p>讲解一些需要改动的东西 :</p>
+<blockquote>
+<p><code>SortOrder</code> : 模版在界面中的位置；</p>
+<p><code>Options</code> : 对应 <a href="#options">图中</a> 四行；</p>
+<p><code>FallbackHeader</code> : <code>.h</code> 导入的头文件；</p>
+<p><code>RequiredOptions -&gt; cocoaSubclass</code> : 是否支持选择 xib；<code>Default</code> 默认 <code>true</code> 自动勾选；</p>
+<p><code>Values</code> :  自定义模版的名称(一定要保持一致);</p>
+<p><code>Suffixes</code> : 模版默认类名，效果如下图。</p>
+</blockquote>
+<p><img src="/images/07.gif" alt=""></p>
+<p>最好把创建好的 <code>xxx.xctemplate</code> 文件直接拷贝到系统路径下就可以直接使用了:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Applications/Xcode.app/Contents/Developer/Library/Xcode/Templates/File Templates/Source</div></pre></td></tr></table></figure>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>放上我自己的一个 <a href="https://github.com/ifelseboyxx/CustomXcodeTempate" target="_blank" rel="external">UIViewController 模板</a>，懒得自己写的可以直接用或者在我的模板基础上修改！</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="http://www.jianshu.com/p/93527682d8d3" target="_blank" rel="external">http://www.jianshu.com/p/93527682d8d3</a></p>
+<p><a href="http://www.bobmccune.com/2012/03/04/creating-custom-xcode-4-file-templates/" target="_blank" rel="external">http://www.bobmccune.com/2012/03/04/creating-custom-xcode-4-file-templates/</a></p>
 
       
     </div>
@@ -564,7 +604,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Xcode类模板-？"><span class="nav-number">1.</span> <span class="nav-text">什么是Xcode类模板 ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要自定义Xcode类模板-？"><span class="nav-number">2.</span> <span class="nav-text">为什么要自定义Xcode类模板 ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建自己的Xcode类模板"><span class="nav-number">3.</span> <span class="nav-text">创建自己的Xcode类模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束语"><span class="nav-number">4.</span> <span class="nav-text">结束语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo"><span class="nav-number">5.</span> <span class="nav-text">Demo</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Xcode类模板-？"><span class="nav-number">1.</span> <span class="nav-text">什么是Xcode类模板 ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要自定义Xcode类模板-？"><span class="nav-number">2.</span> <span class="nav-text">为什么要自定义Xcode类模板 ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建自己的Xcode类模板"><span class="nav-number">3.</span> <span class="nav-text">创建自己的Xcode类模板</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TemplateInfo-plist"><span class="nav-number">3.1.</span> <span class="nav-text">TemplateInfo.plist</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo"><span class="nav-number">4.</span> <span class="nav-text">Demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
             
 
           </div>
