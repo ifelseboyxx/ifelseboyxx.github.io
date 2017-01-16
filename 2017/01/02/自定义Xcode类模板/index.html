@@ -57,11 +57,17 @@
   
 
   
+    
+      
+    
+
+    
+  
 
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -110,9 +116,11 @@
 <meta property="og:image" content="http://yoursite.com/images/01.png">
 <meta property="og:image" content="http://yoursite.com/images/02.png">
 <meta property="og:image" content="http://yoursite.com/images/03.png">
+<meta property="og:image" content="http://yoursite.com/images/04.png">
+<meta property="og:image" content="http://yoursite.com/images/05.png">
 <meta property="og:image" content="http://yoursite.com/images/06.png">
 <meta property="og:image" content="http://yoursite.com/images/07.gif">
-<meta property="og:updated_time" content="2017-01-16T14:38:16.000Z">
+<meta property="og:updated_time" content="2017-01-16T15:02:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义Xcode类模板">
 <meta name="twitter:description" content="话不多说我们先来体验下 :
@@ -403,27 +411,22 @@
 <li><p>拷贝 <code>Cocoa Class.xctemplate</code>，修改名称并删除不需要的文件。（我这边是  <code>Xcode 8.2.1</code>, 以后路径可能有变）</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Applications/Xcode.app/Contents/Developer/Library/Xcode/Templates/File Templates/Source</div></pre></td></tr></table></figure>
 </li>
-</ul>
-<ul>
-<li><p>接着我们来逐个修改 <code>.h</code> <code>.m</code> <code>.swift</code> 以及 <code>.xib</code> 文件：</p>
-<ul>
 <li><p>修改 <code>.h</code> 为 ：</p>
-  <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  ___FILENAME___</span></div><div class="line"><span class="comment">//  ___PROJECTNAME___</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by ___FULLUSERNAME___ on ___DATE___.</span></div><div class="line"><span class="comment">//___COPYRIGHT___</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line">___IMPORTHEADER_cocoaSubclass___</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">___FILEBASENAMEASIDENTIFIER___</span> : <span class="title">UIViewController</span></span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+  <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  ___FILENAME___</span></div><div class="line"><span class="comment">//  ___PROJECTNAME___</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by ___FULLUSERNAME___ on ___DATE___.</span></div><div class="line"><span class="comment">//___COPYRIGHT___</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line">___IMPORTHEADER_cocoaSubclass___</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">___FILEBASENAMEASIDENTIFIER___</span> : <span class="title">UIViewController</span></span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
 </li>
-<li><p><code>.m</code> 只需要添加自己需要的规范就行，可以参考 <a href="#我的VC模版">我的VC模版</a>。</p>
+<li><p>修改 <code>.m</code> 只需要添加自己需要的规范就行，可以参考 <a href="#我的VC模版">我的VC模版</a>。</p>
 </li>
 <li><p>修改 <code>.swift</code> 为: </p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  ___FILENAME___</span></div><div class="line"><span class="comment">//  ___PROJECTNAME___</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by ___FULLUSERNAME___ on ___DATE___.</span></div><div class="line"><span class="comment">//___COPYRIGHT___</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line">import <span class="built_in">UIKit</span></div><div class="line"></div><div class="line"><span class="keyword">class</span> ___FILEBASENAMEASIDENTIFIER___: <span class="built_in">UIViewController</span> &#123;</div><div class="line"></div><div class="line">   <span class="comment">//MARK: - LifeCyle</span></div><div class="line">   </div><div class="line">   override func viewDidLoad() &#123;</div><div class="line">       <span class="keyword">super</span>.viewDidLoad()</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   deinit &#123;</div><div class="line">       print(<span class="string">"\(object_getClassName(self)) - 释放了!"</span>)</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="comment">//MARK: - Intial Methods</span></div><div class="line">   </div><div class="line">   <span class="comment">//MARK: - Target Methods</span></div><div class="line">   </div><div class="line">   <span class="comment">//MARK: - Private Method</span></div><div class="line">   </div><div class="line">   <span class="comment">//MARK: - Setter Getter Methods</span></div><div class="line">   </div><div class="line">   <span class="comment">//MARK: - External Delegate</span></div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+  <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  ___FILENAME___</span></div><div class="line"><span class="comment">//  ___PROJECTNAME___</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by ___FULLUSERNAME___ on ___DATE___.</span></div><div class="line"><span class="comment">//___COPYRIGHT___</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line">import <span class="built_in">UIKit</span></div><div class="line"></div><div class="line"><span class="keyword">class</span> ___FILEBASENAMEASIDENTIFIER___: <span class="built_in">UIViewController</span> &#123;</div><div class="line"></div><div class="line">   <span class="comment">//MARK: - LifeCyle</span></div><div class="line">   </div><div class="line">   override func viewDidLoad() &#123;</div><div class="line">       <span class="keyword">super</span>.viewDidLoad()</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   deinit &#123;</div><div class="line">       print(<span class="string">"\(object_getClassName(self)) - 释放了!"</span>)</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="comment">//MARK: - Intial Methods</span></div><div class="line">   </div><div class="line">   <span class="comment">//MARK: - Target Methods</span></div><div class="line">   </div><div class="line">   <span class="comment">//MARK: - Private Method</span></div><div class="line">   </div><div class="line">   <span class="comment">//MARK: - Setter Getter Methods</span></div><div class="line">   </div><div class="line">   <span class="comment">//MARK: - External Delegate</span></div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
+<ul>
+<li><p>新建 <code>.xib</code> 重命名 <code>___FILEBASENAME___.xib</code> 并按照下图修改:</p>
+<p>  <img src="/images/04.png" alt=""></p>
+<p>  <img src="/images/05.png" alt=""></p>
 </li>
 </ul>
-<pre><code>* 新建 `.xib` 重命名 `___FILEBASENAME___.xib` 并按照下图修改:
-
-![](/images/04.png)
-
-![](/images/05.png)
-</code></pre><p>上面 <code>.h</code> <code>.m</code> 里面 有些词可能不明白，这里再稍稍解释下：</p>
+<p>上面 <code>.h</code> <code>.m</code> 里面 有些词可能不明白，这里再稍稍解释下：</p>
 <pre><code>1）__DATE__：标识当前时间；
 2）__FILENAME__：带文件后缀的全名；
 3）__FILEBASENAME__：不带文件后缀的名字；
