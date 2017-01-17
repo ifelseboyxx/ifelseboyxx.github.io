@@ -120,7 +120,7 @@
 <meta property="og:image" content="http://yoursite.com/images/05.png">
 <meta property="og:image" content="http://yoursite.com/images/06.png">
 <meta property="og:image" content="http://yoursite.com/images/07.gif">
-<meta property="og:updated_time" content="2017-01-17T04:34:59.000Z">
+<meta property="og:updated_time" content="2017-01-17T04:50:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义Xcode类模板">
 <meta name="twitter:description" content="话不多说我们先来体验下 :
@@ -398,13 +398,13 @@
 <p><img src="/images/03.png" alt=""></p>
 <p>介绍下里面的东西 (<code>xxx</code> 就是你自定义模版的名字) :</p>
 <blockquote>
-<p><code>xxx.xctemplate</code>:       模版文件。</p>
-<p><code>xxxObjective-C</code>:       OC模版文件，里面包含 <code>___FILEBASENAME___.h</code> 和 <code>___FILEBASENAME___.m</code> 两个文件。</p>
-<p><code>xxxXIBObjective-C</code>:  比 <code>xxxObjective-C</code> 多了个 <code>___FILEBASENAME___.xib</code> 文件，可自定义。</p>
-<p><code>xxxSwift</code>:              Swift模版文件，里面包含一个 <code>___FILEBASENAME___.swift</code> 文件。</p>
-<p><code>xxxXIBSwift</code>:          比 <code>xxxSwift</code> 多了个 <code>___FILEBASENAME___.xib</code> 文件，可自定义。</p>
-<p><code>TemplateIcon.png</code>:      模版显示的图片。</p>
-<p><code>TemplateInfo.plist</code>: 模版的配置信息，<a href="#TemplateInfo.plist">介绍</a>。</p>
+<p><strong>xxx.xctemplate：</strong>模版文件。</p>
+<p><strong>xxxObjective-C：</strong>OC模版文件，里面包含 <code>___FILEBASENAME___.h</code> 和 <code>___FILEBASENAME___.m</code> 两个文件。</p>
+<p><strong>xxxXIBObjective-C：</strong>比 <code>xxxObjective-C</code> 多了个 <code>___FILEBASENAME___.xib</code> 文件，可自定义。</p>
+<p><strong>xxxSwift：</strong>Swift模版文件，里面包含一个 <code>___FILEBASENAME___.swift</code> 文件。</p>
+<p><strong>xxxXIBSwift：</strong>比 <code>xxxSwift</code> 多了个 <code>___FILEBASENAME___.xib</code> 文件，可自定义。</p>
+<p><strong>TemplateIcon.png：</strong>模版显示的图片。</p>
+<p><strong>TemplateInfo.plist：</strong>模版的配置信息，<strong><a href="#TemplateInfo.plist">介绍</a></strong>。</p>
 </blockquote>
 <p>重新写一份模版太繁琐，我们<strong>直接拷贝一份系统的模版来修改</strong> ：</p>
 <ul>
@@ -414,7 +414,7 @@
 <li><p>修改 <code>.h</code> 为 ：</p>
   <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  ___FILENAME___</span></div><div class="line"><span class="comment">//  ___PROJECTNAME___</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by ___FULLUSERNAME___ on ___DATE___.</span></div><div class="line"><span class="comment">//___COPYRIGHT___</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line">___IMPORTHEADER_cocoaSubclass___</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">___FILEBASENAMEASIDENTIFIER___</span> : <span class="title">UIViewController</span></span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
 </li>
-<li><p>修改 <code>.m</code> 只需要添加自己需要的规范就行，可以参考 <a href="#我的VC模版">我的VC模版</a>。</p>
+<li><p>修改 <code>.m</code> 只需要添加自己需要的规范就行，可以参考 <strong><a href="#我的VC模版">我的VC模版</a></strong>。</p>
 </li>
 <li><p>修改 <code>.swift</code> 为: </p>
   <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  ___FILENAME___</span></div><div class="line"><span class="comment">//  ___PROJECTNAME___</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by ___FULLUSERNAME___ on ___DATE___.</span></div><div class="line"><span class="comment">//___COPYRIGHT___</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line">import <span class="built_in">UIKit</span></div><div class="line"></div><div class="line"><span class="keyword">class</span> ___FILEBASENAMEASIDENTIFIER___: <span class="built_in">UIViewController</span> &#123;</div><div class="line"></div><div class="line">   <span class="comment">//MARK: - LifeCyle</span></div><div class="line">   </div><div class="line">   override func viewDidLoad() &#123;</div><div class="line">       <span class="keyword">super</span>.viewDidLoad()</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   deinit &#123;</div><div class="line">       print(<span class="string">"\(object_getClassName(self)) - 释放了!"</span>)</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="comment">//MARK: - Intial Methods</span></div><div class="line">   </div><div class="line">   <span class="comment">//MARK: - Target Methods</span></div><div class="line">   </div><div class="line">   <span class="comment">//MARK: - Private Method</span></div><div class="line">   </div><div class="line">   <span class="comment">//MARK: - Setter Getter Methods</span></div><div class="line">   </div><div class="line">   <span class="comment">//MARK: - External Delegate</span></div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -428,28 +428,28 @@
 </ul>
 <p>上面 <code>.h</code> <code>.m</code> 里面 有些词可能不明白，这里再稍稍解释下：</p>
 <blockquote>
-<p>1）<strong>DATE</strong>：标识当前时间；</p>
-<p>2）<strong>FILENAME</strong>：带文件后缀的全名；</p>
-<p>3）<strong>FILEBASENAME</strong>：不带文件后缀的名字；</p>
-<p>4）<strong>FULLUSERNAME</strong>：当前的用户名；</p>
-<p>6）<strong>PROJECTNAME</strong>：工程名字；</p>
-<p>7）<strong>FILEBASENAMEASIDENTIFIER</strong>： VC类名称；</p>
-<p>8)<strong>IMPORTHEADER_cocoaSubclass</strong>： 导入的头文件。</p>
+<p>1）<strong>DATE：</strong>标识当前时间；</p>
+<p>2）<strong>FILENAME：</strong>带文件后缀的全名；</p>
+<p>3）<strong>FILEBASENAME：</strong>不带文件后缀的名字；</p>
+<p>4）<strong>FULLUSERNAME：</strong>当前的用户名；</p>
+<p>6）<strong>PROJECTNAME：</strong>工程名字；</p>
+<p>7）<strong>FILEBASENAMEASIDENTIFIER：</strong> VC类名称；</p>
+<p>8）<strong>IMPORTHEADER_cocoaSubclass：</strong> 导入的头文件。</p>
 </blockquote>
 <h4 id="TemplateInfo-plist"><a href="#TemplateInfo-plist" class="headerlink" title="TemplateInfo.plist"></a><a name="TemplateInfo.plist" style="color:#666;border-bottom:none;">TemplateInfo.plist</a></h4><p><img src="/images/06.png" alt=""></p>
 <p>讲解一些需要改动的东西 :</p>
 <blockquote>
-<p><code>SortOrder</code> : 模版在界面中的位置；</p>
-<p><code>Options</code> : 对应 <a href="#options">图中</a> 四行；</p>
-<p><code>FallbackHeader</code> : <code>.h</code> 导入的头文件；</p>
-<p><code>RequiredOptions -&gt; cocoaSubclass</code> : 是否支持选择 xib；<code>Default</code> 默认 <code>true</code> 自动勾选；</p>
-<p><code>Values</code> :  自定义模版的名称(一定要保持一致);</p>
-<p><code>Suffixes</code> : 模版默认类名，效果如下图。</p>
+<p><strong>SortOrder：</strong>模版在界面中的位置；</p>
+<p><strong>Options：</strong>对应 <strong><a href="#options">图中</a></strong> 四行；</p>
+<p><strong>FallbackHeader：</strong><code>.h</code> 导入的头文件；</p>
+<p><strong>RequiredOptions -&gt; cocoaSubclass：</strong>是否支持选择 xib；<code>Default</code> 默认 <code>true</code> 自动勾选；</p>
+<p><strong>Values：</strong>自定义模版的名称(一定要保持一致);</p>
+<p><strong>Suffixes：</strong>模版默认类名，效果如下图。</p>
 </blockquote>
 <p><img src="/images/07.gif" alt=""></p>
 <p>最后把创建好的 <code>xxx.xctemplate</code> 文件直接拷贝到系统路径下就可以直接使用了:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Applications/Xcode.app/Contents/Developer/Library/Xcode/Templates/File Templates/Source</div></pre></td></tr></table></figure>
-<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>放上我自己的一个 <a href="https://github.com/ifelseboyxx/CustomXcodeTempate" target="_blank" rel="external">UIViewController 模板</a>，懒得自己写的可以直接用或者在我的模板基础上修改！</p>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>放上我自己的一个 <strong><a href="https://github.com/ifelseboyxx/CustomXcodeTempate" target="_blank" rel="external">UIViewController 模板</a></strong> 懒得自己写的可以直接用或者在我的模板基础上修改！</p>
 <h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="http://www.jianshu.com/p/93527682d8d3" target="_blank" rel="external">http://www.jianshu.com/p/93527682d8d3</a></p>
 <p><a href="http://www.bobmccune.com/2012/03/04/creating-custom-xcode-4-file-templates/" target="_blank" rel="external">http://www.bobmccune.com/2012/03/04/creating-custom-xcode-4-file-templates/</a></p>
 
