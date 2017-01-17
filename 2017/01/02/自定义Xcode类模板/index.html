@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -120,7 +120,7 @@
 <meta property="og:image" content="http://yoursite.com/images/05.png">
 <meta property="og:image" content="http://yoursite.com/images/06.png">
 <meta property="og:image" content="http://yoursite.com/images/07.gif">
-<meta property="og:updated_time" content="2017-01-16T15:02:27.000Z">
+<meta property="og:updated_time" content="2017-01-17T04:34:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义Xcode类模板">
 <meta name="twitter:description" content="话不多说我们先来体验下 :
@@ -137,8 +137,8 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -427,14 +427,16 @@
 </li>
 </ul>
 <p>上面 <code>.h</code> <code>.m</code> 里面 有些词可能不明白，这里再稍稍解释下：</p>
-<pre><code>1）__DATE__：标识当前时间；
-2）__FILENAME__：带文件后缀的全名；
-3）__FILEBASENAME__：不带文件后缀的名字；
-4）__FULLUSERNAME__：当前的用户名；
-6）__PROJECTNAME__：工程名字；
-7）__FILEBASENAMEASIDENTIFIER__： VC类名称；
-8)__IMPORTHEADER_cocoaSubclass__： 导入的头文件。
-</code></pre><h4 id="TemplateInfo-plist"><a href="#TemplateInfo-plist" class="headerlink" title="TemplateInfo.plist"></a><a name="TemplateInfo.plist" style="color:#666;border-bottom:none;">TemplateInfo.plist</a></h4><p><img src="/images/06.png" alt=""></p>
+<blockquote>
+<p>1）<strong>DATE</strong>：标识当前时间；</p>
+<p>2）<strong>FILENAME</strong>：带文件后缀的全名；</p>
+<p>3）<strong>FILEBASENAME</strong>：不带文件后缀的名字；</p>
+<p>4）<strong>FULLUSERNAME</strong>：当前的用户名；</p>
+<p>6）<strong>PROJECTNAME</strong>：工程名字；</p>
+<p>7）<strong>FILEBASENAMEASIDENTIFIER</strong>： VC类名称；</p>
+<p>8)<strong>IMPORTHEADER_cocoaSubclass</strong>： 导入的头文件。</p>
+</blockquote>
+<h4 id="TemplateInfo-plist"><a href="#TemplateInfo-plist" class="headerlink" title="TemplateInfo.plist"></a><a name="TemplateInfo.plist" style="color:#666;border-bottom:none;">TemplateInfo.plist</a></h4><p><img src="/images/06.png" alt=""></p>
 <p>讲解一些需要改动的东西 :</p>
 <blockquote>
 <p><code>SortOrder</code> : 模版在界面中的位置；</p>
@@ -706,13 +708,6 @@
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
-
-
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
