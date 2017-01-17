@@ -508,8 +508,8 @@ code {
 code {
   padding: 2px 4px;
   word-wrap: break-word;
-  color: #ccc;
-  background: #2d2d2d;
+  color: $white;
+  background: #ddd;
   border-radius: 3px;
   font-size: 13px;
 }
@@ -1019,7 +1019,7 @@ pre .javascript .function {
   line-height: 36px;
   font-size: 20px;
   font-weight: normal;
-  font-family: 'Damion', 'Monda', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Monda', "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 .site-subtitle {
   margin-top: 10px;
@@ -1680,7 +1680,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #82ffb3;
+  background: #01d9f2;
 }
 .links-of-blogroll {
   font-size: 13px;
