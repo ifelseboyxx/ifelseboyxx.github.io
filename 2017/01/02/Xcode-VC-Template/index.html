@@ -108,7 +108,10 @@
 <meta property="og:image" content="http://yoursite.com/images/05.png">
 <meta property="og:image" content="http://yoursite.com/images/06.png">
 <meta property="og:image" content="http://yoursite.com/images/07.gif">
-<meta property="og:updated_time" content="2017-01-27T10:26:45.000Z">
+<meta property="og:image" content="http://yoursite.com/images/08.png">
+<meta property="og:image" content="http://yoursite.com/images/09.png">
+<meta property="og:image" content="http://yoursite.com/images/10.png">
+<meta property="og:updated_time" content="2017-02-07T15:40:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义 Xcode ViewController 类模板">
 <meta name="twitter:description" content="话不多说我们先来体验下 :
@@ -426,6 +429,23 @@
 <p><img src="/images/07.gif" alt=""></p>
 <p>最后把创建好的 <code>xxx.xctemplate</code> 文件直接拷贝到系统路径下就可以直接使用了:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Applications/Xcode.app/Contents/Developer/Library/Xcode/Templates/File Templates/Source</div></pre></td></tr></table></figure>
+<h3 id="修改系统模板"><a href="#修改系统模板" class="headerlink" title="修改系统模板"></a>修改系统模板</h3><p>平常开发中，我们经常用<code>xib</code>来画一个<code>View</code>，之前用系统的模板创建<code>View</code>的时候是有勾选是否创建对应<code>xib</code>的这个选项的，苹果不知道什么时候改了，现在貌似不行了：</p>
+<p><img src="/images/08.png" alt=""></p>
+<p>这样导致我们创建完<code>View</code>后，还需要再创建个对应的<code>xib</code>文件，简直神烦！<br>怎么能自动创建<code>xib</code>文件呢？我们完全可以修改系统的模板来满足我们的刚需：</p>
+<ul>
+<li><p>进入目录，找到<code>Cocoa Touch Class.xctemplate</code>文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/File Templates/Source</div></pre></td></tr></table></figure>
+</li>
+<li><p>拷贝一份 <code>UIViewObjective-C</code>文件并改名为<code>UIViewXIBObjective-C</code>，然后到其他有<code>xib</code>的文件夹里面，拷贝一份<code>xib</code>到<code>UIViewXIBObjective-C</code>里面，<code>xib</code>可自行修改。（我这里只配置了<code>Objective-C</code>的，<code>Swift</code>步骤类似）</p>
+</li>
+<li>找到 当前目录的<code>TemplateInfo.plist</code>文件，如下修改：</li>
+</ul>
+<p><img src="/images/09.png" alt=""></p>
+<ul>
+<li>重新创建系统 <code>View</code>模板：</li>
+</ul>
+<p><img src="/images/10.png" alt=""></p>
+<p>大功告成！</p>
 <h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>放上我自己的一个 <strong><a href="https://github.com/ifelseboyxx/CustomXcodeTempate" target="_blank" rel="external">UIViewController 模板</a></strong> 懒得自己写的可以直接用或者在我的模板基础上修改！</p>
 <h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="http://www.jianshu.com/p/93527682d8d3" target="_blank" rel="external">http://www.jianshu.com/p/93527682d8d3</a></p>
 <p><a href="http://www.bobmccune.com/2012/03/04/creating-custom-xcode-4-file-templates/" target="_blank" rel="external">http://www.bobmccune.com/2012/03/04/creating-custom-xcode-4-file-templates/</a></p>
@@ -608,7 +628,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是-Xcode-类模板-？"><span class="nav-number">1.</span> <span class="nav-text">什么是 Xcode 类模板 ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要自定义-Xcode-类模板-？"><span class="nav-number">2.</span> <span class="nav-text">为什么要自定义 Xcode 类模板 ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建自己的-Xcode-类模板"><span class="nav-number">3.</span> <span class="nav-text">创建自己的 Xcode 类模板</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TemplateInfo-plist"><span class="nav-number">3.1.</span> <span class="nav-text">TemplateInfo.plist</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo"><span class="nav-number">4.</span> <span class="nav-text">Demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是-Xcode-类模板-？"><span class="nav-number">1.</span> <span class="nav-text">什么是 Xcode 类模板 ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要自定义-Xcode-类模板-？"><span class="nav-number">2.</span> <span class="nav-text">为什么要自定义 Xcode 类模板 ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建自己的-Xcode-类模板"><span class="nav-number">3.</span> <span class="nav-text">创建自己的 Xcode 类模板</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TemplateInfo-plist"><span class="nav-number">3.1.</span> <span class="nav-text">TemplateInfo.plist</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改系统模板"><span class="nav-number">4.</span> <span class="nav-text">修改系统模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo"><span class="nav-number">5.</span> <span class="nav-text">Demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">6.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
             
 
           </div>
