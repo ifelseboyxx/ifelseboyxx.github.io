@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://yoursite.com/images/08.png">
 <meta property="og:image" content="http://yoursite.com/images/09.png">
 <meta property="og:image" content="http://yoursite.com/images/10.png">
-<meta property="og:updated_time" content="2017-02-07T15:40:17.000Z">
+<meta property="og:updated_time" content="2017-02-07T15:49:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义 Xcode ViewController 类模板">
 <meta name="twitter:description" content="话不多说我们先来体验下 :
@@ -391,7 +391,7 @@
 <ul>
 <li>拷贝 <code>Cocoa Class.xctemplate</code>，修改名称并删除不需要的文件。（我这边是  <code>Xcode 8.2.1</code>, 以后路径可能有变）</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Applications/Xcode.app/Contents/Developer/Library/Xcode/Templates/File Templates/Source</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/File Templates/Source</div></pre></td></tr></table></figure>
 <ul>
 <li>修改 <code>.h</code> 为 ：</li>
 </ul>
@@ -428,7 +428,7 @@
 </blockquote>
 <p><img src="/images/07.gif" alt=""></p>
 <p>最后把创建好的 <code>xxx.xctemplate</code> 文件直接拷贝到系统路径下就可以直接使用了:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Applications/Xcode.app/Contents/Developer/Library/Xcode/Templates/File Templates/Source</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/File Templates/Source</div></pre></td></tr></table></figure>
 <h3 id="修改系统模板"><a href="#修改系统模板" class="headerlink" title="修改系统模板"></a>修改系统模板</h3><p>平常开发中，我们经常用<code>xib</code>来画一个<code>View</code>，之前用系统的模板创建<code>View</code>的时候是有勾选是否创建对应<code>xib</code>的这个选项的，苹果不知道什么时候改了，现在貌似不行了：</p>
 <p><img src="/images/08.png" alt=""></p>
 <p>这样导致我们创建完<code>View</code>后，还需要再创建个对应的<code>xib</code>文件，简直神烦！<br>怎么能自动创建<code>xib</code>文件呢？我们完全可以修改系统的模板来满足我们的刚需：</p>
