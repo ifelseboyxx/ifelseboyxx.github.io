@@ -99,7 +99,7 @@
 <meta property="og:description" content="Masonry 是一个轻量级的用于自动布局（AutoLayout）的第三方框架，以其简洁的使用方式，受到广大开发者的青睐。本篇文章将带你一步步的去了解其实现原理，知其所以然！
 结构概览">
 <meta property="og:image" content="http://yoursite.com/images/Masonry.png">
-<meta property="og:updated_time" content="2017-02-28T08:57:53.000Z">
+<meta property="og:updated_time" content="2017-02-28T09:08:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Masonry 源码解析">
 <meta name="twitter:description" content="Masonry 是一个轻量级的用于自动布局（AutoLayout）的第三方框架，以其简洁的使用方式，受到广大开发者的青睐。本篇文章将带你一步步的去了解其实现原理，知其所以然！
@@ -500,7 +500,7 @@
 <p>这段代码会先判断是否有约束第二个参数的视图，有的话会寻找约束第一个和第二参数视图的公共 <code>Superview</code>，相当于求两个数的最小公倍数；如果不满足第一个条件，会判断约束第一个参数是否是 <code>size</code> 类型的，是的话直接取到它的视图；最后都不满足会直接取到约束第一个参数视图父视图。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">MASLayoutConstraint *existingConstraint = <span class="literal">nil</span>;</div><div class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.updateExisting) &#123;</div><div class="line">    existingConstraint = [<span class="keyword">self</span> layoutConstraintSimilarTo:layoutConstraint];</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (existingConstraint) &#123;</div><div class="line">   <span class="comment">// just update the constant</span></div><div class="line">    existingConstraint.constant = layoutConstraint.constant;</div><div class="line">    <span class="keyword">self</span>.layoutConstraint = existingConstraint;</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    [<span class="keyword">self</span>.installedView addConstraint:layoutConstraint];</div><div class="line">    <span class="keyword">self</span>.layoutConstraint = layoutConstraint;</div><div class="line">    [firstLayoutItem.mas_installedConstraints addObject:<span class="keyword">self</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>如果需要升级当前的约束就会获取原有的约束，并替换为新的约束，这样就不需要再次为 <code>view</code> 安装约束。如果原来的 <code>view</code> 中不存在可以升级的约束，那么就会在上一步寻找到的 <code>installedView</code> 上面添加约束。</p>
-<h4 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h4><p>阅读懂源码真是一件很爽的事情，如果有什么理解的不到位<br>的地方大家多多指正。也希望大家能够耐心的看下去，一定会有所收获的。</p>
+<h4 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h4><p>阅读懂源码真是一件很爽的事情，如果有什么理解的不到位的地方大家多多指正。也希望大家能够耐心的看下去，一定会有所收获的。</p>
 <p>参考链接</p>
 <p><a href="http://www.cnblogs.com/ludashi/p/5591572.html" target="_blank" rel="external">http://www.cnblogs.com/ludashi/p/5591572.html</a></p>
 <p><a href="https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/Masonry/iOS%20%E6%BA%90%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%20---%20Masonry.md" target="_blank" rel="external">https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/Masonry/iOS%20%E6%BA%90%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%20—%20Masonry.md</a></p>
