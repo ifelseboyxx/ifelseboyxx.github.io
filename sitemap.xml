@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/03/19/AsynDrawText/</loc>
+    
+    <lastmod>2017-07-03T03:04:37.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/04/17/protocol/</loc>
     
     <lastmod>2017-04-17T15:24:55.000Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://yoursite.com/2017/04/11/MultipleDelegate/</loc>
     
     <lastmod>2017-04-11T15:04:59.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/03/19/AsynDrawText/</loc>
-    
-    <lastmod>2017-03-26T11:16:40.000Z</lastmod>
     
   </url>
   
