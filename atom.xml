@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-03T11:21:33.000Z</updated>
+  <updated>2017-07-23T15:50:47.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,48 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>谈谈 iOS 中的 childViewController</title>
+    <link href="http://yoursite.com/2017/07/23/iOS_childViewController/"/>
+    <id>http://yoursite.com/2017/07/23/iOS_childViewController/</id>
+    <published>2017-07-23T14:40:23.000Z</published>
+    <updated>2017-07-23T15:50:47.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：</p>
+<a id="more"></a>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加一个 childViewController</span></div><div class="line"><span class="built_in">UIViewController</span> *vc = [<span class="built_in">UIViewController</span> new];<span class="comment">//子控制器</span></div><div class="line">[<span class="keyword">self</span> addChildViewController:vc];<span class="comment">//添加到父控制器中</span></div><div class="line">vc.view.frame = <span class="comment">/*....*/</span>;<span class="comment">//设置 frame</span></div><div class="line">[<span class="keyword">self</span>.view addSubview:vc.view];<span class="comment">//把子控制器的 view 添加到父控制器的 view 上面</span></div><div class="line">[vc didMoveToParentViewController:<span class="keyword">self</span>];  <span class="comment">//子控制器被通知有了一个父控制器</span></div><div class="line"></div><div class="line"><span class="comment">//移除一个 childViewController</span></div><div class="line">[vc willMoveToParentViewController:<span class="literal">nil</span>];<span class="comment">//子控制器被通知即将解除父子关系</span></div><div class="line">[vc.view removeFromSuperview];<span class="comment">//把子控制器的 view 从到父控制器的 view 上面移除</span></div><div class="line">[vc removeFromParentViewController];<span class="comment">//真正的解除关系,会自己调用 [vc didMoveToParentViewController:nil]</span></div></pre></td></tr></table></figure>
+<p>实现上面部分，childViewController 的生命周期方法也就是 viewWillAppear、viewDidAppear等等这些，是不需要我们关心的，系统内部会自动帮我们调用。</p>
+<h3 id="手动管理-childViewController-的生命周期方法"><a href="#手动管理-childViewController-的生命周期方法" class="headerlink" title="手动管理 childViewController 的生命周期方法"></a>手动管理 childViewController 的生命周期方法</h3><p>有时候我们希望自己控制子控制器的生命周期方法，这里我们就需要一些额外的操作：</p>
+<p>在 iOS 5 中，我们需要在父控制器中重写<code>automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers</code>方法，并返回 <code>NO</code>;</p>
+<p>在 iOS 6 及以后，需要重写 <code>shouldAutomaticallyForwardAppearanceMethods</code>方法，并返回 <code>NO</code>，这样系统就不会自动调用 childViewController 的生命周期了，全部交给我们自己处理。</p>
+<p>不过我们需要注意的是，不能手动调用 viewWillAppear、viewDidAppear等等这些方法，而应该调用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (void)beginAppearanceTransition:(BOOL)isAppearing animated:(BOOL)animated;</div><div class="line">- (void)endAppearanceTransition;</div></pre></td></tr></table></figure>
+<p>这两个方法来间接触发子控制器的生命周期，并且它们得成对使用：</p>
+<blockquote>
+<p><code>isAppearing</code> 设置为 <code>YES</code> : 触发 <code>viewWillAppear:</code> ;</p>
+<p><code>isAppearing</code> 设置为 <code>NO</code> : 触发 <code>viewWillDisappear:</code> ;</p>
+<p><code>endAppearanceTransition</code> 会触发 <code>viewDidAppear:</code> 以及 <code>viewDidDisappear:</code> 方法。</p>
+</blockquote>
+<h3 id="关于-childViewController-导致导航条穿透效果失效问题"><a href="#关于-childViewController-导致导航条穿透效果失效问题" class="headerlink" title="关于 childViewController 导致导航条穿透效果失效问题"></a>关于 childViewController 导致导航条穿透效果失效问题</h3><p>所谓的导航条穿透效果一般是在用 UITableView 的时候，效果大概如下：</p>
+<p><img src="/images/tv_01.gif" alt=""></p>
+<p>大概原理就是系统内部帮我们设置了 UITableView 的 <code>contentInset</code> 以及 <code>contentOffset</code> 属性，往下偏移了一定的高度，并且只有单个层级的情况下才能生效，所谓的单个层级可以理解为在一个 UIViewController 中 放一个 UITableView。一旦我们的界面 <code>addChildViewController:</code> ,就会失效，如何我们希望 childViewController 也能保持这种穿透效果，就需要拿到正确的 <code>topLayoutGuide</code> 以及 <code>bottomLayoutGuide</code>  值，然后设置 <code>contentInset</code> 和 <code>contentOffset</code> 就行了，代码都在下面的例子里，有兴趣的可以看看。</p>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>为了方便大家理解，我写了个例子，大家可以看看：</p>
+<p><a href="https://github.com/ifelseboyxx/XXPageControllers" target="_blank" rel="external">XXPageControllers</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;使用场景&quot;&gt;&lt;a href=&quot;#使用场景&quot; class=&quot;headerlink&quot; title=&quot;使用场景&quot;&gt;&lt;/a&gt;使用场景&lt;/h3&gt;&lt;p&gt;在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。&lt;/p&gt;
+&lt;h3 id=&quot;代码实现&quot;&gt;&lt;a href=&quot;#代码实现&quot; class=&quot;headerlink&quot; title=&quot;代码实现&quot;&gt;&lt;/a&gt;代码实现&lt;/h3&gt;&lt;p&gt;实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>关于 UIControlState 一次神奇的发现</title>
