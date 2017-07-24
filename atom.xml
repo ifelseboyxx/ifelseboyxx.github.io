@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-23T15:50:47.000Z</updated>
+  <updated>2017-07-24T03:00:49.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/07/23/iOS_childViewController/"/>
     <id>http://yoursite.com/2017/07/23/iOS_childViewController/</id>
     <published>2017-07-23T14:40:23.000Z</published>
-    <updated>2017-07-23T15:50:47.000Z</updated>
+    <updated>2017-07-24T03:00:49.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。</p>
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：</p>
@@ -40,7 +40,7 @@
 </blockquote>
 <h3 id="关于-childViewController-导致导航条穿透效果失效问题"><a href="#关于-childViewController-导致导航条穿透效果失效问题" class="headerlink" title="关于 childViewController 导致导航条穿透效果失效问题"></a>关于 childViewController 导致导航条穿透效果失效问题</h3><p>所谓的导航条穿透效果一般是在用 UITableView 的时候，效果大概如下：</p>
 <p><img src="/images/tv_01.gif" alt=""></p>
-<p>大概原理就是系统内部帮我们设置了 UITableView 的 <code>contentInset</code> 以及 <code>contentOffset</code> 属性，往下偏移了一定的高度，并且只有单个层级的情况下才能生效，所谓的单个层级可以理解为在一个 UIViewController 中 放一个 UITableView。一旦我们的界面 <code>addChildViewController:</code> ,就会失效，如何我们希望 childViewController 也能保持这种穿透效果，就需要拿到正确的 <code>topLayoutGuide</code> 以及 <code>bottomLayoutGuide</code>  值，然后设置 <code>contentInset</code> 和 <code>contentOffset</code> 就行了，代码都在下面的例子里，有兴趣的可以看看。</p>
+<p>大概原理就是系统内部帮我们设置了 UITableView 的 <code>contentInset</code> 以及 <code>contentOffset</code> 属性，往下偏移了一定的高度，并且只有单个层级的情况下才能生效，所谓的单个层级可以理解为在一个 UIViewController 中 放一个 UITableView。一旦我们的界面 <code>addChildViewController:</code> ,就会失效，如果我们希望 childViewController 也能保持这种穿透效果，就需要拿到正确的 <code>topLayoutGuide</code> 以及 <code>bottomLayoutGuide</code>  值，然后设置 <code>contentInset</code> 和 <code>contentOffset</code> 就行了，代码都在下面的例子里，有兴趣的可以看看。</p>
 <h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>为了方便大家理解，我写了个例子，大家可以看看：</p>
 <p><a href="https://github.com/ifelseboyxx/XXPageControllers" target="_blank" rel="external">XXPageControllers</a></p>
 ]]></content>
