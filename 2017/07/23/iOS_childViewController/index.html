@@ -19,7 +19,7 @@
 <p>大概原理就是系统内部帮我们设置了 UITableView 的 <code>contentInset</code> 以及 <code>contentOffset</code> 属性，往下偏移了一定的高度，并且只有单个层级的情况下才能生效，所谓的单个层级可以理解为在一个 UIViewController 中 放一个 UITableView。一旦我们的界面 <code>addChildViewController:</code> ,就会失效，如果我们希望 childViewController 也能保持这种穿透效果，就需要拿到正确的 <code>topLayoutGuide</code> 以及 <code>bottomLayoutGuide</code>  值，然后设置 <code>contentInset</code> 和 <code>contentOffset</code> 就行了，代码都在下面的例子里，有兴趣的可以看看。</p>
 <h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>为了方便大家理解，我写了个例子，大家可以看看：</p>
 <p><a href="https://github.com/ifelseboyxx/XXPageControllers" target="_blank" rel="external">XXPageControllers</a></p>
-</div></article></div></main><footer><div class="paginator"><a href="/2017/07/03/UIControlState/" class="next">下一篇</a></div><div id="container"></div><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script>var gitment = new Gitment({
+</div></article></div></main><footer><div class="paginator"><a href="/2017/08/04/ResponderChain/" class="prev">上一篇</a><a href="/2017/07/03/UIControlState/" class="next">下一篇</a></div><div id="container"></div><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script>var gitment = new Gitment({
   id: window.location.pathname,
   owner: 'ifelseboyxx',
   repo: 'ifelseboyxx.github.io',
