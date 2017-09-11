@@ -10,7 +10,7 @@
 <h3 id="避免重复多次计算-cell-行高"><a href="#避免重复多次计算-cell-行高" class="headerlink" title="避免重复多次计算 cell 行高"></a>避免重复多次计算 cell 行高</h3><p>TableView 行高计算可以说是个老生常谈的问题了，<code>heightForRowAtIndexPath:</code>  是个调用相当频繁的方法，在里面做过多的事情难免会造成卡顿。 在 iOS 8 中，我们可以通过设置下面两个属性来很轻松的实现高度自适应：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">self</span>.tableView.estimatedRowHeight = <span class="number">88</span>;</div><div class="line"><span class="keyword">self</span>.tableView.rowHeight = <span class="built_in">UITableViewAutomaticDimension</span>;</div></pre></td></tr></table></figure>
 <p>虽然很方便，不过如果你的页面对性能有一定要求，建议不要这么做，具体可以看看 sunnyxx 的 <a href="http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/" target="_blank" rel="external">优化UITableViewCell高度计算的那些事</a>。文中针对 Auto Layout，提供了个 cell 行高的缓存库 <a href="https://github.com/forkingdog/UITableView-FDTemplateLayoutCell" target="_blank" rel="external">UITableView-FDTemplateLayoutCell</a>，可以很好的帮助我们避免 cell 行高多次计算的问题。</p>
-<p>如果不使用 Auto Layout，我们可以在请求完拿到数据后提前计算好页面个个控件的 frame 和 cell 高度，并且缓存在内存中，用的时候直接在 <code>heightForRowAtIndexPath:</code> 取出计算好的值就行，大概流程如下：</p>
+<p>如果不使用 Auto Layout，我们可以在请求完拿到数据后提前计算好页面每个控件的 frame 和 cell 高度，并且缓存在内存中，用的时候直接在 <code>heightForRowAtIndexPath:</code> 取出计算好的值就行，大概流程如下：</p>
 <ul>
 <li>模拟请求数据回调：</li>
 </ul>
@@ -48,13 +48,19 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (void)setModel:(FrameYYModel *)model &#123;</div><div class="line">    if (!model) return;</div><div class="line">    _model = model;</div><div class="line">    </div><div class="line">    self.titleLabel.frame = model.titleFrame;</div><div class="line">    self.titleLabel.textLayout = model.titleLayout; //直接取 YYTextLayout</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h4 id="Auto-Layout-搭配异步渲染"><a href="#Auto-Layout-搭配异步渲染" class="headerlink" title="Auto Layout 搭配异步渲染"></a>Auto Layout 搭配异步渲染</h4><p>YYText  非常友好，同样支持 xib，YYText  继承自 <code>UIView</code>，正常的在 xib 中配置约束就行了，需要注意的一点是，多行文本的情况下需要设置最大换行宽：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">CGFloat maxLayout = [UIScreen mainScreen].bounds.size.width - 20.f;</div><div class="line">self.titleLabel.preferredMaxLayoutWidth = maxLayout;</div><div class="line">self.subTitleLabel.preferredMaxLayoutWidth = maxLayout;</div><div class="line">self.contentLabel.preferredMaxLayoutWidth = maxLayout;</div></pre></td></tr></table></figure>
-<h4 id="优缺点-1"><a href="#优缺点-1" class="headerlink" title="优缺点"></a>优缺点</h4><p> YYText 的异步渲染能极大程度的提高列表流畅度，真正达到如丝般顺滑，但是在开启异步时，刷新列表会有闪烁情况，不知道算不算 bug，最近也看到作者回归了，相信这个库会越来越好，毕竟 真●大神！ </p>
-<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>列表中如果存在很多系统设置的圆角页面导致卡顿：</p>
+<h4 id="优缺点-1"><a href="#优缺点-1" class="headerlink" title="优缺点"></a>优缺点</h4><p> YYText 的异步渲染能极大程度的提高列表流畅度，真正达到如丝般顺滑，但是在开启异步时，刷新列表会有闪烁情况，不知道算不算 bug，仔细想想觉得也正常，毕竟是异步的，渲染也需要时间，大家有什么看法也可以一起讨论下。</p>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><h4 id="关于圆角"><a href="#关于圆角" class="headerlink" title="关于圆角"></a>关于圆角</h4><p>列表中如果存在很多系统设置的圆角页面导致卡顿：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">label.layer.cornerRadius = 5.f;</div><div class="line">label.clipsToBounds = YES;</div></pre></td></tr></table></figure>
-<p>其实据我观察，只要当前屏幕内只要设置圆角的控件个数不要太多（大概十几个算个零界点），就不会引起卡顿。</p>
+<p>其实据我观察，只要当前屏幕内只要设置圆角的控件个数不要太多（大概十几个算个临界点），就不会引起卡顿。</p>
 <p>还有就是只要不设置 <code>clipsToBounds</code> 不管多少个，都不会卡顿，比如你需要圆角的控件是白色背景色的，然后它的父控件也是白色背景色的，而且没有点击后高亮的，就没必要 clipsToBounds 了。</p>
+<h4 id="如何定位卡顿原因"><a href="#如何定位卡顿原因" class="headerlink" title="如何定位卡顿原因"></a>如何定位卡顿原因</h4><p>我们可以利用 instruments 中的 Time Profiler 来帮助我们定位问题位置，选中 Xcode，command + control + i  打开：</p>
+<p><img src="/images/instruments.gif" alt=""></p>
+<p>我们选中主线程，去掉系统的方法，然后操作一下列表，再截取一段调用信息，可以发现我们自己实现的方法并没有消耗多少时间，反而是系统的方法很费时，这也是卡顿的原因之一：</p>
+<p><img src="/images/autolayout.png" alt=""></p>
+<p>另外有的人 instruments 看不到方法调用栈（右边一对黑色的方法信息），去 Xcode 设置下就行了：</p>
+<p><img src="/images/xcode.png" alt=""></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>YYText 和 UITableView-FDTemplateLayoutCell 搭配可以很大程度的提高列表流畅度，如果时间比较紧迫，可以直接采取 Auto Layout + UITableView-FDTemplateLayoutCell + YYText 方式；如果列表中文本不包含富文本，仅仅显示文字，又不想引入这两个库，可以使用系统方式提前计算 Frame；如果想最大程度的流畅度，就需要使用  提前计算 Frame + YYText，具体大家根据自己情况选择合适的方案就行。</p>
-<p>最后附上 <a href="https://github.com/ifelseboyxx/xx_Notes/tree/master/contents/TVOptimizationDemo/TVOptimizationDemo" target="_blank" rel="external">Demo</a></p>
+<p>最后，附上测试 <a href="https://github.com/ifelseboyxx/xx_Notes/tree/master/contents/TVOptimizationDemo/TVOptimizationDemo" target="_blank" rel="external">Demo</a></p>
 </div></article></div></main><footer><div class="paginator"><a href="/2017/08/04/ResponderChain/" class="next">下一篇</a></div><div id="container"></div><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script>var gitment = new Gitment({
   id: window.location.pathname,
   owner: 'ifelseboyxx',

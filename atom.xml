@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-09-11T01:44:19.000Z</updated>
+  <updated>2017-09-11T01:55:26.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,13 +16,13 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="http://yoursite.com/2017/09/07/smooth_tableview/"/>
-    <id>http://yoursite.com/2017/09/07/smooth_tableview/</id>
-    <published>2017-09-07T03:29:27.000Z</published>
-    <updated>2017-09-11T01:44:19.000Z</updated>
+    <title>iOS 中关于列表滚动流畅的一些探讨</title>
+    <link href="http://yoursite.com/2017/09/06/smooth_tableview/"/>
+    <id>http://yoursite.com/2017/09/06/smooth_tableview/</id>
+    <published>2017-09-06T14:40:23.000Z</published>
+    <updated>2017-09-11T01:55:26.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="iOS-中关于列表滚动流畅的一些探讨"><a href="#iOS-中关于列表滚动流畅的一些探讨" class="headerlink" title="iOS 中关于列表滚动流畅的一些探讨"></a>iOS 中关于列表滚动流畅的一些探讨</h2><p>近些年，App 越来越推崇体验至上，随随便便乱写一通的话已经很难让用户买帐了，顺滑的列表便是其中很重要的一点。如果一个 App 的页面滚动起来总是卡顿卡顿的，轻则被当作反面教材来吐槽或者衬托“我们的 App balabala…”，重则直接卸载。正好最近在优化这一块儿，总结记录下。</p>
+    <content type="html"><![CDATA[<p>近些年，App 越来越推崇体验至上，随随便便乱写一通的话已经很难让用户买帐了，顺滑的列表便是其中很重要的一点。如果一个 App 的页面滚动起来总是卡顿卡顿的，轻则被当作反面教材来吐槽或者衬托“我们的 App balabala…”，重则直接卸载。正好最近在优化这一块儿，总结记录下。</p>
 <p>如果说有什么好的博客文章推荐，ibireme  的  <a href="https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/" target="_blank" rel="external">iOS 保持界面流畅的技巧</a> 这篇堪称业界毒瘤，墙裂推荐反复阅读。这篇文章中讲解了很多的优化点，我自己总结了下收益最大的两个优化点：</p>
 <ul>
 <li>避免重复多次计算 cell 行高</li>
@@ -89,7 +89,7 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;iOS-中关于列表滚动流畅的一些探讨&quot;&gt;&lt;a href=&quot;#iOS-中关于列表滚动流畅的一些探讨&quot; class=&quot;headerlink&quot; title=&quot;iOS 中关于列表滚动流畅的一些探讨&quot;&gt;&lt;/a&gt;iOS 中关于列表滚动流畅的一些探讨&lt;/h2&gt;&lt;p&gt;近些年，App 越来越推崇体验至上，随随便便乱写一通的话已经很难让用户买帐了，顺滑的列表便是其中很重要的一点。如果一个 App 的页面滚动起来总是卡顿卡顿的，轻则被当作反面教材来吐槽或者衬托“我们的 App balabala…”，重则直接卸载。正好最近在优化这一块儿，总结记录下。&lt;/p&gt;
+      &lt;p&gt;近些年，App 越来越推崇体验至上，随随便便乱写一通的话已经很难让用户买帐了，顺滑的列表便是其中很重要的一点。如果一个 App 的页面滚动起来总是卡顿卡顿的，轻则被当作反面教材来吐槽或者衬托“我们的 App balabala…”，重则直接卸载。正好最近在优化这一块儿，总结记录下。&lt;/p&gt;
 &lt;p&gt;如果说有什么好的博客文章推荐，ibireme  的  &lt;a href=&quot;https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/&quot;&gt;iOS 保持界面流畅的技巧&lt;/a&gt; 这篇堪称业界毒瘤，墙裂推荐反复阅读。这篇文章中讲解了很多的优化点，我自己总结了下收益最大的两个优化点：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;避免重复多次计算 cell 行高&lt;/li&gt;
@@ -99,6 +99,8 @@
 &lt;p&gt;大家可以看看上面这张图的对比分析，数据是 iPhone6 的机子用 instruments 抓的，左边的是用 Auto Layout 绘制界面的数据分析，正常如果想平滑滚动的话，fps 至少需要稳定在 55 左右，我们可以发现，在没有缓存行高和异步渲染的情况下 fps 是最低的，可以说是比较卡顿了，至少是能肉眼感觉出来，能满足平滑滚动要求的也只有在缓存行高且异步渲染的情况下；右边的是没用 Auto Layout 直接用 frame 来绘制界面的数据分析，可以发现即使没有异步渲染，也能勉强满足平滑滚动的要求，如果开启异步渲染的话，可以说是相当的丝滑了。&lt;/p&gt;
     
     </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
     
     
   </entry>
