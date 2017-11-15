@@ -33,24 +33,57 @@
 <ul>
 <li>修改 <code>.m</code> 只需要添加自己需要的规范就行，可以参考 <strong><a href="#我的VC模版">我的VC模版</a></strong>。</li>
 <li><p>修改 <code>.swift</code> 为: </p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  ___FILENAME___</span></div><div class="line"><span class="comment">//  ___PROJECTNAME___</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by ___FULLUSERNAME___ on ___DATE___.</span></div><div class="line"><span class="comment">//___COPYRIGHT___</span></div><div class="line"><span class="comment">//</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">//  ___FILENAME___</span></div><div class="line"> <span class="comment">//  ___PROJECTNAME___</span></div><div class="line"> <span class="comment">//</span></div><div class="line"> <span class="comment">//  Created by ___FULLUSERNAME___ on ___DATE___.</span></div><div class="line"> <span class="comment">//___COPYRIGHT___</span></div><div class="line"> <span class="comment">//</span></div><div class="line"> </div><div class="line"></div><div class="line">import <span class="built_in">UIKit</span></div><div class="line"></div><div class="line"><span class="keyword">class</span> ___FILEBASENAMEASIDENTIFIER___: <span class="built_in">UIViewController</span> &#123;</div><div class="line"></div><div class="line"><span class="comment">//MARK: - LifeCyle</span></div><div class="line"></div><div class="line">override func viewDidLoad() &#123;</div><div class="line"><span class="keyword">super</span>.viewDidLoad()</div><div class="line">&#125;</div><div class="line"></div><div class="line">deinit &#123;</div><div class="line">print(<span class="string">"\(object_getClassName(self)) - 释放了!"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//MARK: - Intial Methods</span></div><div class="line"></div><div class="line"><span class="comment">//MARK: - Target Methods</span></div><div class="line"></div><div class="line"><span class="comment">//MARK: - Private Method</span></div><div class="line"></div><div class="line"><span class="comment">//MARK: - Setter Getter Methods</span></div><div class="line"></div><div class="line"><span class="comment">//MARK: - External Delegate</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>新建 <code>.xib</code> 重命名 <code>___FILEBASENAME___.xib</code> 并按照下图修改:</p>
 </li>
 </ul>
-<p>import UIKit</p>
-<p>class <strong><em>FILEBASENAMEASIDENTIFIER</em></strong>: UIViewController {</p>
-<p>//MARK: - LifeCyle</p>
-<p>override func viewDidLoad() {<br>super.viewDidLoad()<br>}</p>
-<p>deinit {<br>print(“(object_getClassName(self)) - 释放了!”)<br>}</p>
-<p>//MARK: - Intial Methods</p>
-<p>//MARK: - Target Methods</p>
-<p>//MARK: - Private Method</p>
-<p>//MARK: - Setter Getter Methods</p>
-<p>//MARK: - External Delegate</p>
-<p>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 新建 `.xib` 重命名 `___FILEBASENAME___.xib` 并按照下图修改:</div><div class="line"></div><div class="line">![](/images/04.png)</div><div class="line"></div><div class="line">![](/images/05.png)</div><div class="line"></div><div class="line"></div><div class="line">上面 `.h` `.m` 里面 有些词可能不明白，这里再稍稍解释下：</div><div class="line"></div><div class="line">&gt; 1）**DATE：**标识当前时间；</div><div class="line">&gt; </div><div class="line">&gt; 2）**FILENAME：**带文件后缀的全名；</div><div class="line">&gt; </div><div class="line">&gt; 3）**FILEBASENAME：**不带文件后缀的名字；</div><div class="line">&gt; </div><div class="line">&gt; 4）**FULLUSERNAME：**当前的用户名；</div><div class="line">&gt; </div><div class="line">&gt; 6）**PROJECTNAME：**工程名字；</div><div class="line">&gt; </div><div class="line">&gt; 7）**FILEBASENAMEASIDENTIFIER：** VC类名称；</div><div class="line">&gt; </div><div class="line">&gt; 8）**IMPORTHEADER_cocoaSubclass：** 导入的头文件。</div><div class="line"></div><div class="line"></div><div class="line">#### &lt;a name=&quot;TemplateInfo.plist&quot; style=&quot;color:#666;border-bottom:none;&quot;&gt;TemplateInfo.plist&lt;/a&gt;</div><div class="line"></div><div class="line">![](/images/06.png)</div><div class="line"></div><div class="line">讲解一些需要改动的东西 :</div><div class="line">&gt; **SortOrder：**模版在界面中的位置；</div><div class="line">&gt; </div><div class="line">&gt; **Options：**对应 **[图中](#options)** 四行；</div><div class="line">&gt; </div><div class="line">&gt; **FallbackHeader：**`.h` 导入的头文件；</div><div class="line">&gt; </div><div class="line">&gt; **RequiredOptions -&gt; cocoaSubclass：**是否支持选择 xib；`Default` 默认 `true` 自动勾选；</div><div class="line">&gt; </div><div class="line">&gt; **Values：**自定义模版的名称(一定要保持一致);</div><div class="line">&gt; </div><div class="line">&gt; **Suffixes：**模版默认类名，效果如下图。</div><div class="line"></div><div class="line">![](/images/07.gif)</div><div class="line"></div><div class="line">最后把创建好的 `xxx.xctemplate` 文件直接拷贝到系统路径下就可以直接使用了:</div></pre></td></tr></table></figure>
-<p>/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/File Templates/Source<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 修改系统模板</div><div class="line">平常开发中，我们经常用`xib`来画一个`View`，之前用系统的模板创建`View`的时候是有勾选是否创建对应`xib`的这个选项的，苹果不知道什么时候改了，现在貌似不行了：</div><div class="line"></div><div class="line">![](/images/08.png)</div><div class="line"></div><div class="line">这样导致我们创建完`View`后，还需要再创建个对应的`xib`文件，简直神烦！</div><div class="line">怎么能自动创建`xib`文件呢？我们完全可以修改系统的模板来满足我们的刚需：</div><div class="line"></div><div class="line">* 进入目录，找到`Cocoa Touch Class.xctemplate`文件</div></pre></td></tr></table></figure></p>
-<p>/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/File Templates/Source<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">* 拷贝一份 `UIViewObjective-C`文件并改名为`UIViewXIBObjective-C`，然后到其他有`xib`的文件夹里面，拷贝一份`xib`到`UIViewXIBObjective-C`里面，`xib`可自行修改。（我这里只配置了`Objective-C`的，`Swift`步骤类似）</div><div class="line">* 找到 当前目录的`TemplateInfo.plist`文件，如下修改：</div><div class="line"></div><div class="line">![](/images/09.png)</div><div class="line"></div><div class="line">* 重新创建系统 `View`模板：</div><div class="line"></div><div class="line">![](/images/10.png)</div><div class="line"></div><div class="line">大功告成！</div><div class="line"></div><div class="line">### Demo</div><div class="line">放上我自己的一个 **[UIViewController 模板](https://github.com/ifelseboyxx/CustomXcodeTempate)** 懒得自己写的可以直接用或者在我的模板基础上修改！</div><div class="line"></div><div class="line">### 参考链接</div><div class="line">[http://www.jianshu.com/p/93527682d8d3](http://www.jianshu.com/p/93527682d8d3)</div><div class="line"></div><div class="line">[http://www.bobmccune.com/2012/03/04/creating-custom-xcode-4-file-templates/](http://www.bobmccune.com/2012/03/04/creating-custom-xcode-4-file-templates/)</div></pre></td></tr></table></figure></p>
-</div></article></div></main><footer><div class="paginator"><a href="/2017/01/25/Method-Swizzling/" class="prev">上一篇</a></div><div id="container"></div><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script>var gitment = new Gitment({
+<p><img src="/images/04.png" alt=""></p>
+<p><img src="/images/05.png" alt=""></p>
+<p>上面 <code>.h</code> <code>.m</code> 里面 有些词可能不明白，这里再稍稍解释下：</p>
+<blockquote>
+<p>1）<strong>DATE：</strong>标识当前时间；</p>
+<p>2）<strong>FILENAME：</strong>带文件后缀的全名；</p>
+<p>3）<strong>FILEBASENAME：</strong>不带文件后缀的名字；</p>
+<p>4）<strong>FULLUSERNAME：</strong>当前的用户名；</p>
+<p>6）<strong>PROJECTNAME：</strong>工程名字；</p>
+<p>7）<strong>FILEBASENAMEASIDENTIFIER：</strong> VC类名称；</p>
+<p>8）<strong>IMPORTHEADER_cocoaSubclass：</strong> 导入的头文件。</p>
+</blockquote>
+<h4 id="TemplateInfo-plist"><a href="#TemplateInfo-plist" class="headerlink" title="TemplateInfo.plist"></a><a name="TemplateInfo.plist" style="color:#666;border-bottom:none;">TemplateInfo.plist</a></h4><p><img src="/images/06.png" alt=""></p>
+<p>讲解一些需要改动的东西 :</p>
+<blockquote>
+<p><strong>SortOrder：</strong>模版在界面中的位置；</p>
+<p><strong>Options：</strong>对应 <strong><a href="#options">图中</a></strong> 四行；</p>
+<p><strong>FallbackHeader：</strong><code>.h</code> 导入的头文件；</p>
+<p><strong>RequiredOptions -&gt; cocoaSubclass：</strong>是否支持选择 xib；<code>Default</code> 默认 <code>true</code> 自动勾选；</p>
+<p><strong>Values：</strong>自定义模版的名称(一定要保持一致);</p>
+<p><strong>Suffixes：</strong>模版默认类名，效果如下图。</p>
+</blockquote>
+<p><img src="/images/07.gif" alt=""></p>
+<p>最后把创建好的 <code>xxx.xctemplate</code> 文件直接拷贝到系统路径下就可以直接使用了:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/File Templates/Source</div></pre></td></tr></table></figure>
+<h3 id="修改系统模板"><a href="#修改系统模板" class="headerlink" title="修改系统模板"></a>修改系统模板</h3><p>平常开发中，我们经常用<code>xib</code>来画一个<code>View</code>，之前用系统的模板创建<code>View</code>的时候是有勾选是否创建对应<code>xib</code>的这个选项的，苹果不知道什么时候改了，现在貌似不行了：</p>
+<p><img src="/images/08.png" alt=""></p>
+<p>这样导致我们创建完<code>View</code>后，还需要再创建个对应的<code>xib</code>文件，简直神烦！<br>怎么能自动创建<code>xib</code>文件呢？我们完全可以修改系统的模板来满足我们的刚需：</p>
+<ul>
+<li><p>进入目录，找到<code>Cocoa Touch Class.xctemplate</code>文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/File Templates/Source</div></pre></td></tr></table></figure>
+</li>
+<li><p>拷贝一份 <code>UIViewObjective-C</code>文件并改名为<code>UIViewXIBObjective-C</code>，然后到其他有<code>xib</code>的文件夹里面，拷贝一份<code>xib</code>到<code>UIViewXIBObjective-C</code>里面，<code>xib</code>可自行修改。（我这里只配置了<code>Objective-C</code>的，<code>Swift</code>步骤类似）</p>
+</li>
+<li>找到 当前目录的<code>TemplateInfo.plist</code>文件，如下修改：</li>
+</ul>
+<p><img src="/images/09.png" alt=""></p>
+<ul>
+<li>重新创建系统 <code>View</code>模板：</li>
+</ul>
+<p><img src="/images/10.png" alt=""></p>
+<p>大功告成！</p>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>放上我自己的一个 <strong><a href="https://github.com/ifelseboyxx/CustomXcodeTempate" target="_blank" rel="external">UIViewController 模板</a></strong> 懒得自己写的可以直接用或者在我的模板基础上修改！</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="http://www.jianshu.com/p/93527682d8d3" target="_blank" rel="external">http://www.jianshu.com/p/93527682d8d3</a></p>
+<p><a href="http://www.bobmccune.com/2012/03/04/creating-custom-xcode-4-file-templates/" target="_blank" rel="external">http://www.bobmccune.com/2012/03/04/creating-custom-xcode-4-file-templates/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a href="/2017/01/25/Method-Swizzling/" class="prev">上一篇</a></div><div id="container"></div><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script>var gitment = new Gitment({
   id: window.location.pathname,
   owner: 'ifelseboyxx',
   repo: 'ifelseboyxx.github.io',
