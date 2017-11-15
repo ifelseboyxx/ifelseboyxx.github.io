@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-11-15T05:02:19.000Z</updated>
+  <updated>2017-11-15T05:05:44.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,10 +20,11 @@
     <link href="http://yoursite.com/2017/11/15/lock/"/>
     <id>http://yoursite.com/2017/11/15/lock/</id>
     <published>2017-11-15T03:38:01.000Z</published>
-    <updated>2017-11-15T05:02:19.000Z</updated>
+    <updated>2017-11-15T05:05:44.000Z</updated>
     
     <content type="html"><![CDATA[<p>这两天翻看 ibireme 大神 《<a href="http://blog.ibireme.com/" target="_blank" rel="external">不再安全的 OSSpinLock</a>》 这篇文章，看到文中分析各种锁之前的性能的图表：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1899027-eb3ef0d444034362.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="lock_benchmark.png"></p>
+<a id="more"></a>
 <p>发现除了 <code>@synchronized</code> 用过,其他的都陌生的很，可以说完全不知道啥玩意儿~</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1899027-6959b9f6823f26bb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>于是怀着惭愧的心情赶紧把这些锁学习了下，废话不多说，我们开始:</p>
@@ -156,8 +157,8 @@
     
     <summary type="html">
     
-      &lt;p&gt;这两天翻看 ibireme 大神 《&lt;a href=&quot;http://blog.ibireme.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;不再安全的 OSSpinLock&lt;/a&gt;》 这篇文章，看到文中分析各种锁之前的性能的图表：&lt;/p&gt;
-&lt;p&gt;
+      &lt;p&gt;这两天翻看 ibireme 大神 《&lt;a href=&quot;http://blog.ibireme.com/&quot;&gt;不再安全的 OSSpinLock&lt;/a&gt;》 这篇文章，看到文中分析各种锁之前的性能的图表：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1899027-eb3ef0d444034362.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;lock_benchmark.png&quot;&gt;&lt;/p&gt;
     
     </summary>
     
