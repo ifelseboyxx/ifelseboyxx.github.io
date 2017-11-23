@@ -67,7 +67,15 @@
 <p><img src="/images/autolayout.png" alt=""></p>
 <p>另外有的人 instruments 看不到方法调用栈（右边一对黑色的方法信息），去 Xcode 设置下就行了：</p>
 <p><img src="/images/xcode.png" alt=""></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>YYText 和 UITableView-FDTemplateLayoutCell 搭配可以很大程度的提高列表流畅度，如果时间比较紧迫，可以直接采取 Auto Layout + UITableView-FDTemplateLayoutCell + YYText 方式；如果列表中文本不包含富文本，仅仅显示文字，又不想引入这两个库，可以使用系统方式提前计算 Frame；如果想最大程度的流畅度，就需要使用  提前计算 Frame + YYText，具体大家根据自己情况选择合适的方案就行。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>YYText 和 UITableView-FDTemplateLayoutCell 搭配可以很大程度的提高列表流畅度：</p>
+<ul>
+<li><p><strong>如果时间比较紧迫，可以直接采取 Auto Layout + UITableView-FDTemplateLayoutCell + YYText 方式</strong></p>
+</li>
+<li><p><strong>如果列表中文本不包含富文本，仅仅显示文字，又不想引入这两个库，可以使用系统方式提前计算 Frame</strong></p>
+</li>
+<li><p><strong>如果想最大程度的流畅度，就需要提前计算 Frame + YYText，具体大家根据自己情况选择合适的方案就行</strong></p>
+</li>
+</ul>
 <p>最后，附上测试 <a href="https://github.com/ifelseboyxx/xx_Notes/tree/master/contents/TVOptimizationDemo/TVOptimizationDemo" target="_blank" rel="external">Demo</a></p>
 </div></article></div></main><footer><div class="paginator"><a href="/2017/11/15/lock/" class="prev">上一篇</a><a href="/2017/08/04/ResponderChain/" class="next">下一篇</a></div><div id="container"></div><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script>var gitment = new Gitment({
   id: window.location.pathname,
