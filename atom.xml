@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-12-11T10:43:09.000Z</updated>
+  <updated>2017-12-11T15:06:56.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,13 +16,13 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="http://yoursite.com/2017/12/08/swift-tips/"/>
-    <id>http://yoursite.com/2017/12/08/swift-tips/</id>
-    <published>2017-12-08T12:22:59.000Z</published>
-    <updated>2017-12-11T10:43:09.000Z</updated>
+    <title>Swift 知识小集</title>
+    <link href="http://yoursite.com/2017/12/07/swift-tips/"/>
+    <id>http://yoursite.com/2017/12/07/swift-tips/</id>
+    <published>2017-12-07T13:28:02.000Z</published>
+    <updated>2017-12-11T15:06:56.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Swift-知识小集"><a href="#Swift-知识小集" class="headerlink" title="Swift 知识小集"></a>Swift 知识小集</h1><p>以下内容均是笔者学习过程中<strong>收集</strong>的知识点，顺序比较跳跃，初衷是为了方便查阅，顺便加深记忆。<strong>内容会不断更新</strong>，如果有什么问题或者有好的 Swift 方面的语法糖或者知识点也可以提出来，我会挑选斟酌后收录，欢迎大家关注～</p>
+    <content type="html"><![CDATA[<p>以下内容均是笔者学习过程中<strong>收集</strong>的知识点，顺序比较跳跃，初衷是为了方便查阅，顺便加深记忆。<strong>内容会不断更新</strong>，如果有什么问题或者有好的 Swift 方面的语法糖或者知识点也可以提出来，我会挑选斟酌后收录，欢迎大家关注～</p>
 <p><strong>环境：</strong></p>
 <blockquote>
 <p>Swift 4.0<br>Xcode 9.1</p>
@@ -230,9 +230,11 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Swift-知识小集&quot;&gt;&lt;a href=&quot;#Swift-知识小集&quot; class=&quot;headerlink&quot; title=&quot;Swift 知识小集&quot;&gt;&lt;/a&gt;Swift 知识小集&lt;/h1&gt;&lt;p&gt;以下内容均是笔者学习过程中&lt;strong&gt;收集&lt;/strong&gt;的知识点，顺
+      &lt;p&gt;以下内容均是笔者学习过程中&lt;strong&gt;收集&lt;/strong&gt;的知识点，顺序比较跳跃，初衷是为了方便查阅，顺便加深记忆。&lt;strong&gt;内容会不断更新&lt;/strong&gt;，如果有什么问题或者有好的 Swift 方面的语法糖或者知识点也可以提出来，我会挑选斟酌后收录，欢迎大家
     
     </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
     
     
   </entry>
