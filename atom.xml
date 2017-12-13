@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-12-11T15:10:47.000Z</updated>
+  <updated>2017-12-13T12:42:51.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,14 +20,18 @@
     <link href="http://yoursite.com/2017/12/07/swift-tips/"/>
     <id>http://yoursite.com/2017/12/07/swift-tips/</id>
     <published>2017-12-07T13:28:02.000Z</published>
-    <updated>2017-12-11T15:10:47.000Z</updated>
+    <updated>2017-12-13T12:42:51.000Z</updated>
     
     <content type="html"><![CDATA[<p>以下内容均是笔者学习过程中<strong>收集</strong>的知识点，顺序比较跳跃，初衷是为了方便查阅，顺便加深记忆。<strong>内容会不断更新</strong>，如果有什么问题或者有好的 Swift 方面的语法糖或者知识点也可以提出来，我会挑选斟酌后收录，欢迎大家关注～</p>
 <p><strong>环境：</strong></p>
 <blockquote>
 <p>Swift 4.0<br>Xcode 9.1</p>
 </blockquote>
-<p><strong>最近更新：2017.12.11</strong></p>
+<p><strong>最近更新：2017.12.13</strong></p>
+<blockquote>
+<p><a href="#1.3.5">优雅的定义通知名称</a></p>
+</blockquote>
+<p><strong>更新：2017.12.11</strong></p>
 <blockquote>
 <p><a href="#1.3.2">作用域：do 语句块</a><br><a href="#1.3.3">倒序 reversed()</a><br><a href="#1.3.4">标签语句：指定跳出某个条件语句</a></p>
 </blockquote>
@@ -37,7 +41,7 @@
 </blockquote>
 <p><strong>目录：</strong></p>
 <blockquote>
-<p><a href="#1.1.1">Associated Object</a><br><a href="#1.1.2">Delegate 声明为 weak</a><br><a href="#1.1.3">可选协议和协议扩展</a><br><a href="#1.1.4">单例</a><br><a href="#1.1.5">输出格式化</a><br><a href="#1.1.6">Selector</a><br><a href="#1.1.7">将 protocol 的方法声明为 mutating</a><br><a href="#1.1.8">数组遍历 enumerate</a><br><a href="#1.1.9">输入输出参数 inout</a><br><a href="#1.2.0">Default 参数</a><br><a href="#1.2.1">延迟加载 lazy</a><br><a href="#1.2.2">编译标记</a><br><a href="#1.2.3">换行符</a><br><a href="#1.2.4">字符串切割 split</a><br><a href="#1.2.5">KVC</a><br><a href="#1.2.6">Swift 中值类型和引用类型注意点</a><br><a href="#1.2.7">KVO</a><br><a href="#1.2.8">Swift UIButton 状态的叠加</a><br><a href="#1.2.9">Swift 中的 “@synchronized”</a><br><a href="#1.3.0">自定义日志输出</a><br><a href="#1.3.1">Swift 中的 “readonly”</a><br><a href="#1.3.2">作用域：do 语句块</a><br><a href="#1.3.3">倒序 reversed()</a><br><a href="#1.3.4">标签语句：指定跳出某个条件语句</a></p>
+<p><a href="#1.1.1">Associated Object</a><br><a href="#1.1.2">Delegate 声明为 weak</a><br><a href="#1.1.3">可选协议和协议扩展</a><br><a href="#1.1.4">单例</a><br><a href="#1.1.5">输出格式化</a><br><a href="#1.1.6">Selector</a><br><a href="#1.1.7">将 protocol 的方法声明为 mutating</a><br><a href="#1.1.8">数组遍历 enumerate</a><br><a href="#1.1.9">输入输出参数 inout</a><br><a href="#1.2.0">Default 参数</a><br><a href="#1.2.1">延迟加载 lazy</a><br><a href="#1.2.2">编译标记</a><br><a href="#1.2.3">换行符</a><br><a href="#1.2.4">字符串切割 split</a><br><a href="#1.2.5">KVC</a><br><a href="#1.2.6">Swift 中值类型和引用类型注意点</a><br><a href="#1.2.7">KVO</a><br><a href="#1.2.8">Swift UIButton 状态的叠加</a><br><a href="#1.2.9">Swift 中的 “@synchronized”</a><br><a href="#1.3.0">自定义日志输出</a><br><a href="#1.3.1">Swift 中的 “readonly”</a><br><a href="#1.3.2">作用域：do 语句块</a><br><a href="#1.3.3">倒序 reversed()</a><br><a href="#1.3.4">标签语句：指定跳出某个条件语句</a><br><a href="#1.3.5">优雅的定义通知名称</a></p>
 </blockquote>
 <h2 id="1.1.1"> Associated Object </h2>
 
@@ -226,6 +230,14 @@
 <p>上面的 🌰 我们可以这么写：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> arr1 = [<span class="string">"1"</span>,<span class="string">"2"</span>,<span class="string">"3"</span>,<span class="string">"4"</span>,<span class="string">"5"</span>]</div><div class="line"><span class="keyword">let</span> arr2 = [<span class="string">"4"</span>,<span class="string">"6"</span>,<span class="string">"8"</span>,<span class="string">"9"</span>,<span class="string">"2"</span>]</div><div class="line">        </div><div class="line">label: <span class="keyword">for</span> x <span class="keyword">in</span> arr1 &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"x： \(x)"</span>)</div><div class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> arr2 &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"y： \(y)"</span>)</div><div class="line">        <span class="keyword">if</span> x == y &#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"找到相等的了：\(y)"</span>)</div><div class="line">            <span class="keyword">break</span> label</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>上面代码，我们把第一层循环定义了标签：<code>label</code>。在第二层循环中，一旦条件成立，立刻跳出第一层循环 <code>label</code>。这个特性，可以说十分方便了！</p>
+<h2 id="1.3.5"> 优雅的定义通知名称 </h2>
+
+<p>在 Objective-C 中，我们自定义通知时，对于名称的定义一般都有规范：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// xxx.h </span></div><div class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> XXXXNotification;</div><div class="line"></div><div class="line"><span class="comment">// xxx.m </span></div><div class="line"><span class="built_in">NSString</span> * <span class="keyword">const</span> XXXXNotification = <span class="string">@"XXXXNotification"</span>;</div></pre></td></tr></table></figure>
+<p>在 Swift 中，我们可以参考 <a href="https://github.com/Alamofire/Alamofire" target="_blank" rel="external">Alamofire</a> 的方式，创建个专门存放通知名的文件，扩展 <code>Notification.Name</code> 并以结构体 <code>struct</code> 方式声明：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// XXNotification.swift 文件</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> Foundation</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Notification</span>.<span class="title">Name</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">struct</span> <span class="title">Task</span> </span>&#123;</div><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">let</span> 通知名 = <span class="type">Notification</span>.<span class="type">Name</span>(rawValue: <span class="string">"org.target名称.notification.name.task.通知名"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后我们就可以愉快的使用了：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// add</span></div><div class="line"><span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(<span class="keyword">self</span>, selector: #selector(myNotification(<span class="number">_</span> :)), name: <span class="type">NSNotification</span>.<span class="type">Name</span>.<span class="type">Task</span>.通知名, object: <span class="keyword">self</span>)</div><div class="line"></div><div class="line"><span class="comment">// post</span></div><div class="line"><span class="type">NotificationCenter</span>.<span class="keyword">default</span>.post(name: <span class="type">NSNotification</span>.<span class="type">Name</span>.<span class="type">Task</span>.通知名, object: <span class="keyword">self</span>)</div><div class="line"></div><div class="line"><span class="comment">// remove</span></div><div class="line"><span class="type">NotificationCenter</span>.<span class="keyword">default</span>.removeObserver(<span class="keyword">self</span>, name: <span class="type">NSNotification</span>.<span class="type">Name</span>.<span class="type">Task</span>.通知名, object: <span class="keyword">self</span>)</div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">
