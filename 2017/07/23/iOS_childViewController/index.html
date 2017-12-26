@@ -1,4 +1,209 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 谈谈 iOS 中的 childViewController · ifelseboyxx's Blog</title><meta name="description" content="谈谈 iOS 中的 childViewController - ifelseboyxx"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/user.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="ifelseboyxx's Blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/img_header.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://weibo.com/3224111110/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/ifelseboyxx" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="http://www.jianshu.com/u/c1fef1c0da1a" target="_blank" class="nav-list-link">JIANSHU</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">谈谈 iOS 中的 childViewController</h1><div class="post-info">2017年7月23日</div><div class="post-content"><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。</p>
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="使用场景在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。
+代码实现实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="ifelseboyxx">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="谈谈 iOS 中的 childViewController"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="ifelseboyxx&#39;s Blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>谈谈 iOS 中的 childViewController - ifelseboyxx&#39;s Blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdn.bootcss.com/featherlight/1.7.1/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/img/red.png">
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    
+        <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">ifelseboyxx 🤢</a>
+
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    
+                        <li class="previous" title="基于 ResponderChain 的对象交互方式">
+                            <a href="/2017/08/04/ResponderChain/">&larr; Prev</a>
+                        </li>
+                    
+                </li>
+                <li>
+                    
+                        <li class="next" title="关于 UIControlState 一次神奇的发现">
+                            <a href="/2017/07/03/UIControlState/">Next  &rarr;</a>
+                        </li>
+                    
+                </li>
+
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/ifelseboyxx">
+                            
+                                GitHub
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://juejin.im/user/5a421a5ef265da4320038046">
+                            
+                                掘金
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+    
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+<header class="intro-header">
+    <div class="container">
+    </div>
+</header>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-preview">
+                <!-- Title -->
+                <a href="/2017/07/23/iOS_childViewController/">
+                    <h2 class="post-title">
+                        谈谈 iOS 中的 childViewController
+                    </h2>
+                </a>
+
+                <!-- Tags -->
+                
+
+                <p class="post-meta">
+                    <!-- Date and Author -->
+                    
+                    2017-07-23
+                </p>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。</p>
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：</p>
 <a id="more"></a>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加一个 childViewController</span></div><div class="line"><span class="built_in">UIViewController</span> *vc = [<span class="built_in">UIViewController</span> new];<span class="comment">//子控制器</span></div><div class="line">[<span class="keyword">self</span> addChildViewController:vc];<span class="comment">//添加到父控制器中</span></div><div class="line">vc.view.frame = <span class="comment">/*....*/</span>;<span class="comment">//设置 frame</span></div><div class="line">[<span class="keyword">self</span>.view addSubview:vc.view];<span class="comment">//把子控制器的 view 添加到父控制器的 view 上面</span></div><div class="line">[vc didMoveToParentViewController:<span class="keyword">self</span>];  <span class="comment">//子控制器被通知有了一个父控制器</span></div><div class="line"></div><div class="line"><span class="comment">//移除一个 childViewController</span></div><div class="line">[vc willMoveToParentViewController:<span class="literal">nil</span>];<span class="comment">//子控制器被通知即将解除父子关系</span></div><div class="line">[vc.view removeFromSuperview];<span class="comment">//把子控制器的 view 从到父控制器的 view 上面移除</span></div><div class="line">[vc removeFromParentViewController];<span class="comment">//真正的解除关系,会自己调用 [vc didMoveToParentViewController:nil]</span></div></pre></td></tr></table></figure>
@@ -19,13 +224,70 @@
 <p>大概原理就是系统内部帮我们设置了 UITableView 的 <code>contentInset</code> 以及 <code>contentOffset</code> 属性，往下偏移了一定的高度，并且只有单个层级的情况下才能生效，所谓的单个层级可以理解为在一个 UIViewController 中 放一个 UITableView。一旦我们的界面 <code>addChildViewController:</code> ,就会失效，如果我们希望 childViewController 也能保持这种穿透效果，就需要拿到正确的 <code>topLayoutGuide</code> 以及 <code>bottomLayoutGuide</code>  值，然后设置 <code>contentInset</code> 和 <code>contentOffset</code> 就行了，代码都在下面的例子里，有兴趣的可以看看。</p>
 <h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>为了方便大家理解，我写了个例子，大家可以看看：</p>
 <p><a href="https://github.com/ifelseboyxx/XXPageControllers" target="_blank" rel="external">XXPageControllers</a></p>
-</div></article></div></main><footer><div class="paginator"><a href="/2017/08/04/ResponderChain/" class="prev">上一篇</a><a href="/2017/07/03/UIControlState/" class="next">下一篇</a></div><div id="container"></div><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script>var gitment = new Gitment({
-  id: window.location.pathname,
-  owner: 'ifelseboyxx',
-  repo: 'ifelseboyxx.github.io',
-  oauth: {
-    client_id: '8dc253d5704a97b4fca5',
-    client_secret: '1153e9f492111d9cfee01cdc285c0e59caceb1db'
-  }
-});
-gitment.render('container');</script><div class="copyright"><p>© 2016 - 2017 <a href="http://blog.ifelseboyxx.com/">ifelseboyxx</a> | Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
+
+
+                
+            </div>
+
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; Hexo-CleanBlog 2017 <br></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.bootcss.com/featherlight/1.7.1/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

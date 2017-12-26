@@ -1,27 +1,470 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> ifelseboyxx's Blog</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/user.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="ifelseboyxx's Blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/img_header.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link active">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://weibo.com/3224111110/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/ifelseboyxx" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="http://www.jianshu.com/u/c1fef1c0da1a" target="_blank" class="nav-list-link">JIANSHU</a></li></ul></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/12/07/swift-tips/" class="post-title-link">Swift 知识小集</a></h2><div class="post-info">2017年12月7日</div><div class="post-content"></div><a href="/2017/12/07/swift-tips/" class="read-more">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/11/30/hook_system_delegate/" class="post-title-link">Method Swizzling 实战：Hook 系统代理方法</a></h2><div class="post-info">2017年11月30日</div><div class="post-content"><p>关于 Method Swizzling 基本用法可以先看看博主之前的文章 <a href="http://blog.ifelseboyxx.com/2017/01/25/Method-Swizzling/">浅谈 Method Swizzling</a>, 这里就不多做介绍了。本文以 <code>UIWebViewDelegate</code> 为例，介绍如何利用 Method Swizzling 来 Hook 系统的 delegate 方法， 主要有如下几个步骤：</p>
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="ifelseboyxx">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="ifelseboyxx&#39;s Blog"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="ifelseboyxx&#39;s Blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="website" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>ifelseboyxx&#39;s Blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdn.bootcss.com/featherlight/1.7.1/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/img/red.png">
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    
+        <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">ifelseboyxx 🤢</a>
+
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    
+                        <li class="previous disabled"><a href="#">&larr;  Prev</a></li>
+                    
+                </li>
+                <li>
+                    
+                        <li class="next"><a href="/page/2/">Next  &rarr;</a></li>
+                    
+                </li>
+
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/ifelseboyxx">
+                            
+                                GitHub
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://juejin.im/user/5a421a5ef265da4320038046">
+                            
+                                掘金
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+    
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<header class="intro-header">
+    <div class="container">
+    </div>
+</header>
+
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+            
+                <div class="post-preview">
+    <a href="/2017/12/07/swift-tips/">
+        <h2 class="post-title">
+            Swift 知识小集
+        </h2>
+    </a>
+
+    <!-- Tags -->
+    
+
+    <div class="excerpt typo">
+        no_excerpt
+    </div>
+
+    <p class="post-meta">
+        <!-- Date and Author -->
+        
+        2017-12-07
+    </p>
+</div>
+<hr>
+            
+                <div class="post-preview">
+    <a href="/2017/11/30/hook_system_delegate/">
+        <h2 class="post-title">
+            Method Swizzling 实战：Hook 系统代理方法
+        </h2>
+    </a>
+
+    <!-- Tags -->
+    
+
+    <div class="excerpt typo">
+        <p>关于 Method Swizzling 基本用法可以先看看博主之前的文章 <a href="http://blog.ifelseboyxx.com/2017/01/25/Method-Swizzling/">浅谈 Method Swizzling</a>, 这里就不多做介绍了。本文以 <code>UIWebViewDelegate</code> 为例，介绍如何利用 Method Swizzling 来 Hook 系统的 delegate 方法， 主要有如下几个步骤：</p>
 <ul>
 <li>新建 UIWebView Category</li>
 <li>Hook  UIWebView 的 <code>delegate</code> 方法</li>
 <li>Hook  <code>UIWebViewDelegate</code> 协议中的具体方法</li>
-</ul></div><a href="/2017/11/30/hook_system_delegate/" class="read-more">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/11/15/lock/" class="post-title-link">iOS 开发中的八种锁（Lock）</a></h2><div class="post-info">2017年11月15日</div><div class="post-content"><p>这两天翻看 ibireme 大神 《<a href="http://blog.ibireme.com/">不再安全的 OSSpinLock</a>》 这篇文章，看到文中分析各种锁之前的性能的图表：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1899027-eb3ef0d444034362.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="lock_benchmark.png"></p></div><a href="/2017/11/15/lock/" class="read-more">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/09/06/smooth_tableview/" class="post-title-link">iOS 中关于列表滚动流畅方案的一些探讨</a></h2><div class="post-info">2017年9月6日</div><div class="post-content"><p>近些年，App 越来越推崇体验至上，随随便便乱写一通的话已经很难让用户买帐了，顺滑的列表便是其中很重要的一点。如果一个 App 的页面滚动起来总是卡顿卡顿的，轻则被当作反面教材来吐槽或者衬托“我们的 App balabala…”，重则直接卸载。正好最近在优化这一块儿，总结记录下。</p>
+</ul>
+    </div>
+
+    <p class="post-meta">
+        <!-- Date and Author -->
+        
+        2017-11-30
+    </p>
+</div>
+<hr>
+            
+                <div class="post-preview">
+    <a href="/2017/11/15/lock/">
+        <h2 class="post-title">
+            iOS 开发中的八种锁（Lock）
+        </h2>
+    </a>
+
+    <!-- Tags -->
+    
+      
+          <a href="/tags/iOS/" rel="tag" class="post-tag">
+            iOS
+          </a>
+      
+    
+
+    <div class="excerpt typo">
+        <p>这两天翻看 ibireme 大神 《<a href="http://blog.ibireme.com/">不再安全的 OSSpinLock</a>》 这篇文章，看到文中分析各种锁之前的性能的图表：</p>
+    </div>
+
+    <p class="post-meta">
+        <!-- Date and Author -->
+        
+        2017-11-15
+    </p>
+</div>
+<hr>
+            
+                <div class="post-preview">
+    <a href="/2017/09/06/smooth_tableview/">
+        <h2 class="post-title">
+            iOS 中关于列表滚动流畅方案的一些探讨
+        </h2>
+    </a>
+
+    <!-- Tags -->
+    
+
+    <div class="excerpt typo">
+        <p>近些年，App 越来越推崇体验至上，随随便便乱写一通的话已经很难让用户买帐了，顺滑的列表便是其中很重要的一点。如果一个 App 的页面滚动起来总是卡顿卡顿的，轻则被当作反面教材来吐槽或者衬托“我们的 App balabala…”，重则直接卸载。正好最近在优化这一块儿，总结记录下。</p>
 <p>如果说有什么好的博客文章推荐，ibireme  的  <a href="https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/">iOS 保持界面流畅的技巧</a> 这篇堪称经典，墙裂推荐反复阅读。这篇文章中讲解了很多的优化点，我自己总结了下收益最大的两个优化点：</p>
 <ul>
 <li>避免重复多次计算 cell 行高</li>
 <li>文本异步渲染</li>
 </ul>
 <p><img src="/images/asyn.png" alt=""></p>
-<p>大家可以看看上面这张图的对比分析，数据是 iPhone6 的机子用 instruments 抓的，左边的是用 Auto Layout 绘制界面的数据分析，正常如果想平滑滚动的话，fps 至少需要稳定在 55 左右，我们可以发现，在没有缓存行高和异步渲染的情况下 fps 是最低的，可以说是比较卡顿了，至少是能肉眼感觉出来，能满足平滑滚动要求的也只有在缓存行高且异步渲染的情况下；右边的是没用 Auto Layout 直接用 frame 来绘制界面的数据分析，可以发现即使没有异步渲染，也能勉强满足平滑滚动的要求，如果开启异步渲染的话，可以说是相当的丝滑了。</p></div><a href="/2017/09/06/smooth_tableview/" class="read-more">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/08/04/ResponderChain/" class="post-title-link">基于 ResponderChain 的对象交互方式</a></h2><div class="post-info">2017年8月4日</div><div class="post-content"></div><a href="/2017/08/04/ResponderChain/" class="read-more">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/07/23/iOS_childViewController/" class="post-title-link">谈谈 iOS 中的 childViewController</a></h2><div class="post-info">2017年7月23日</div><div class="post-content"><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。</p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：</p></div><a href="/2017/07/23/iOS_childViewController/" class="read-more">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/07/03/UIControlState/" class="post-title-link">关于 UIControlState 一次神奇的发现</a></h2><div class="post-info">2017年7月3日</div><div class="post-content"><p>最近发现关于 <code>UIButton</code> 状态的一个挺有意思的问题，大概就是：</p>
+<p>大家可以看看上面这张图的对比分析，数据是 iPhone6 的机子用 instruments 抓的，左边的是用 Auto Layout 绘制界面的数据分析，正常如果想平滑滚动的话，fps 至少需要稳定在 55 左右，我们可以发现，在没有缓存行高和异步渲染的情况下 fps 是最低的，可以说是比较卡顿了，至少是能肉眼感觉出来，能满足平滑滚动要求的也只有在缓存行高且异步渲染的情况下；右边的是没用 Auto Layout 直接用 frame 来绘制界面的数据分析，可以发现即使没有异步渲染，也能勉强满足平滑滚动的要求，如果开启异步渲染的话，可以说是相当的丝滑了。</p>
+    </div>
+
+    <p class="post-meta">
+        <!-- Date and Author -->
+        
+        2017-09-06
+    </p>
+</div>
+<hr>
+            
+                <div class="post-preview">
+    <a href="/2017/08/04/ResponderChain/">
+        <h2 class="post-title">
+            基于 ResponderChain 的对象交互方式
+        </h2>
+    </a>
+
+    <!-- Tags -->
+    
+
+    <div class="excerpt typo">
+        no_excerpt
+    </div>
+
+    <p class="post-meta">
+        <!-- Date and Author -->
+        
+        2017-08-04
+    </p>
+</div>
+<hr>
+            
+                <div class="post-preview">
+    <a href="/2017/07/23/iOS_childViewController/">
+        <h2 class="post-title">
+            谈谈 iOS 中的 childViewController
+        </h2>
+    </a>
+
+    <!-- Tags -->
+    
+
+    <div class="excerpt typo">
+        <h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：</p>
+    </div>
+
+    <p class="post-meta">
+        <!-- Date and Author -->
+        
+        2017-07-23
+    </p>
+</div>
+<hr>
+            
+                <div class="post-preview">
+    <a href="/2017/07/03/UIControlState/">
+        <h2 class="post-title">
+            关于 UIControlState 一次神奇的发现
+        </h2>
+    </a>
+
+    <!-- Tags -->
+    
+
+    <div class="excerpt typo">
+        <p>最近发现关于 <code>UIButton</code> 状态的一个挺有意思的问题，大概就是：</p>
 <blockquote>
 <p>当一个按钮处于选中状态，也就是 <code>selected</code> 为 <code>YES</code> 时，如果这时候再点击它时，按钮会变成 <code>normal</code> 状态时候的样子！</p>
 </blockquote>
 <p>问题效果大概这样：</p>
-<p><img src="/images/events.gif" alt=""></p></div><a href="/2017/07/03/UIControlState/" class="read-more">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/04/17/protocol/" class="post-title-link">利用多态及协议多重继承统一接口数据格式</a></h2><div class="post-info">2017年4月17日</div><div class="post-content"><p>开始之前先简单说下需求：首先，页面样式由<code>A部门</code>负责，但是页面的数据依赖于<code>B部门</code>和<code>C部门</code>，<code>B、C</code>都有自己的唯一标识<code>projectTag</code>并且都有自己的接口，接口字段都不相同，他们的关系如下图：</p>
-<p><img src="/images/pic.png" alt=""></p></div><a href="/2017/04/17/protocol/" class="read-more">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/02/23/Masonry-Analysis/" class="post-title-link">Masonry 源码解析</a></h2><div class="post-info">2017年2月23日</div><div class="post-content"><p><a href="https://github.com/SnapKit/Masonry">Masonry</a> 是一个轻量级的用于自动布局（AutoLayout）的第三方框架，以其简洁的使用方式，受到广大开发者的青睐。本篇文章将带你一步步的去了解其实现原理，知其所以然！</p>
-<h3 id="结构概览"><a href="#结构概览" class="headerlink" title="结构概览"></a>结构概览</h3><p><img src="/images/Masonry.png" alt=""></p></div><a href="/2017/02/23/Masonry-Analysis/" class="read-more">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/01/25/Method-Swizzling/" class="post-title-link">浅谈 Method Swizzling</a></h2><div class="post-info">2017年1月25日</div><div class="post-content"><p>如果对 Runtime 有一定了解的话，一定听说过或者用过这个函数：</p>
+<p><img src="/images/events.gif" alt=""></p>
+    </div>
+
+    <p class="post-meta">
+        <!-- Date and Author -->
+        
+        2017-07-03
+    </p>
+</div>
+<hr>
+            
+                <div class="post-preview">
+    <a href="/2017/04/17/protocol/">
+        <h2 class="post-title">
+            利用多态及协议多重继承统一接口数据格式
+        </h2>
+    </a>
+
+    <!-- Tags -->
+    
+
+    <div class="excerpt typo">
+        <p>开始之前先简单说下需求：首先，页面样式由<code>A部门</code>负责，但是页面的数据依赖于<code>B部门</code>和<code>C部门</code>，<code>B、C</code>都有自己的唯一标识<code>projectTag</code>并且都有自己的接口，接口字段都不相同，他们的关系如下图：</p>
+<p><img src="/images/pic.png" alt=""></p>
+    </div>
+
+    <p class="post-meta">
+        <!-- Date and Author -->
+        
+        2017-04-17
+    </p>
+</div>
+<hr>
+            
+                <div class="post-preview">
+    <a href="/2017/02/23/Masonry-Analysis/">
+        <h2 class="post-title">
+            Masonry 源码解析
+        </h2>
+    </a>
+
+    <!-- Tags -->
+    
+
+    <div class="excerpt typo">
+        <p><a href="https://github.com/SnapKit/Masonry">Masonry</a> 是一个轻量级的用于自动布局（AutoLayout）的第三方框架，以其简洁的使用方式，受到广大开发者的青睐。本篇文章将带你一步步的去了解其实现原理，知其所以然！</p>
+<h3 id="结构概览"><a href="#结构概览" class="headerlink" title="结构概览"></a>结构概览</h3><p><img src="/images/Masonry.png" alt=""></p>
+    </div>
+
+    <p class="post-meta">
+        <!-- Date and Author -->
+        
+        2017-02-23
+    </p>
+</div>
+<hr>
+            
+                <div class="post-preview">
+    <a href="/2017/01/25/Method-Swizzling/">
+        <h2 class="post-title">
+            浅谈 Method Swizzling
+        </h2>
+    </a>
+
+    <!-- Tags -->
+    
+
+    <div class="excerpt typo">
+        <p>如果对 Runtime 有一定了解的话，一定听说过或者用过这个函数：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">OBJC_EXPORT <span class="keyword">void</span> method_exchangeImplementations(Method m1, Method m2)</div></pre></td></tr></table></figure>
 <p>它通常叫做 Method Swizzling，算是<code>objc</code>的 “黑魔法” 了，作用就是在程序运行期间动态的给两个方法互换实现。</p>
 <p>最近有用到这个，总结下遇到的一些问题：</p>
 <h4 id="静态（类）方法和实例方法的交换实现方式一样吗？"><a href="#静态（类）方法和实例方法的交换实现方式一样吗？" class="headerlink" title="静态（类）方法和实例方法的交换实现方式一样吗？"></a>静态（类）方法和实例方法的交换实现方式一样吗？</h4><p>交换静态（类）方法的正确姿势：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)load &#123;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        SEL s1 = <span class="keyword">@selector</span>(go);</div><div class="line">        SEL s2 = <span class="keyword">@selector</span>(stop);</div><div class="line">        Class <span class="keyword">class</span> = object_getClass((<span class="keyword">id</span>)<span class="keyword">self</span>);</div><div class="line">        Method m1 = class_getClassMethod(<span class="keyword">class</span>, s1);</div><div class="line">        Method m2 = class_getClassMethod(<span class="keyword">class</span>, s2);</div><div class="line">        <span class="built_in">BOOL</span> success = class_addMethod(<span class="keyword">class</span>, s1, method_getImplementation(m2), method_getTypeEncoding(m2));</div><div class="line">        <span class="keyword">if</span> (success)&#123;</div><div class="line">            class_replaceMethod(<span class="keyword">class</span>, s2, method_getImplementation(m1), method_getTypeEncoding(m1));</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            method_exchangeImplementations(m1, m2);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="keyword">void</span>)go &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Go!"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="keyword">void</span>)stop &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Stop!"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></div><a href="/2017/01/25/Method-Swizzling/" class="read-more">...阅读全文</a></article></li></ul></main><footer><div class="paginator"><a href="/page/2/" class="next">下一页</a></div><div class="copyright"><p>© 2016 - 2017 <a href="http://blog.ifelseboyxx.com/">ifelseboyxx</a> | Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)load &#123;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        SEL s1 = <span class="keyword">@selector</span>(go);</div><div class="line">        SEL s2 = <span class="keyword">@selector</span>(stop);</div><div class="line">        Class <span class="keyword">class</span> = object_getClass((<span class="keyword">id</span>)<span class="keyword">self</span>);</div><div class="line">        Method m1 = class_getClassMethod(<span class="keyword">class</span>, s1);</div><div class="line">        Method m2 = class_getClassMethod(<span class="keyword">class</span>, s2);</div><div class="line">        <span class="built_in">BOOL</span> success = class_addMethod(<span class="keyword">class</span>, s1, method_getImplementation(m2), method_getTypeEncoding(m2));</div><div class="line">        <span class="keyword">if</span> (success)&#123;</div><div class="line">            class_replaceMethod(<span class="keyword">class</span>, s2, method_getImplementation(m1), method_getTypeEncoding(m1));</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            method_exchangeImplementations(m1, m2);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="keyword">void</span>)go &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Go!"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="keyword">void</span>)stop &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Stop!"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+    </div>
+
+    <p class="post-meta">
+        <!-- Date and Author -->
+        
+        2017-01-25
+    </p>
+</div>
+<hr>
+            
+
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; Hexo-CleanBlog 2017 <br></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.bootcss.com/featherlight/1.7.1/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

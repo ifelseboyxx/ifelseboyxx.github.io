@@ -256,7 +256,7 @@
     <link href="http://yoursite.com/2017/11/30/hook_system_delegate/"/>
     <id>http://yoursite.com/2017/11/30/hook_system_delegate/</id>
     <published>2017-11-30T15:41:23.000Z</published>
-    <updated>2017-11-30T15:41:55.000Z</updated>
+    <updated>2017-12-26T17:46:19.097Z</updated>
     
     <content type="html"><![CDATA[<p>关于 Method Swizzling 基本用法可以先看看博主之前的文章 <a href="http://blog.ifelseboyxx.com/2017/01/25/Method-Swizzling/" target="_blank" rel="external">浅谈 Method Swizzling</a>, 这里就不多做介绍了。本文以 <code>UIWebViewDelegate</code> 为例，介绍如何利用 Method Swizzling 来 Hook 系统的 delegate 方法， 主要有如下几个步骤：</p>
 <ul>
@@ -267,9 +267,7 @@
 <a id="more"></a>
 <h3 id="Hook-UIWebView-的代理"><a href="#Hook-UIWebView-的代理" class="headerlink" title="Hook  UIWebView 的代理"></a>Hook  UIWebView 的代理</h3><p>首先，我们应该明白，当我们想 Hook 某个方法函数时，必须知道对应的 <code>class</code> ，我们这里之所以 Hook UIWebView 的 delegate，为的就是找到继承了 <code>UIWebViewDelegate</code> 协议的 <code>class</code>：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)load &#123;</div><div class="line">    <span class="comment">// Hook UIWebView</span></div><div class="line">    Method originalMethod = class_getInstanceMethod([<span class="built_in">UIWebView</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(setDelegate:));</div><div class="line">    Method ownerMethod = class_getInstanceMethod([<span class="built_in">UIWebView</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(hook_setDelegate:));</div><div class="line">    method_exchangeImplementations(originalMethod, ownerMethod);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)hook_setDelegate:(<span class="keyword">id</span>&lt;<span class="built_in">UIWebViewDelegate</span>&gt;)delegate &#123;</div><div class="line">    </div><div class="line">    [<span class="keyword">self</span> hook_setDelegate:delegate];</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
 <p>这里我们需要注意，我们用的是 <code>class_getInstanceMethod</code> 而不是 <code>class_getClassMethod</code> ，因为 <code>setDelegate :</code> 是实例方法。另外我们这里用 <code>method_exchangeImplementations</code> 直接交换了并没有判断是因为用到 UIWebView 的页面，其 delegate 可以确定是一定实现了的。</p>
-</blockquote>
 <h3 id="Hook-协议中的具体方法"><a href="#Hook-协议中的具体方法" class="headerlink" title="Hook 协议中的具体方法"></a>Hook 协议中的具体方法</h3><p>在这之前，假如我们想要 Hook <code>webViewDidStartLoad:</code> 方法，我们需要考虑这几种情况：</p>
 <ul>
 <li>代理对象实现了 <code>webViewDidStartLoad:</code> 方法，那么我们直接交换就行。</li>
@@ -305,11 +303,11 @@
     <link href="http://yoursite.com/2017/11/15/lock/"/>
     <id>http://yoursite.com/2017/11/15/lock/</id>
     <published>2017-11-15T03:38:01.000Z</published>
-    <updated>2017-11-23T02:32:40.000Z</updated>
+    <updated>2017-12-26T17:43:44.036Z</updated>
     
     <content type="html"><![CDATA[<p>这两天翻看 ibireme 大神 《<a href="http://blog.ibireme.com/" target="_blank" rel="external">不再安全的 OSSpinLock</a>》 这篇文章，看到文中分析各种锁之前的性能的图表：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1899027-eb3ef0d444034362.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="lock_benchmark.png"></p>
 <a id="more"></a>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-eb3ef0d444034362.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="lock_benchmark.png"></p>
 <p>发现除了 <code>@synchronized</code> 用过,其他的都陌生的很，可以说完全不知道啥玩意儿~</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1899027-6959b9f6823f26bb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>于是怀着惭愧的心情赶紧把这些锁学习了下，废话不多说，我们开始:</p>
@@ -440,12 +438,11 @@
     <summary type="html">
     
       &lt;p&gt;这两天翻看 ibireme 大神 《&lt;a href=&quot;http://blog.ibireme.com/&quot;&gt;不再安全的 OSSpinLock&lt;/a&gt;》 这篇文章，看到文中分析各种锁之前的性能的图表：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1899027-eb3ef0d444034362.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;lock_benchmark.png&quot;&gt;&lt;/p&gt;
     
     </summary>
     
-      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
     
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
     
   </entry>
   

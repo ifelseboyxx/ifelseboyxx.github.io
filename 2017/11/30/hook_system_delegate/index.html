@@ -1,4 +1,212 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Method Swizzling 实战：Hook 系统代理方法 · ifelseboyxx's Blog</title><meta name="description" content="Method Swizzling 实战：Hook 系统代理方法 - ifelseboyxx"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/user.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="ifelseboyxx's Blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/img_header.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://weibo.com/3224111110/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/ifelseboyxx" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="http://www.jianshu.com/u/c1fef1c0da1a" target="_blank" class="nav-list-link">JIANSHU</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Method Swizzling 实战：Hook 系统代理方法</h1><div class="post-info">2017年11月30日</div><div class="post-content"><p>关于 Method Swizzling 基本用法可以先看看博主之前的文章 <a href="http://blog.ifelseboyxx.com/2017/01/25/Method-Swizzling/" target="_blank" rel="external">浅谈 Method Swizzling</a>, 这里就不多做介绍了。本文以 <code>UIWebViewDelegate</code> 为例，介绍如何利用 Method Swizzling 来 Hook 系统的 delegate 方法， 主要有如下几个步骤：</p>
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="关于 Method Swizzling 基本用法可以先看看博主之前的文章 浅谈 Method Swizzling, 这里就不多做介绍了。本文以 UIWebViewDelegate 为例，介绍如何利用 Method Swizzling 来 Hook 系统的 delegate 方法， 主要有如下几个步骤：
+
+新建 UIWebView Category
+Hook  UIWebView 的 delegate 方法
+Hook  UIWebViewDelegate 协议中的具体方法">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="ifelseboyxx">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Method Swizzling 实战：Hook 系统代理方法"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="ifelseboyxx&#39;s Blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Method Swizzling 实战：Hook 系统代理方法 - ifelseboyxx&#39;s Blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdn.bootcss.com/featherlight/1.7.1/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/img/red.png">
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    
+        <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">ifelseboyxx 🤢</a>
+
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    
+                        <li class="previous" title="Swift 知识小集">
+                            <a href="/2017/12/07/swift-tips/">&larr; Prev</a>
+                        </li>
+                    
+                </li>
+                <li>
+                    
+                        <li class="next" title="iOS 开发中的八种锁（Lock）">
+                            <a href="/2017/11/15/lock/">Next  &rarr;</a>
+                        </li>
+                    
+                </li>
+
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/ifelseboyxx">
+                            
+                                GitHub
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://juejin.im/user/5a421a5ef265da4320038046">
+                            
+                                掘金
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+    
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+<header class="intro-header">
+    <div class="container">
+    </div>
+</header>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-preview">
+                <!-- Title -->
+                <a href="/2017/11/30/hook_system_delegate/">
+                    <h2 class="post-title">
+                        Method Swizzling 实战：Hook 系统代理方法
+                    </h2>
+                </a>
+
+                <!-- Tags -->
+                
+
+                <p class="post-meta">
+                    <!-- Date and Author -->
+                    
+                    2017-11-30
+                </p>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>关于 Method Swizzling 基本用法可以先看看博主之前的文章 <a href="http://blog.ifelseboyxx.com/2017/01/25/Method-Swizzling/" target="_blank" rel="external">浅谈 Method Swizzling</a>, 这里就不多做介绍了。本文以 <code>UIWebViewDelegate</code> 为例，介绍如何利用 Method Swizzling 来 Hook 系统的 delegate 方法， 主要有如下几个步骤：</p>
 <ul>
 <li>新建 UIWebView Category</li>
 <li>Hook  UIWebView 的 <code>delegate</code> 方法</li>
@@ -7,9 +215,7 @@
 <a id="more"></a>
 <h3 id="Hook-UIWebView-的代理"><a href="#Hook-UIWebView-的代理" class="headerlink" title="Hook  UIWebView 的代理"></a>Hook  UIWebView 的代理</h3><p>首先，我们应该明白，当我们想 Hook 某个方法函数时，必须知道对应的 <code>class</code> ，我们这里之所以 Hook UIWebView 的 delegate，为的就是找到继承了 <code>UIWebViewDelegate</code> 协议的 <code>class</code>：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)load &#123;</div><div class="line">    <span class="comment">// Hook UIWebView</span></div><div class="line">    Method originalMethod = class_getInstanceMethod([<span class="built_in">UIWebView</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(setDelegate:));</div><div class="line">    Method ownerMethod = class_getInstanceMethod([<span class="built_in">UIWebView</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(hook_setDelegate:));</div><div class="line">    method_exchangeImplementations(originalMethod, ownerMethod);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)hook_setDelegate:(<span class="keyword">id</span>&lt;<span class="built_in">UIWebViewDelegate</span>&gt;)delegate &#123;</div><div class="line">    </div><div class="line">    [<span class="keyword">self</span> hook_setDelegate:delegate];</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
 <p>这里我们需要注意，我们用的是 <code>class_getInstanceMethod</code> 而不是 <code>class_getClassMethod</code> ，因为 <code>setDelegate :</code> 是实例方法。另外我们这里用 <code>method_exchangeImplementations</code> 直接交换了并没有判断是因为用到 UIWebView 的页面，其 delegate 可以确定是一定实现了的。</p>
-</blockquote>
 <h3 id="Hook-协议中的具体方法"><a href="#Hook-协议中的具体方法" class="headerlink" title="Hook 协议中的具体方法"></a>Hook 协议中的具体方法</h3><p>在这之前，假如我们想要 Hook <code>webViewDidStartLoad:</code> 方法，我们需要考虑这几种情况：</p>
 <ul>
 <li>代理对象实现了 <code>webViewDidStartLoad:</code> 方法，那么我们直接交换就行。</li>
@@ -22,13 +228,70 @@
 <p>另外，不管我们是纯代码设置的 UIWebView delegate，还是通过 IB 设置的，都是没问题~</p>
 </blockquote>
 <p>完整的代码在这里 <a href="https://github.com/ifelseboyxx/xx_Notes/tree/master/contents/HookSystemDelegate/Hook_Delegate" target="_blank" rel="external">Demo</a></p>
-</div></article></div></main><footer><div class="paginator"><a href="/2017/12/07/swift-tips/" class="prev">上一篇</a><a href="/2017/11/15/lock/" class="next">下一篇</a></div><div id="container"></div><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script>var gitment = new Gitment({
-  id: window.location.pathname,
-  owner: 'ifelseboyxx',
-  repo: 'ifelseboyxx.github.io',
-  oauth: {
-    client_id: '8dc253d5704a97b4fca5',
-    client_secret: '1153e9f492111d9cfee01cdc285c0e59caceb1db'
-  }
-});
-gitment.render('container');</script><div class="copyright"><p>© 2016 - 2017 <a href="http://blog.ifelseboyxx.com/">ifelseboyxx</a> | Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
+
+
+                
+            </div>
+
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; Hexo-CleanBlog 2017 <br></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.bootcss.com/featherlight/1.7.1/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
