@@ -11,10 +11,7 @@
     <!--Description-->
     
         <meta name="description" content="最近发现关于 UIButton 状态的一个挺有意思的问题，大概就是：
-
-当一个按钮处于选中状态，也就是 selected 为 YES 时，如果这时候再点击它时，按钮会变成 normal 状态时候的样子！
-
-问题效果大概这样：">
+当一个按钮处于选中状态，也就是 selected 为 YES 时，如果这时候再点击它时，按钮会变成 normal 状态时候的样子！">
     
 
     <!--Author-->
@@ -183,6 +180,12 @@
 
                 <!-- Tags -->
                 
+                  
+                        <a href="/tags/ObjC/" rel="tag" class="post-tag">
+                        ObjC
+                      </a>
+                  
+                
 
                 <p class="post-meta">
                     <!-- Date and Author -->
@@ -207,12 +210,11 @@
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <p>最近发现关于 <code>UIButton</code> 状态的一个挺有意思的问题，大概就是：</p>
-<blockquote>
 <p>当一个按钮处于选中状态，也就是 <code>selected</code> 为 <code>YES</code> 时，如果这时候再点击它时，按钮会变成 <code>normal</code> 状态时候的样子！</p>
-</blockquote>
+<a id="more"></a>
 <p>问题效果大概这样：</p>
 <p><img src="/images/events.gif" alt=""></p>
-<a id="more"></a>
+<!--more-->
 <p>因为只是个 <code>Demo</code> ，所以代码写的比较随意，就是设置按钮不同状态下的呈现：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"ViewController.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">UIButton</span> *btn1;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">UIButton</span> *btn2;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></div><div class="line">   </div><div class="line">    <span class="built_in">UIButton</span> *btn1 = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeCustom</span>];</div><div class="line">    btn1.frame = <span class="built_in">CGRectMake</span>(<span class="number">100</span>, <span class="number">100</span>, <span class="number">60</span>, <span class="number">30</span>);</div><div class="line">    [btn1 setTitle:<span class="string">@"按钮一"</span> forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">    [btn1 setTitleColor:[<span class="built_in">UIColor</span> blackColor] forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">    [btn1 setTitleColor:[<span class="built_in">UIColor</span> redColor] forState:<span class="built_in">UIControlStateSelected</span>];</div><div class="line">    [<span class="keyword">self</span>.view addSubview:_btn1 = btn1];</div><div class="line">    [btn1 addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(btn1Click) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</div><div class="line">    </div><div class="line">    <span class="built_in">UIButton</span> *btn2 = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeCustom</span>];</div><div class="line">    btn2.frame = <span class="built_in">CGRectMake</span>(<span class="number">170</span>, <span class="number">100</span>, <span class="number">60</span>, <span class="number">30</span>);</div><div class="line">    [btn2 setTitle:<span class="string">@"按钮二"</span> forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">    [btn2 setTitleColor:[<span class="built_in">UIColor</span> blackColor] forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">    [btn2 setTitleColor:[<span class="built_in">UIColor</span> redColor] forState:<span class="built_in">UIControlStateSelected</span>];</div><div class="line">    [<span class="keyword">self</span>.view addSubview:_btn2 = btn2];</div><div class="line">    [btn2 addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(btn2Click) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)btn1Click &#123;</div><div class="line">    <span class="keyword">if</span>(_btn2.isSelected) &#123;_btn2.selected = <span class="literal">NO</span>;&#125;</div><div class="line">    _btn1.selected = <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)btn2Click &#123;</div><div class="line">    <span class="keyword">if</span>(_btn1.isSelected) &#123;_btn1.selected = <span class="literal">NO</span>;&#125;</div><div class="line">    _btn2.selected = <span class="literal">YES</span>;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
 <p>我们可以发现，这里分别设置了按钮 <code>UIControlStateNormal</code>和 <code>UIControlStateSelected</code> 状态的标题颜色，那么该如何解决呢？</p>

@@ -10,9 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="首先感谢下 Tian Wei Yu 的 一种基于ResponderChain的对象交互方式 这篇文章，让我知道对象间的交互还有这种姿势。说实话，第一遍没看懂，自己跟着敲了一遍才理解，所以有了这篇文章，算是个记录。
-
-前言Responder Chain ，也就是响应链，关于这方面的知识因为不是本文重点">
+        <meta name="description" content="首先感谢下 Tian Wei Yu 的 一种基于ResponderChain的对象交互方式 这篇文章，让我知道对象间的交互还有这种姿势。说实话，第一遍没看懂，自己跟着敲了一遍才理解，所以有了这篇文章，算是个记录。">
     
 
     <!--Author-->
@@ -181,6 +179,12 @@
 
                 <!-- Tags -->
                 
+                  
+                        <a href="/tags/ObjC/" rel="tag" class="post-tag">
+                        ObjC
+                      </a>
+                  
+                
 
                 <p class="post-meta">
                     <!-- Date and Author -->
@@ -204,9 +208,8 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <blockquote>
-<p>首先感谢下 <a href="https://casatwy.com/pages/about-me.html" target="_blank" rel="external">Tian Wei Yu</a> 的 <a href="https://casatwy.com/responder_chain_communication.html" target="_blank" rel="external"><a href="https://casatwy.com/responder_chain_communication.html" target="_blank" rel="external">一种基于ResponderChain的对象交互方式</a></a> 这篇文章，让我知道对象间的交互还有这种姿势。说实话，第一遍没看懂，自己跟着敲了一遍才理解，所以有了这篇文章，算是个记录。</p>
-</blockquote>
+                <p>首先感谢下 <a href="https://casatwy.com/pages/about-me.html" target="_blank" rel="external">Tian Wei Yu</a> 的 <a href="https://casatwy.com/responder_chain_communication.html" target="_blank" rel="external"><a href="https://casatwy.com/responder_chain_communication.html" target="_blank" rel="external">一种基于ResponderChain的对象交互方式</a></a> 这篇文章，让我知道对象间的交互还有这种姿势。说实话，第一遍没看懂，自己跟着敲了一遍才理解，所以有了这篇文章，算是个记录。</p>
+<a id="more"></a>
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Responder Chain ，也就是响应链，关于这方面的知识因为不是本文重点，还不太理解的可以去看看这篇文章：<a href="http://www.jianshu.com/p/2e074db792ba" target="_blank" rel="external">史上最详细的iOS之事件的传递和响应机制-原理篇</a>。</p>
 <p>在 iOS 中，对象间的交互模式大概有这几种：直接 property 传值、delegate、KVO、block、protocol、多态、Target-Action 等等，本文介绍的是一种基于 UIResponder 对象交互方式，简而言之，就是 通过在 UIResponder上挂一个 category，使得事件和参数可以沿着 responder chain 逐步传递。对于那种 subviews 特别多，事件又需要层层传递的层级视图特别好用，但是，缺点也很明显，必须依赖于 UIResponder 对象。</p>
 <h3 id="具体事例"><a href="#具体事例" class="headerlink" title="具体事例"></a>具体事例</h3><p>我们先来看看下面这种很常见的界面：</p>

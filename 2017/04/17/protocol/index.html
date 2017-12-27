@@ -179,6 +179,12 @@
 
                 <!-- Tags -->
                 
+                  
+                        <a href="/tags/ObjC/" rel="tag" class="post-tag">
+                        ObjC
+                      </a>
+                  
+                
 
                 <p class="post-meta">
                     <!-- Date and Author -->
@@ -203,8 +209,9 @@
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <p>开始之前先简单说下需求：首先，页面样式由<code>A部门</code>负责，但是页面的数据依赖于<code>B部门</code>和<code>C部门</code>，<code>B、C</code>都有自己的唯一标识<code>projectTag</code>并且都有自己的接口，接口字段都不相同，他们的关系如下图：</p>
-<p><img src="/images/pic.png" alt=""></p>
 <a id="more"></a>
+<p><img src="/images/pic.png" alt=""></p>
+<!--more-->
 <p>在这种关系结构下就会导致一个问题：<code>B接口</code>和<code>C接口</code>都有自己数据格式，<code>A部门</code>的页面到底用哪个接口？总不能用<code>if else</code>判断吧？万一还有<code>部门D</code>、<code>部门E</code>呢？</p>
 <h2 id="利用协议实现多重继承"><a href="#利用协议实现多重继承" class="headerlink" title="利用协议实现多重继承"></a>利用协议实现多重继承</h2><p>首先我们新建个协议 <code>PublicProtocol.h</code>，这个协议定义了<code>页面VC</code>所需要的数据元素（这里一般都定义成 <code>readonly</code>，不允许外部修改）：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#ifndef PublicProtocol_h</span></div><div class="line"><span class="meta">#define PublicProtocol_h</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">DataInfoProtocol</span> &lt;<span class="title">NSObject</span>&gt;</span></div><div class="line"><span class="keyword">@required</span></div><div class="line"><span class="comment">/** title */</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">copy</span>, <span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *title;</div><div class="line"><span class="keyword">@optional</span></div><div class="line"><span class="comment">/** subTitle */</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">copy</span>, <span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *subTitle;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="meta">#endif /* PublicProtocol_h */</span></div></pre></td></tr></table></figure>

@@ -10,8 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="使用场景在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。
-代码实现实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：">
+        <meta name="description" content="使用场景在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。">
     
 
     <!--Author-->
@@ -180,6 +179,12 @@
 
                 <!-- Tags -->
                 
+                  
+                        <a href="/tags/ObjC/" rel="tag" class="post-tag">
+                        ObjC
+                      </a>
+                  
+                
 
                 <p class="post-meta">
                     <!-- Date and Author -->
@@ -204,8 +209,9 @@
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。</p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：</p>
 <a id="more"></a>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：</p>
+<!--more-->
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加一个 childViewController</span></div><div class="line"><span class="built_in">UIViewController</span> *vc = [<span class="built_in">UIViewController</span> new];<span class="comment">//子控制器</span></div><div class="line">[<span class="keyword">self</span> addChildViewController:vc];<span class="comment">//添加到父控制器中</span></div><div class="line">vc.view.frame = <span class="comment">/*....*/</span>;<span class="comment">//设置 frame</span></div><div class="line">[<span class="keyword">self</span>.view addSubview:vc.view];<span class="comment">//把子控制器的 view 添加到父控制器的 view 上面</span></div><div class="line">[vc didMoveToParentViewController:<span class="keyword">self</span>];  <span class="comment">//子控制器被通知有了一个父控制器</span></div><div class="line"></div><div class="line"><span class="comment">//移除一个 childViewController</span></div><div class="line">[vc willMoveToParentViewController:<span class="literal">nil</span>];<span class="comment">//子控制器被通知即将解除父子关系</span></div><div class="line">[vc.view removeFromSuperview];<span class="comment">//把子控制器的 view 从到父控制器的 view 上面移除</span></div><div class="line">[vc removeFromParentViewController];<span class="comment">//真正的解除关系,会自己调用 [vc didMoveToParentViewController:nil]</span></div></pre></td></tr></table></figure>
 <p>实现上面部分，childViewController 的生命周期方法也就是 viewWillAppear、viewDidAppear等等这些，是不需要我们关心的，系统内部会自动帮我们调用。</p>
 <h3 id="手动管理-childViewController-的生命周期方法"><a href="#手动管理-childViewController-的生命周期方法" class="headerlink" title="手动管理 childViewController 的生命周期方法"></a>手动管理 childViewController 的生命周期方法</h3><p>有时候我们希望自己控制子控制器的生命周期方法，这里我们就需要一些额外的操作：</p>
