@@ -205,6 +205,10 @@
             ObjC
           </a>
       
+          <a href="/tags/runtime/" rel="tag" class="post-tag">
+            runtime
+          </a>
+      
     
 
     <div class="excerpt typo">
@@ -227,7 +231,7 @@
                 <div class="post-preview">
     <a href="/2017/11/15/lock/">
         <h2 class="post-title">
-            iOS 开发中的八种锁（Lock）
+            iOS 开发中的锁
         </h2>
     </a>
 
@@ -241,7 +245,7 @@
     
 
     <div class="excerpt typo">
-        <p>这两天翻看 ibireme 大神 <a href="http://blog.ibireme.com/">不再安全的 OSSpinLock</a> 这篇文章，看到文中分析各种锁之前的性能的图表：</p>
+        <p>这两天翻看 ibireme 大神 <a href="http://blog.ibireme.com/">不再安全的 OSSpinLock</a> 这篇文章，看到文中分析各种锁之间的性能的图表，怀着好奇的心态，学习了下锁：</p>
     </div>
 
     <p class="post-meta">
@@ -297,7 +301,8 @@
     
 
     <div class="excerpt typo">
-        <p>首先感谢下 <a href="https://casatwy.com/pages/about-me.html">Tian Wei Yu</a> 的 <a href="https://casatwy.com/responder_chain_communication.html"><a href="https://casatwy.com/responder_chain_communication.html">一种基于ResponderChain的对象交互方式</a></a> 这篇文章，让我知道对象间的交互还有这种姿势。说实话，第一遍没看懂，自己跟着敲了一遍才理解，所以有了这篇文章，算是个记录。</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Responder Chain ，也就是响应链，关于这方面的知识因为不是本文重点，还不太理解的可以去看看这篇文章：<a href="http://www.jianshu.com/p/2e074db792ba">史上最详细的iOS之事件的传递和响应机制-原理篇</a>。</p>
+<p>在 iOS 中，对象间的交互模式大概有这几种：直接 property 传值、delegate、KVO、block、protocol、多态、Target-Action 等等，本文介绍的是一种基于 UIResponder 对象交互方式，简而言之，就是 通过在 UIResponder上挂一个 category，使得事件和参数可以沿着 responder chain 逐步传递。对于那种 subviews 特别多，事件又需要层层传递的层级视图特别好用，但是，缺点也很明显，必须依赖于 UIResponder 对象。</p>
     </div>
 
     <p class="post-meta">
@@ -382,7 +387,7 @@
     
 
     <div class="excerpt typo">
-        <p>开始之前先简单说下需求：首先，页面样式由<code>A部门</code>负责，但是页面的数据依赖于<code>B部门</code>和<code>C部门</code>，<code>B、C</code>都有自己的唯一标识<code>projectTag</code>并且都有自己的接口，接口字段都不相同，他们的关系如下图：</p>
+        <p>开始之前先简单说下需求：首先，页面样式由 A 部门负责，但是页面的数据依赖于 B 部门和 C 部门，B、C 都有自己的唯一标识 <code>projectTag</code> 并且都有自己的接口，接口字段都不相同，他们的关系如下图：</p>
     </div>
 
     <p class="post-meta">
@@ -405,6 +410,10 @@
       
           <a href="/tags/ObjC/" rel="tag" class="post-tag">
             ObjC
+          </a>
+      
+          <a href="/tags/源码解析/" rel="tag" class="post-tag">
+            源码解析
           </a>
       
     
