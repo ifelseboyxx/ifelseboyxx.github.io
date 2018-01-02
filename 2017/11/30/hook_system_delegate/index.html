@@ -10,11 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="关于 Method Swizzling 基本用法可以先看看博主之前的文章 浅谈 Method Swizzling, 这里就不多做介绍了。本文以 UIWebViewDelegate 为例，介绍如何利用 Method Swizzling 来 Hook 系统的 delegate 方法， 主要有如下几个步骤：
-
-新建 UIWebView Category
-Hook  UIWebView 的 delegate 方法
-Hook  UIWebViewDelegate 协议中的具体方法">
+        <meta name="description" content="关于 Method Swizzling 基本用法可以先看看博主之前的文章 浅谈 Method Swizzling, 这里就不多做介绍了。本文以 UIWebViewDelegate 为例，介绍如何利用 Method Swizzling 来 Hook 系统的 delegate 方法， 主要有如下几个步骤">
     
 
     <!--Author-->
@@ -222,7 +218,6 @@ Hook  UIWebViewDelegate 协议中的具体方法">
 <li>Hook  UIWebView 的 <code>delegate</code> 方法</li>
 <li>Hook  <code>UIWebViewDelegate</code> 协议中的具体方法</li>
 </ul>
-<a id="more"></a>
 <h3 id="Hook-UIWebView-的代理"><a href="#Hook-UIWebView-的代理" class="headerlink" title="Hook  UIWebView 的代理"></a>Hook  UIWebView 的代理</h3><p>首先，我们应该明白，当我们想 Hook 某个方法函数时，必须知道对应的 <code>class</code> ，我们这里之所以 Hook UIWebView 的 delegate，为的就是找到继承了 <code>UIWebViewDelegate</code> 协议的 <code>class</code>：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)load &#123;</div><div class="line">    <span class="comment">// Hook UIWebView</span></div><div class="line">    Method originalMethod = class_getInstanceMethod([<span class="keyword">self</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(setDelegate:));</div><div class="line">    Method ownerMethod = class_getInstanceMethod([<span class="keyword">self</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(hook_setDelegate:));</div><div class="line">    method_exchangeImplementations(originalMethod, ownerMethod);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)hook_setDelegate:(<span class="keyword">id</span>&lt;<span class="built_in">UIWebViewDelegate</span>&gt;)delegate &#123;</div><div class="line"></div><div class="line">    [<span class="keyword">self</span> hook_setDelegate:delegate];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这里我们需要注意，我们用的是 <code>class_getInstanceMethod</code> 而不是 <code>class_getClassMethod</code> ，因为 <code>setDelegate :</code> 是实例方法。另外我们这里用 <code>method_exchangeImplementations</code> 直接交换了，并没有使用 <code>class_addMethod()</code> 函数判断是因为这里不会出现替换的父类方法的问题。</p>

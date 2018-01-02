@@ -10,7 +10,9 @@
 
     <!--Description-->
     
-        <meta name="description" content="开始之前先简单说下需求：首先，页面样式由 A 部门负责，但是页面的数据依赖于 B 部门和 C 部门，B、C 都有自己的唯一标识 projectTag 并且都有自己的接口，接口字段都不相同，他们的关系如下图：">
+        <meta name="description" content="开始之前先简单说下需求：首先，页面样式由 A 部门负责，但是页面的数据依赖于 B 部门和 C 部门，B、C 都有自己的唯一标识 projectTag 并且都有自己的接口，接口字段都不相同，他们的关系如下图：
+
+在这种关系结构下就会导致一个问题：B 接口和 C 接口都有自己数据格式，A 部门的页面到底">
     
 
     <!--Author-->
@@ -209,7 +211,6 @@
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <p>开始之前先简单说下需求：首先，页面样式由 A 部门负责，但是页面的数据依赖于 B 部门和 C 部门，B、C 都有自己的唯一标识 <code>projectTag</code> 并且都有自己的接口，接口字段都不相同，他们的关系如下图：</p>
-<a id="more"></a>
 <p><img src="/images/pic.png" alt=""></p>
 <p>在这种关系结构下就会导致一个问题：B 接口和 C 接口都有自己数据格式，A 部门的页面到底用哪个接口？总不能用 <code>if else</code> 判断吧？万一还有部门 D、部门 E 呢？</p>
 <h2 id="利用协议实现多重继承"><a href="#利用协议实现多重继承" class="headerlink" title="利用协议实现多重继承"></a>利用协议实现多重继承</h2><p>首先我们新建个协议 <code>PublicProtocol.h</code>，这个协议定义了 <code>页面VC</code> 所需要的数据元素（这里一般都定义成 <code>readonly</code> ，不允许外部修改）：</p>

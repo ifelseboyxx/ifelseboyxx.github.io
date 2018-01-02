@@ -157,10 +157,9 @@
     <link href="http://yoursite.com/2017/12/07/swift-tips/"/>
     <id>http://yoursite.com/2017/12/07/swift-tips/</id>
     <published>2017-12-07T13:28:02.000Z</published>
-    <updated>2017-12-27T05:01:05.962Z</updated>
+    <updated>2018-01-02T14:09:23.504Z</updated>
     
     <content type="html"><![CDATA[<p>以下内容均是笔者学习过程中<strong>收集</strong>的知识点，顺序比较跳跃，初衷是为了方便查阅，顺便加深记忆。<strong>内容会不断更新</strong>，如果有什么问题或者有好的 Swift 方面的语法糖或者知识点也可以提出来，我会挑选斟酌后收录，欢迎大家关注～</p>
-<a id="more"></a>
 <p><strong>环境：</strong></p>
 <blockquote>
 <p>Swift 4.0<br>Xcode 9.1</p>
@@ -380,7 +379,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;以下内容均是笔者学习过程中&lt;strong&gt;收集&lt;/strong&gt;的知识点，顺序比较跳跃，初衷是为了方便查阅，顺便加深记忆。&lt;strong&gt;内容会不断更新&lt;/strong&gt;，如果有什么问题或者有好的 Swift 方面的语法糖或者知识点也可以提出来，我会挑选斟酌后收录，欢迎大家关注～&lt;/p&gt;
+      &lt;p&gt;以下内容均是笔者学习过程中&lt;strong&gt;收集&lt;/strong&gt;的知识点，顺序比较跳跃，初衷是为了方便查阅，顺便加深记忆。&lt;strong&gt;内容会不断更新&lt;/strong&gt;，如果有什么问题或者有好的 Swift 方面的语法糖或者知识点也可以提出来，我会挑选斟酌后收录，欢迎大家
     
     </summary>
     
@@ -394,7 +393,7 @@
     <link href="http://yoursite.com/2017/11/30/hook_system_delegate/"/>
     <id>http://yoursite.com/2017/11/30/hook_system_delegate/</id>
     <published>2017-11-30T15:41:23.000Z</published>
-    <updated>2017-12-27T14:36:28.159Z</updated>
+    <updated>2018-01-02T14:10:13.135Z</updated>
     
     <content type="html"><![CDATA[<p>关于 Method Swizzling 基本用法可以先看看博主之前的文章 <a href="http://blog.ifelseboyxx.com/2017/01/25/Method-Swizzling/" target="_blank" rel="external">浅谈 Method Swizzling</a>, 这里就不多做介绍了。本文以 <code>UIWebViewDelegate</code> 为例，介绍如何利用 Method Swizzling 来 Hook 系统的 delegate 方法， 主要有如下几个步骤：</p>
 <ul>
@@ -402,7 +401,6 @@
 <li>Hook  UIWebView 的 <code>delegate</code> 方法</li>
 <li>Hook  <code>UIWebViewDelegate</code> 协议中的具体方法</li>
 </ul>
-<a id="more"></a>
 <h3 id="Hook-UIWebView-的代理"><a href="#Hook-UIWebView-的代理" class="headerlink" title="Hook  UIWebView 的代理"></a>Hook  UIWebView 的代理</h3><p>首先，我们应该明白，当我们想 Hook 某个方法函数时，必须知道对应的 <code>class</code> ，我们这里之所以 Hook UIWebView 的 delegate，为的就是找到继承了 <code>UIWebViewDelegate</code> 协议的 <code>class</code>：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)load &#123;</div><div class="line">    <span class="comment">// Hook UIWebView</span></div><div class="line">    Method originalMethod = class_getInstanceMethod([<span class="keyword">self</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(setDelegate:));</div><div class="line">    Method ownerMethod = class_getInstanceMethod([<span class="keyword">self</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(hook_setDelegate:));</div><div class="line">    method_exchangeImplementations(originalMethod, ownerMethod);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)hook_setDelegate:(<span class="keyword">id</span>&lt;<span class="built_in">UIWebViewDelegate</span>&gt;)delegate &#123;</div><div class="line"></div><div class="line">    [<span class="keyword">self</span> hook_setDelegate:delegate];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这里我们需要注意，我们用的是 <code>class_getInstanceMethod</code> 而不是 <code>class_getClassMethod</code> ，因为 <code>setDelegate :</code> 是实例方法。另外我们这里用 <code>method_exchangeImplementations</code> 直接交换了，并没有使用 <code>class_addMethod()</code> 函数判断是因为这里不会出现替换的父类方法的问题。</p>
@@ -422,12 +420,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;关于 Method Swizzling 基本用法可以先看看博主之前的文章 &lt;a href=&quot;http://blog.ifelseboyxx.com/2017/01/25/Method-Swizzling/&quot;&gt;浅谈 Method Swizzling&lt;/a&gt;, 这里就不多做介绍了。本文以 &lt;code&gt;UIWebViewDelegate&lt;/code&gt; 为例，介绍如何利用 Method Swizzling 来 Hook 系统的 delegate 方法， 主要有如下几个步骤：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;新建 UIWebView Category&lt;/li&gt;
-&lt;li&gt;Hook  UIWebView 的 &lt;code&gt;delegate&lt;/code&gt; 方法&lt;/li&gt;
-&lt;li&gt;Hook  &lt;code&gt;UIWebViewDelegate&lt;/code&gt; 协议中的具体方法&lt;/li&gt;
-&lt;/ul&gt;
+      &lt;p&gt;关于 Method Swizzling 基本用法可以先看看博主之前的文章 &lt;a href=&quot;http://blog.ifelseboyxx.com/2017/01/25/Method-Swizzling/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;浅谈
     
     </summary>
     
@@ -443,10 +436,9 @@
     <link href="http://yoursite.com/2017/11/15/lock/"/>
     <id>http://yoursite.com/2017/11/15/lock/</id>
     <published>2017-11-15T03:38:01.000Z</published>
-    <updated>2017-12-27T14:47:19.051Z</updated>
+    <updated>2018-01-02T14:09:09.787Z</updated>
     
     <content type="html"><![CDATA[<p>这两天翻看 ibireme 大神 <a href="http://blog.ibireme.com/" target="_blank" rel="external">不再安全的 OSSpinLock</a> 这篇文章，看到文中分析各种锁之间的性能的图表，怀着好奇的心态，学习了下锁：</p>
-<a id="more"></a>
 <p><img src="http://upload-images.jianshu.io/upload_images/1899027-eb3ef0d444034362.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="lock_benchmark.png"></p>
 <h2 id="锁是什么意思？"><a href="#锁是什么意思？" class="headerlink" title="锁是什么意思？"></a>锁是什么意思？</h2><p>我们在使用多线程的时候多个线程可能会访问同一块资源，这样就很容易引发数据错乱和数据安全等问题，这时候就需要我们保证每次只有一个线程访问这一块资源，<strong>锁</strong>应运而生。</p>
 <h3 id="OSSpinLock"><a href="#OSSpinLock" class="headerlink" title="OSSpinLock"></a>OSSpinLock</h3><p>需导入头文件:</p>
@@ -579,7 +571,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;这两天翻看 ibireme 大神 &lt;a href=&quot;http://blog.ibireme.com/&quot;&gt;不再安全的 OSSpinLock&lt;/a&gt; 这篇文章，看到文中分析各种锁之间的性能的图表，怀着好奇的心态，学习了下锁：&lt;/p&gt;
+      &lt;p&gt;这两天翻看 ibireme 大神 &lt;a href=&quot;http://blog.ibireme.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;不再安全的 OSSpinLock&lt;/a&gt; 这篇文章，看到文中分析各种锁之间的性能的图表，怀着好奇的心态，学习
     
     </summary>
     
@@ -593,10 +585,9 @@
     <link href="http://yoursite.com/2017/09/06/smooth_tableview/"/>
     <id>http://yoursite.com/2017/09/06/smooth_tableview/</id>
     <published>2017-09-06T15:30:29.000Z</published>
-    <updated>2017-12-27T14:49:24.045Z</updated>
+    <updated>2018-01-02T14:11:13.986Z</updated>
     
     <content type="html"><![CDATA[<p>近些年，App 越来越推崇体验至上，随随便便乱写一通的话已经很难让用户买帐了，顺滑的列表便是其中很重要的一点。如果一个 App 的页面滚动起来总是卡顿卡顿的，轻则被当作反面教材来吐槽或者衬托“我们的 App balabala…”，重则直接卸载。正好最近在优化这一块儿，总结记录下。</p>
-<a id="more"></a>
 <p>如果说有什么好的博客文章推荐，ibireme  的  <a href="https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/" target="_blank" rel="external">iOS 保持界面流畅的技巧</a> 这篇堪称经典，墙裂推荐反复阅读。这篇文章中讲解了很多的优化点，我自己总结了下收益最大的两个优化点：</p>
 <ul>
 <li>避免重复多次计算 cell 行高</li>
@@ -604,7 +595,6 @@
 </ul>
 <p><img src="/images/asyn.png" alt=""></p>
 <p>大家可以看看上面这张图的对比分析，数据是 iPhone6 的机子用 instruments 抓的，左边的是用 Auto Layout 绘制界面的数据分析，正常如果想平滑滚动的话，fps 至少需要稳定在 55 左右，我们可以发现，在没有缓存行高和异步渲染的情况下 fps 是最低的，可以说是比较卡顿了，至少是能肉眼感觉出来，能满足平滑滚动要求的也只有在缓存行高且异步渲染的情况下；右边的是没用 Auto Layout 直接用 frame 来绘制界面的数据分析，可以发现即使没有异步渲染，也能勉强满足平滑滚动的要求，如果开启异步渲染的话，可以说是相当的丝滑了。</p>
-<!--more-->
 <h3 id="避免重复多次计算-cell-行高"><a href="#避免重复多次计算-cell-行高" class="headerlink" title="避免重复多次计算 cell 行高"></a>避免重复多次计算 cell 行高</h3><p>TableView 行高计算可以说是个老生常谈的问题了，<code>heightForRowAtIndexPath:</code>  是个调用相当频繁的方法，在里面做过多的事情难免会造成卡顿。 在 iOS 8 中，我们可以通过设置下面两个属性来很轻松的实现高度自适应：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">self</span>.tableView.estimatedRowHeight = <span class="number">88</span>;</div><div class="line"><span class="keyword">self</span>.tableView.rowHeight = <span class="built_in">UITableViewAutomaticDimension</span>;</div></pre></td></tr></table></figure>
 <p>虽然很方便，不过如果你的页面对性能有一定要求，建议不要这么做，具体可以看看 sunnyxx 的 <a href="http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/" target="_blank" rel="external">优化UITableViewCell高度计算的那些事</a>。文中针对 Auto Layout，提供了个 cell 行高的缓存库 <a href="https://github.com/forkingdog/UITableView-FDTemplateLayoutCell" target="_blank" rel="external">UITableView-FDTemplateLayoutCell</a>，可以很好的帮助我们避免 cell 行高多次计算的问题。</p>
@@ -679,7 +669,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;近些年，App 越来越推崇体验至上，随随便便乱写一通的话已经很难让用户买帐了，顺滑的列表便是其中很重要的一点。如果一个 App 的页面滚动起来总是卡顿卡顿的，轻则被当作反面教材来吐槽或者衬托“我们的 App balabala…”，重则直接卸载。正好最近在优化这一块儿，总结记录下。&lt;/p&gt;
+      &lt;p&gt;近些年，App 越来越推崇体验至上，随随便便乱写一通的话已经很难让用户买帐了，顺滑的列表便是其中很重要的一点。如果一个 App 的页面滚动起来总是卡顿卡顿的，轻则被当作反面教材来吐槽或者衬托“我们的 App balabala…”，重则直接卸载。正好最近在优化这一块儿，总结记
     
     </summary>
     
@@ -693,11 +683,10 @@
     <link href="http://yoursite.com/2017/08/04/ResponderChain/"/>
     <id>http://yoursite.com/2017/08/04/ResponderChain/</id>
     <published>2017-08-04T02:26:23.000Z</published>
-    <updated>2017-12-27T14:56:37.595Z</updated>
+    <updated>2018-01-02T14:09:17.196Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Responder Chain ，也就是响应链，关于这方面的知识因为不是本文重点，还不太理解的可以去看看这篇文章：<a href="http://www.jianshu.com/p/2e074db792ba" target="_blank" rel="external">史上最详细的iOS之事件的传递和响应机制-原理篇</a>。</p>
 <p>在 iOS 中，对象间的交互模式大概有这几种：直接 property 传值、delegate、KVO、block、protocol、多态、Target-Action 等等，本文介绍的是一种基于 UIResponder 对象交互方式，简而言之，就是 通过在 UIResponder上挂一个 category，使得事件和参数可以沿着 responder chain 逐步传递。对于那种 subviews 特别多，事件又需要层层传递的层级视图特别好用，但是，缺点也很明显，必须依赖于 UIResponder 对象。</p>
-<a id="more"></a>
 <h3 id="具体事例"><a href="#具体事例" class="headerlink" title="具体事例"></a>具体事例</h3><p>我们先来看看下面这种很常见的界面：</p>
 <p><img src="/images/08-04.png" alt=""></p>
 <p>简单讲解下：最外层是个 UITableView，我们就叫做 SuperTable，每个 cell 里面又嵌套了个 UITableView，叫做 SubTable，然后这个 SubTable 的 cell 里面有一些按钮，我们理一下这个界面的层级：</p>
@@ -728,8 +717,7 @@
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;Responder Chain ，也就是响应链，关于这方面的知识因为不是本文重点，还不太理解的可以去看看这篇文章：&lt;a href=&quot;http://www.jianshu.com/p/2e074db792ba&quot;&gt;史上最详细的iOS之事件的传递和响应机制-原理篇&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;在 iOS 中，对象间的交互模式大概有这几种：直接 property 传值、delegate、KVO、block、protocol、多态、Target-Action 等等，本文介绍的是一种基于 UIResponder 对象交互方式，简而言之，就是 通过在 UIResponder上挂一个 category，使得事件和参数可以沿着 responder chain 逐步传递。对于那种 subviews 特别多，事件又需要层层传递的层级视图特别好用，但是，缺点也很明显，必须依赖于 UIResponder 对象。&lt;/p&gt;
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;Responder Chain ，也就是响应链，关于这方面的知识因为不是本文重点，还不太理解的可以去看看这篇文章：&lt;a href=&quot;http
     
     </summary>
     
@@ -743,12 +731,10 @@
     <link href="http://yoursite.com/2017/07/23/iOS_childViewController/"/>
     <id>http://yoursite.com/2017/07/23/iOS_childViewController/</id>
     <published>2017-07-23T14:40:23.000Z</published>
-    <updated>2017-12-27T15:04:53.328Z</updated>
+    <updated>2018-01-02T14:09:42.018Z</updated>
     
     <content type="html"><![CDATA[<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。</p>
-<a id="more"></a>
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：</p>
-<!--more-->
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加一个 childViewController</span></div><div class="line"><span class="built_in">UIViewController</span> *vc = [<span class="built_in">UIViewController</span> new];<span class="comment">//子控制器</span></div><div class="line">[<span class="keyword">self</span> addChildViewController:vc];<span class="comment">//添加到父控制器中</span></div><div class="line">vc.view.frame = <span class="comment">/*....*/</span>;<span class="comment">//设置 frame</span></div><div class="line">[<span class="keyword">self</span>.view addSubview:vc.view];<span class="comment">//把子控制器的 view 添加到父控制器的 view 上面</span></div><div class="line">[vc didMoveToParentViewController:<span class="keyword">self</span>];  <span class="comment">//子控制器被通知有了一个父控制器</span></div><div class="line"></div><div class="line"><span class="comment">//移除一个 childViewController</span></div><div class="line">[vc willMoveToParentViewController:<span class="literal">nil</span>];<span class="comment">//子控制器被通知即将解除父子关系</span></div><div class="line">[vc.view removeFromSuperview];<span class="comment">//把子控制器的 view 从到父控制器的 view 上面移除</span></div><div class="line">[vc removeFromParentViewController];<span class="comment">//真正的解除关系,会自己调用 [vc didMoveToParentViewController:nil]</span></div></pre></td></tr></table></figure>
 <p>实现上面部分，childViewController 的生命周期方法也就是 viewWillAppear、viewDidAppear等等这些，是不需要我们关心的，系统内部会自动帮我们调用。</p>
 <h3 id="手动管理-childViewController-的生命周期方法"><a href="#手动管理-childViewController-的生命周期方法" class="headerlink" title="手动管理 childViewController 的生命周期方法"></a>手动管理 childViewController 的生命周期方法</h3><p>有时候我们希望自己控制子控制器的生命周期方法，这里我们就需要一些额外的操作：</p>
@@ -770,7 +756,7 @@
     
     <summary type="html">
     
-      &lt;h3 id=&quot;使用场景&quot;&gt;&lt;a href=&quot;#使用场景&quot; class=&quot;headerlink&quot; title=&quot;使用场景&quot;&gt;&lt;/a&gt;使用场景&lt;/h3&gt;&lt;p&gt;在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。&lt;/p&gt;
+      &lt;h3 id=&quot;使用场景&quot;&gt;&lt;a href=&quot;#使用场景&quot; class=&quot;headerlink&quot; title=&quot;使用场景&quot;&gt;&lt;/a&gt;使用场景&lt;/h3&gt;&lt;p&gt;在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 A
     
     </summary>
     
@@ -784,14 +770,12 @@
     <link href="http://yoursite.com/2017/07/03/UIControlState/"/>
     <id>http://yoursite.com/2017/07/03/UIControlState/</id>
     <published>2017-07-03T09:41:01.000Z</published>
-    <updated>2017-12-27T15:09:54.858Z</updated>
+    <updated>2018-01-02T14:09:51.273Z</updated>
     
     <content type="html"><![CDATA[<p>最近发现关于 <code>UIButton</code> 状态的一个挺有意思的问题，大概就是：</p>
 <p>当一个按钮处于选中状态，也就是 <code>selected</code> 为 <code>YES</code> 时，如果这时候再点击它时，按钮会变成 <code>normal</code> 状态时候的样子！</p>
-<a id="more"></a>
 <p>问题效果大概这样：</p>
 <p><img src="/images/events.gif" alt=""></p>
-<!--more-->
 <p>因为只是个 <code>Demo</code> ，所以代码写的比较随意，就是设置按钮不同状态下的呈现：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"ViewController.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">UIButton</span> *btn1;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">UIButton</span> *btn2;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></div><div class="line">   </div><div class="line">    <span class="built_in">UIButton</span> *btn1 = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeCustom</span>];</div><div class="line">    btn1.frame = <span class="built_in">CGRectMake</span>(<span class="number">100</span>, <span class="number">100</span>, <span class="number">60</span>, <span class="number">30</span>);</div><div class="line">    [btn1 setTitle:<span class="string">@"按钮一"</span> forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">    [btn1 setTitleColor:[<span class="built_in">UIColor</span> blackColor] forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">    [btn1 setTitleColor:[<span class="built_in">UIColor</span> redColor] forState:<span class="built_in">UIControlStateSelected</span>];</div><div class="line">    [<span class="keyword">self</span>.view addSubview:_btn1 = btn1];</div><div class="line">    [btn1 addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(btn1Click) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</div><div class="line">    </div><div class="line">    <span class="built_in">UIButton</span> *btn2 = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeCustom</span>];</div><div class="line">    btn2.frame = <span class="built_in">CGRectMake</span>(<span class="number">170</span>, <span class="number">100</span>, <span class="number">60</span>, <span class="number">30</span>);</div><div class="line">    [btn2 setTitle:<span class="string">@"按钮二"</span> forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">    [btn2 setTitleColor:[<span class="built_in">UIColor</span> blackColor] forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">    [btn2 setTitleColor:[<span class="built_in">UIColor</span> redColor] forState:<span class="built_in">UIControlStateSelected</span>];</div><div class="line">    [<span class="keyword">self</span>.view addSubview:_btn2 = btn2];</div><div class="line">    [btn2 addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(btn2Click) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)btn1Click &#123;</div><div class="line">    <span class="keyword">if</span>(_btn2.isSelected) &#123;_btn2.selected = <span class="literal">NO</span>;&#125;</div><div class="line">    _btn1.selected = <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)btn2Click &#123;</div><div class="line">    <span class="keyword">if</span>(_btn1.isSelected) &#123;_btn1.selected = <span class="literal">NO</span>;&#125;</div><div class="line">    _btn2.selected = <span class="literal">YES</span>;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
 <p>我们可以发现，这里分别设置了按钮 <code>UIControlStateNormal</code>和 <code>UIControlStateSelected</code> 状态的标题颜色，那么该如何解决呢？</p>
@@ -805,7 +789,7 @@
     <summary type="html">
     
       &lt;p&gt;最近发现关于 &lt;code&gt;UIButton&lt;/code&gt; 状态的一个挺有意思的问题，大概就是：&lt;/p&gt;
-&lt;p&gt;当一个按钮处于选中状态，也就是 &lt;code&gt;selected&lt;/code&gt; 为 &lt;code&gt;YES&lt;/code&gt; 时，如果这时候再点击它时，按钮会变成 &lt;code&gt;normal&lt;/code&gt; 状态时候的样子！&lt;/p&gt;
+&lt;p&gt;当一个按钮处于选中状态，也就是 &lt;code&gt;selected&lt;/code&gt; 为 &lt;code&gt;YES&lt;/code&gt; 时，如果这时候再点击它时，按钮会变成 &lt;code&gt;
     
     </summary>
     
@@ -819,10 +803,9 @@
     <link href="http://yoursite.com/2017/04/17/protocol/"/>
     <id>http://yoursite.com/2017/04/17/protocol/</id>
     <published>2017-04-17T15:15:57.000Z</published>
-    <updated>2017-12-27T15:16:37.057Z</updated>
+    <updated>2018-01-02T14:10:07.237Z</updated>
     
     <content type="html"><![CDATA[<p>开始之前先简单说下需求：首先，页面样式由 A 部门负责，但是页面的数据依赖于 B 部门和 C 部门，B、C 都有自己的唯一标识 <code>projectTag</code> 并且都有自己的接口，接口字段都不相同，他们的关系如下图：</p>
-<a id="more"></a>
 <p><img src="/images/pic.png" alt=""></p>
 <p>在这种关系结构下就会导致一个问题：B 接口和 C 接口都有自己数据格式，A 部门的页面到底用哪个接口？总不能用 <code>if else</code> 判断吧？万一还有部门 D、部门 E 呢？</p>
 <h2 id="利用协议实现多重继承"><a href="#利用协议实现多重继承" class="headerlink" title="利用协议实现多重继承"></a>利用协议实现多重继承</h2><p>首先我们新建个协议 <code>PublicProtocol.h</code>，这个协议定义了 <code>页面VC</code> 所需要的数据元素（这里一般都定义成 <code>readonly</code> ，不允许外部修改）：</p>
@@ -857,6 +840,7 @@
     <summary type="html">
     
       &lt;p&gt;开始之前先简单说下需求：首先，页面样式由 A 部门负责，但是页面的数据依赖于 B 部门和 C 部门，B、C 都有自己的唯一标识 &lt;code&gt;projectTag&lt;/code&gt; 并且都有自己的接口，接口字段都不相同，他们的关系如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/im
     
     </summary>
     
@@ -870,10 +854,9 @@
     <link href="http://yoursite.com/2017/02/23/Masonry-Analysis/"/>
     <id>http://yoursite.com/2017/02/23/Masonry-Analysis/</id>
     <published>2017-02-23T13:40:52.000Z</published>
-    <updated>2017-12-27T15:53:38.190Z</updated>
+    <updated>2018-01-02T14:09:32.636Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://github.com/SnapKit/Masonry" target="_blank" rel="external">Masonry</a> 是一个轻量级的用于自动布局（AutoLayout）的第三方框架，以其简洁的使用方式，受到广大开发者的青睐。本篇文章将带你一步步的去了解其实现原理，知其所以然！</p>
-<a id="more"></a>
 <h3 id="结构概览"><a href="#结构概览" class="headerlink" title="结构概览"></a>结构概览</h3><p><img src="http://p0kmbfoc8.bkt.clouddn.com/Snip20171227_1.png" alt=""></p>
 <ul>
 <li><p>最上面的几个 <code>category</code>，包含了我们常用的一些方法及属性，例如：</p>
@@ -1029,7 +1012,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;a href=&quot;https://github.com/SnapKit/Masonry&quot;&gt;Masonry&lt;/a&gt; 是一个轻量级的用于自动布局（AutoLayout）的第三方框架，以其简洁的使用方式，受到广大开发者的青睐。本篇文章将带你一步步的去了解其实现原理，知其所以然！&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://github.com/SnapKit/Masonry&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Masonry&lt;/a&gt; 是一个轻量级的用于自动布局（AutoLayout）的第三方框架，以其简洁的使用方式，受到广大开发者
     
     </summary>
     
@@ -1045,16 +1028,15 @@
     <link href="http://yoursite.com/2017/01/25/Method-Swizzling/"/>
     <id>http://yoursite.com/2017/01/25/Method-Swizzling/</id>
     <published>2017-01-25T13:28:02.000Z</published>
-    <updated>2017-12-27T05:02:48.222Z</updated>
+    <updated>2018-01-02T14:09:57.222Z</updated>
     
     <content type="html"><![CDATA[<p>如果对 Runtime 有一定了解的话，一定听说过或者用过这个函数：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">OBJC_EXPORT <span class="keyword">void</span> method_exchangeImplementations(Method m1, Method m2)</div></pre></td></tr></table></figure>
 <p>它通常叫做 Method Swizzling，算是<code>objc</code>的 “黑魔法” 了，作用就是在程序运行期间动态的给两个方法互换实现。</p>
-<a id="more"></a>
 <p>最近有用到这个，总结下遇到的一些问题：</p>
 <h4 id="静态（类）方法和实例方法的交换实现方式一样吗？"><a href="#静态（类）方法和实例方法的交换实现方式一样吗？" class="headerlink" title="静态（类）方法和实例方法的交换实现方式一样吗？"></a>静态（类）方法和实例方法的交换实现方式一样吗？</h4><p>交换静态（类）方法的正确姿势：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)load &#123;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        SEL s1 = <span class="keyword">@selector</span>(go);</div><div class="line">        SEL s2 = <span class="keyword">@selector</span>(stop);</div><div class="line">        Class <span class="keyword">class</span> = object_getClass((<span class="keyword">id</span>)<span class="keyword">self</span>);</div><div class="line">        Method m1 = class_getClassMethod(<span class="keyword">class</span>, s1);</div><div class="line">        Method m2 = class_getClassMethod(<span class="keyword">class</span>, s2);</div><div class="line">        <span class="built_in">BOOL</span> success = class_addMethod(<span class="keyword">class</span>, s1, method_getImplementation(m2), method_getTypeEncoding(m2));</div><div class="line">        <span class="keyword">if</span> (success)&#123;</div><div class="line">            class_replaceMethod(<span class="keyword">class</span>, s2, method_getImplementation(m1), method_getTypeEncoding(m1));</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            method_exchangeImplementations(m1, m2);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="keyword">void</span>)go &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Go!"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="keyword">void</span>)stop &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Stop!"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<!--more-->
+<a id="more"></a>
 <p>交换实例方法的正确姿势：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)load &#123;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        SEL s1 = <span class="keyword">@selector</span>(go);</div><div class="line">        SEL s2 = <span class="keyword">@selector</span>(stop);</div><div class="line">        Class <span class="keyword">class</span> = [<span class="keyword">self</span> <span class="keyword">class</span>];</div><div class="line">        Method m1 = class_getInstanceMethod(<span class="keyword">class</span>, s1);</div><div class="line">        Method m2 = class_getInstanceMethod(<span class="keyword">class</span>, s2);</div><div class="line">        <span class="built_in">BOOL</span> success = class_addMethod(<span class="keyword">class</span>, s1, method_getImplementation(m2), method_getTypeEncoding(m2));</div><div class="line">        <span class="keyword">if</span> (success)&#123;</div><div class="line">            class_replaceMethod(<span class="keyword">class</span>, s2, method_getImplementation(m1), method_getTypeEncoding(m1));</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            method_exchangeImplementations(m1, m2);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)go &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Go!"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)stop &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Stop!"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>我们可以发现上面两段方法的区别在于：</p>
@@ -1133,6 +1115,9 @@
       &lt;p&gt;如果对 Runtime 有一定了解的话，一定听说过或者用过这个函数：&lt;/p&gt;
 &lt;figure class=&quot;highlight objc&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;OBJC_EXPORT &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; method_exchangeImplementations(Method m1, Method m2)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;它通常叫做 Method Swizzling，算是&lt;code&gt;objc&lt;/code&gt;的 “黑魔法” 了，作用就是在程序运行期间动态的给两个方法互换实现。&lt;/p&gt;
+&lt;p&gt;最近有用到这个，总结下遇到的一些问题：&lt;/p&gt;
+&lt;h4 id=&quot;静态（类）方法和实例方法的交换实现方式一样吗？&quot;&gt;&lt;a href=&quot;#静态（类）方法和实例方法的交换实现方式一样吗？&quot; class=&quot;headerlink&quot; title=&quot;静态（类）方法和实例方法的交换实现方式一样吗？&quot;&gt;&lt;/a&gt;静态（类）方法和实例方法的交换实现方式一样吗？&lt;/h4&gt;&lt;p&gt;交换静态（类）方法的正确姿势：&lt;/p&gt;
+&lt;figure class=&quot;highlight objc&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;18&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;19&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;20&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;21&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;22&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;23&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;24&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;25&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;+ (&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt;)load &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;dispatch_once_t&lt;/span&gt; onceToken;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;dispatch_once&lt;/span&gt;(&amp;amp;onceToken, ^&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        SEL s1 = &lt;span class=&quot;keyword&quot;&gt;@selector&lt;/span&gt;(go);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        SEL s2 = &lt;span class=&quot;keyword&quot;&gt;@selector&lt;/span&gt;(stop);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        Class &lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; = object_getClass((&lt;span class=&quot;keyword&quot;&gt;id&lt;/span&gt;)&lt;span class=&quot;keyword&quot;&gt;self&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        Method m1 = class_getClassMethod(&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt;, s1);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        Method m2 = class_getClassMethod(&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt;, s2);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;BOOL&lt;/span&gt; success = class_addMethod(&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt;, s1, method_getImplementation(m2), method_getTypeEncoding(m2));&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (success)&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            class_replaceMethod(&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt;, s2, method_getImplementation(m1), method_getTypeEncoding(m1));&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            method_exchangeImplementations(m1, m2);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;+ (&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt;)go &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;NSLog&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;@&quot;Go!&quot;&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;+ (&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt;)stop &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;NSLog&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;@&quot;Stop!&quot;&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
@@ -1146,12 +1131,11 @@
     <link href="http://yoursite.com/2017/01/02/Xcode-VC-Template/"/>
     <id>http://yoursite.com/2017/01/02/Xcode-VC-Template/</id>
     <published>2017-01-02T11:46:23.000Z</published>
-    <updated>2017-12-27T05:01:53.737Z</updated>
+    <updated>2018-01-02T14:09:27.414Z</updated>
     
     <content type="html"><![CDATA[<p>话不多说我们先来体验下 :</p>
-<a id="more"></a>
 <p><img src="/images/VC.gif" alt=""></p>
-<h3 id="什么是-Xcode-类模板-？"><a href="#什么是-Xcode-类模板-？" class="headerlink" title="什么是 Xcode 类模板 ？"></a>什么是 Xcode 类模板 ？</h3><p>说到 Xcode 类模板有些人可能觉得陌生，其实作为一名 iOS 开发，我们每天都会用到 Xcode 类模板，例如创建一个 UIViewController，一个 Category 等等，这些其实都是 Xcode 帮我们集成好的模板。<br><!--more--><br><a name="options" style="color:#666;border-bottom:none;" ;="">创建系统 VC 模版 :</a></p>
+<h3 id="什么是-Xcode-类模板-？"><a href="#什么是-Xcode-类模板-？" class="headerlink" title="什么是 Xcode 类模板 ？"></a>什么是 Xcode 类模板 ？</h3><p>说到 Xcode 类模板有些人可能觉得陌生，其实作为一名 iOS 开发，我们每天都会用到 Xcode 类模板，例如创建一个 UIViewController，一个 Category 等等，这些其实都是 Xcode 帮我们集成好的模板。<br><a id="more"></a><br><a name="options" style="color:#666;border-bottom:none;" ;="">创建系统 VC 模版 :</a></p>
 <p><img src="/images/01.png" alt=""></p>
 <h3 id="为什么要自定义-Xcode-类模板-？"><a href="#为什么要自定义-Xcode-类模板-？" class="headerlink" title="为什么要自定义 Xcode 类模板 ？"></a>为什么要自定义 Xcode 类模板 ？</h3><p>当我们用 Xcode 自带的模板创建一个 UIViewController 的子类时，我们会发现 <code>.m</code> 文件会多出一些方法 :</p>
 <p><img src="/images/02.png" alt=""></p>
@@ -1239,6 +1223,8 @@
     <summary type="html">
     
       &lt;p&gt;话不多说我们先来体验下 :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/VC.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;什么是-Xcode-类模板-？&quot;&gt;&lt;a href=&quot;#什么是-Xcode-类模板-？&quot; class=&quot;headerlink&quot; title=&quot;什么是 Xcode 类模板 ？&quot;&gt;&lt;/a&gt;什么是 Xcode 类模板 ？&lt;/h3&gt;&lt;p&gt;说到 Xcode 类模板有些人可能觉得陌生，其实作为一名 iOS 开发，我们每天都会用到 Xcode 类模板，例如创建一个 UIViewController，一个 Category 等等，这些其实都是 Xcode 帮我们集成好的模板。&lt;br&gt;
     
     </summary>
     
