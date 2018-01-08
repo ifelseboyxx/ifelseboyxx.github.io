@@ -10,10 +10,10 @@
 
     <!--Description-->
     
-        <meta name="description" content="title: Objective-C 中延迟执行和取消date: 2018-01-08 19:15:57
-tags: [ObjC]在 Objective-C 中延迟执行还是很常见的需求，通常有如下几种方式可供选择：
+        <meta name="description" content="在 Objective-C 中延迟执行还是很常见的需求，通常有如下几种方式可供选择：
 performSelector：想要延迟调用某个方法：
-1[self perform">
+1[self performSelector:@selector(delay) withObject:nil afterDelay:3.0];
+取消延迟的方法">
     
 
     <!--Author-->
@@ -23,7 +23,7 @@ performSelector：想要延迟调用某个方法：
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="ifelseboyxx&#39;s Blog"/>
+        <meta property="og:title" content="Objective-C 中延迟执行和取消"/>
     
 
     <!--Open Graph Description-->
@@ -34,7 +34,7 @@ performSelector：想要延迟调用某个方法：
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -45,7 +45,7 @@ performSelector：想要延迟调用某个方法：
 
     <!-- Title -->
     
-    <title>ifelseboyxx&#39;s Blog</title>
+    <title>Objective-C 中延迟执行和取消 - ifelseboyxx&#39;s Blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -104,8 +104,8 @@ performSelector：想要延迟调用某个方法：
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     
-                        <li class="previous" title="">
-                            <a href="/2018/01/08/objc_xx/">&larr; Prev</a>
+                        <li class="previous disabled">
+                            <a href="#">&larr;  Prev</a>
                         </li>
                     
                 </li>
@@ -176,11 +176,17 @@ performSelector：想要延迟调用某个方法：
                 <!-- Title -->
                 <a href="/2018/01/08/objc_delay/">
                     <h2 class="post-title">
-                        Untitled
+                        Objective-C 中延迟执行和取消
                     </h2>
                 </a>
 
                 <!-- Tags -->
+                
+                  
+                        <a href="/tags/Objc/" rel="tag" class="post-tag">
+                        Objc
+                      </a>
+                  
                 
 
                 <p class="post-meta">
@@ -205,9 +211,7 @@ performSelector：想要延迟调用某个方法：
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <hr>
-<p>title: Objective-C 中延迟执行和取消<br>date: 2018-01-08 19:15:57</p>
-<h2 id="tags-ObjC"><a href="#tags-ObjC" class="headerlink" title="tags: [ObjC]"></a>tags: [ObjC]</h2><p>在 Objective-C 中延迟执行还是很常见的需求，通常有如下几种方式可供选择：</p>
+                <p>在 Objective-C 中延迟执行还是很常见的需求，通常有如下几种方式可供选择：</p>
 <h2 id="performSelector："><a href="#performSelector：" class="headerlink" title="performSelector："></a>performSelector：</h2><p>想要延迟调用某个方法：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(delay) withObject:<span class="literal">nil</span> afterDelay:<span class="number">3.0</span>];</div></pre></td></tr></table></figure>
 <p>取消延迟的方法：</p>
