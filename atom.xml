@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-01-08T09:15:32.119Z</updated>
+  <updated>2018-01-08T09:20:42.641Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,58 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2018/01/08/objc_delay/"/>
-    <id>http://yoursite.com/2018/01/08/objc_delay/</id>
-    <published>2018-01-08T09:04:11.880Z</published>
-    <updated>2018-01-08T09:15:32.119Z</updated>
-    
-    <content type="html"><![CDATA[<hr>
-<p>title: Objective-C 中延迟执行和取消<br>date: 2018-01-08 19:15:57</p>
-<h2 id="tags-ObjC"><a href="#tags-ObjC" class="headerlink" title="tags: [ObjC]"></a>tags: [ObjC]</h2><p>在 Objective-C 中延迟执行还是很常见的需求，通常有如下几种方式可供选择：</p>
-<h2 id="performSelector："><a href="#performSelector：" class="headerlink" title="performSelector："></a>performSelector：</h2><p>想要延迟调用某个方法：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(delay) withObject:<span class="literal">nil</span> afterDelay:<span class="number">3.0</span>];</div></pre></td></tr></table></figure>
-<p>取消延迟的方法：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="built_in">NSObject</span> cancelPreviousPerformRequestsWithTarget:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(delay) object:<span class="literal">nil</span>];</div></pre></td></tr></table></figure>
-<blockquote>
-<p>这里需要注意参数需要保持一致，否则取消失败。</p>
-</blockquote>
-<h2 id="NSTimer"><a href="#NSTimer" class="headerlink" title="NSTimer"></a>NSTimer</h2><p>想要延迟调用某个方法：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">self</span>.timer = [<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:<span class="number">2.0</span> target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(delay) userInfo:<span class="literal">nil</span> repeats:<span class="literal">NO</span>];</div></pre></td></tr></table></figure>
-<p>取消延迟的方法：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="keyword">self</span>.timer invalidate];</div></pre></td></tr></table></figure>
-<h2 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">2.0</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p><code>dispatch_after</code> 是比较常用的方法，但是 Objective-C 中并没有提供取消执行的相关 API。我们只能自己实现这个取消的逻辑：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">void</span> (^Task)(<span class="built_in">BOOL</span> cancel);</div><div class="line">Task delay(<span class="built_in">NSTimeInterval</span> time,<span class="keyword">void</span> (^task)()) &#123;</div><div class="line">    __block <span class="keyword">void</span> (^closure)() = task;</div><div class="line">    __block Task result;</div><div class="line">    Task delayedClosure = ^(<span class="built_in">BOOL</span> cancel)&#123;</div><div class="line">        <span class="keyword">if</span> (closure) &#123;</div><div class="line">            <span class="keyword">void</span> (^internalClosure)() = closure;</div><div class="line">            <span class="keyword">if</span> (!cancel) &#123;</div><div class="line">                <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), internalClosure);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        closure = <span class="literal">nil</span>;</div><div class="line">        result = <span class="literal">nil</span>;</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    result = delayedClosure;</div><div class="line">    </div><div class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">        <span class="keyword">if</span> (delayedClosure) &#123;</div><div class="line">            delayedClosure(<span class="literal">NO</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>使用的话可以这样：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">delay(<span class="number">60</span>, ^&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>如果想要延迟，可以先声明成成员变量并赋值：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">copy</span>, <span class="keyword">nonatomic</span>) Task task;</div></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">self</span>.task = delay(<span class="number">60</span>, ^&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>最后在需要的地方取消就行：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">self</span>.task(<span class="literal">YES</span>);</div></pre></td></tr></table></figure>
-<blockquote>
-<p>这种写法的核心思想是根据传入的 <code>Bool</code> 值，来控制 <code>dispatch_after</code> 回调 <code>block</code> 中的方法是否需要执行。看起来是取消了，但实际上还是被 GCD 放到 RunLoop 里去占用主线程资源了。</p>
-</blockquote>
-<h2 id="dispatch-source"><a href="#dispatch-source" class="headerlink" title="dispatch_source"></a>dispatch_source</h2><p>我们还可以利用 <code>dispatch_source</code> 中的定时器，来实现延时／取消操作：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) dispatch_source_t timer;</div></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 队列</span></div><div class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_get_main_queue();</div><div class="line"><span class="comment">// 创建 dispatch_source</span></div><div class="line">dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, <span class="number">0</span>, <span class="number">0</span>, queue);</div><div class="line"><span class="comment">// 声明成员变量</span></div><div class="line"><span class="keyword">self</span>.timer = timer;</div><div class="line"><span class="comment">// 设置两秒后触发</span></div><div class="line">dispatch_time_t startTime = dispatch_time(DISPATCH_TIME_NOW, <span class="number">3.0</span> * <span class="built_in">NSEC_PER_SEC</span>);</div><div class="line"><span class="comment">// 设置下次触发事件为 DISPATCH_TIME_FOREVER</span></div><div class="line">dispatch_time_t nextTime = DISPATCH_TIME_FOREVER;</div><div class="line"><span class="comment">// 设置精确度</span></div><div class="line">dispatch_time_t leeway = <span class="number">0.1</span> * <span class="built_in">NSEC_PER_SEC</span>;</div><div class="line"><span class="comment">// 配置时间</span></div><div class="line">dispatch_source_set_timer(timer, startTime, nextTime, leeway);</div><div class="line"><span class="comment">// 回调</span></div><div class="line">dispatch_source_set_event_handler(timer, ^&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;);</div><div class="line"><span class="comment">// 激活</span></div><div class="line">dispatch_resume(timer);</div></pre></td></tr></table></figure>
-<p>需要取消的话：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dispatch_source_cancel(<span class="keyword">self</span>.timer);</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;hr&gt;
-&lt;p&gt;title: Objective-C 中延迟执行和取消&lt;br&gt;date: 2018-01-08 19:15:57&lt;/p&gt;
-&lt;h2 id=&quot;tags-ObjC&quot;&gt;&lt;a href=&quot;#tags-ObjC&quot; class=&quot;headerlink&quot; title=&quot;tags:
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title></title>
@@ -113,6 +61,58 @@
       &lt;hr&gt;
 &lt;p&gt;title: Objective-C 中xxxx&lt;br&gt;date: 2018-01-09 19:15:57&lt;/p&gt;
 &lt;h2 id=&quot;tags-ObjC&quot;&gt;&lt;a href=&quot;#tags-ObjC&quot; class=&quot;headerlink&quot; title=&quot;tags: [O
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/01/08/objc_delay/"/>
+    <id>http://yoursite.com/2018/01/08/objc_delay/</id>
+    <published>2018-01-08T09:04:11.880Z</published>
+    <updated>2018-01-08T09:15:32.119Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<p>title: Objective-C 中延迟执行和取消<br>date: 2018-01-08 19:15:57</p>
+<h2 id="tags-ObjC"><a href="#tags-ObjC" class="headerlink" title="tags: [ObjC]"></a>tags: [ObjC]</h2><p>在 Objective-C 中延迟执行还是很常见的需求，通常有如下几种方式可供选择：</p>
+<h2 id="performSelector："><a href="#performSelector：" class="headerlink" title="performSelector："></a>performSelector：</h2><p>想要延迟调用某个方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(delay) withObject:<span class="literal">nil</span> afterDelay:<span class="number">3.0</span>];</div></pre></td></tr></table></figure>
+<p>取消延迟的方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="built_in">NSObject</span> cancelPreviousPerformRequestsWithTarget:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(delay) object:<span class="literal">nil</span>];</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这里需要注意参数需要保持一致，否则取消失败。</p>
+</blockquote>
+<h2 id="NSTimer"><a href="#NSTimer" class="headerlink" title="NSTimer"></a>NSTimer</h2><p>想要延迟调用某个方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">self</span>.timer = [<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:<span class="number">2.0</span> target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(delay) userInfo:<span class="literal">nil</span> repeats:<span class="literal">NO</span>];</div></pre></td></tr></table></figure>
+<p>取消延迟的方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="keyword">self</span>.timer invalidate];</div></pre></td></tr></table></figure>
+<h2 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">2.0</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><code>dispatch_after</code> 是比较常用的方法，但是 Objective-C 中并没有提供取消执行的相关 API。我们只能自己实现这个取消的逻辑：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">void</span> (^Task)(<span class="built_in">BOOL</span> cancel);</div><div class="line">Task delay(<span class="built_in">NSTimeInterval</span> time,<span class="keyword">void</span> (^task)()) &#123;</div><div class="line">    __block <span class="keyword">void</span> (^closure)() = task;</div><div class="line">    __block Task result;</div><div class="line">    Task delayedClosure = ^(<span class="built_in">BOOL</span> cancel)&#123;</div><div class="line">        <span class="keyword">if</span> (closure) &#123;</div><div class="line">            <span class="keyword">void</span> (^internalClosure)() = closure;</div><div class="line">            <span class="keyword">if</span> (!cancel) &#123;</div><div class="line">                <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), internalClosure);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        closure = <span class="literal">nil</span>;</div><div class="line">        result = <span class="literal">nil</span>;</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    result = delayedClosure;</div><div class="line">    </div><div class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">        <span class="keyword">if</span> (delayedClosure) &#123;</div><div class="line">            delayedClosure(<span class="literal">NO</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用的话可以这样：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">delay(<span class="number">60</span>, ^&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>如果想要延迟，可以先声明成成员变量并赋值：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">copy</span>, <span class="keyword">nonatomic</span>) Task task;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">self</span>.task = delay(<span class="number">60</span>, ^&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>最后在需要的地方取消就行：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">self</span>.task(<span class="literal">YES</span>);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这种写法的核心思想是根据传入的 <code>Bool</code> 值，来控制 <code>dispatch_after</code> 回调 <code>block</code> 中的方法是否需要执行。看起来是取消了，但实际上还是被 GCD 放到 RunLoop 里去占用主线程资源了。</p>
+</blockquote>
+<h2 id="dispatch-source"><a href="#dispatch-source" class="headerlink" title="dispatch_source"></a>dispatch_source</h2><p>我们还可以利用 <code>dispatch_source</code> 中的定时器，来实现延时／取消操作：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) dispatch_source_t timer;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 队列</span></div><div class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_get_main_queue();</div><div class="line"><span class="comment">// 创建 dispatch_source</span></div><div class="line">dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, <span class="number">0</span>, <span class="number">0</span>, queue);</div><div class="line"><span class="comment">// 声明成员变量</span></div><div class="line"><span class="keyword">self</span>.timer = timer;</div><div class="line"><span class="comment">// 设置两秒后触发</span></div><div class="line">dispatch_time_t startTime = dispatch_time(DISPATCH_TIME_NOW, <span class="number">3.0</span> * <span class="built_in">NSEC_PER_SEC</span>);</div><div class="line"><span class="comment">// 设置下次触发事件为 DISPATCH_TIME_FOREVER</span></div><div class="line">dispatch_time_t nextTime = DISPATCH_TIME_FOREVER;</div><div class="line"><span class="comment">// 设置精确度</span></div><div class="line">dispatch_time_t leeway = <span class="number">0.1</span> * <span class="built_in">NSEC_PER_SEC</span>;</div><div class="line"><span class="comment">// 配置时间</span></div><div class="line">dispatch_source_set_timer(timer, startTime, nextTime, leeway);</div><div class="line"><span class="comment">// 回调</span></div><div class="line">dispatch_source_set_event_handler(timer, ^&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;);</div><div class="line"><span class="comment">// 激活</span></div><div class="line">dispatch_resume(timer);</div></pre></td></tr></table></figure>
+<p>需要取消的话：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dispatch_source_cancel(<span class="keyword">self</span>.timer);</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+&lt;p&gt;title: Objective-C 中延迟执行和取消&lt;br&gt;date: 2018-01-08 19:15:57&lt;/p&gt;
+&lt;h2 id=&quot;tags-ObjC&quot;&gt;&lt;a href=&quot;#tags-ObjC&quot; class=&quot;headerlink&quot; title=&quot;tags:
     
     </summary>
     
