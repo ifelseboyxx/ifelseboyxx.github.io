@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/01/08/objc_delay/</loc>
+    
+    <lastmod>2018-01-08T09:05:28.844Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/01/02/RxSwift_1/</loc>
+    
+    <lastmod>2018-01-02T14:41:37.779Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/01/25/Method-Swizzling/</loc>
     
     <lastmod>2018-01-02T14:15:33.704Z</lastmod>
@@ -75,13 +89,6 @@
     <loc>http://yoursite.com/2017/11/15/lock/</loc>
     
     <lastmod>2018-01-02T14:09:09.787Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/01/02/RxSwift_1/</loc>
-    
-    <lastmod>2018-01-02T13:57:51.565Z</lastmod>
     
   </url>
   
