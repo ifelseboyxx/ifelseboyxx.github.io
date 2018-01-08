@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/01/08/objc_xx/</loc>
+    
+    <lastmod>2018-01-08T09:20:42.641Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/01/08/objc_delay/</loc>
     
-    <lastmod>2018-01-08T09:05:28.844Z</lastmod>
+    <lastmod>2018-01-08T09:15:32.119Z</lastmod>
     
   </url>
   
