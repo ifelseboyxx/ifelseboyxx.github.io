@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-02-13T09:31:22.790Z</updated>
+  <updated>2018-02-13T09:40:01.270Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2018/01/08/objc_delay/"/>
     <id>http://yoursite.com/2018/01/08/objc_delay/</id>
     <published>2018-01-08T09:00:00.000Z</published>
-    <updated>2018-02-13T09:31:22.790Z</updated>
+    <updated>2018-02-13T09:40:01.270Z</updated>
     
     <content type="html"><![CDATA[<p>在 Objective-C 中延迟执行还是很常见的需求，通常有如下几种方式可供选择：</p>
 <h2 id="performSelector："><a href="#performSelector：" class="headerlink" title="performSelector："></a>performSelector：</h2><p>想要延迟调用某个方法：</p>
@@ -71,7 +71,7 @@
     <link href="http://yoursite.com/2018/01/02/RxSwift_1/"/>
     <id>http://yoursite.com/2018/01/02/RxSwift_1/</id>
     <published>2018-01-02T13:55:23.000Z</published>
-    <updated>2018-02-13T09:03:20.213Z</updated>
+    <updated>2018-02-13T09:38:52.023Z</updated>
     
     <content type="html"><![CDATA[<p>环境：</p>
 <blockquote>
@@ -208,7 +208,7 @@
     <link href="http://yoursite.com/2017/12/07/swift-tips/"/>
     <id>http://yoursite.com/2017/12/07/swift-tips/</id>
     <published>2017-12-07T13:28:02.000Z</published>
-    <updated>2018-02-13T09:03:28.312Z</updated>
+    <updated>2018-02-13T09:38:58.675Z</updated>
     
     <content type="html"><![CDATA[<p>以下内容均是笔者学习过程中<strong>收集</strong>的知识点，顺序比较跳跃，初衷是为了方便查阅，顺便加深记忆。<strong>内容会不断更新</strong>，如果有什么问题或者有好的 Swift 方面的语法糖或者知识点也可以提出来，我会挑选斟酌后收录，欢迎大家关注～</p>
 <p><strong>环境：</strong></p>
@@ -478,7 +478,7 @@
     <link href="http://yoursite.com/2017/11/30/hook_system_delegate/"/>
     <id>http://yoursite.com/2017/11/30/hook_system_delegate/</id>
     <published>2017-11-30T15:41:23.000Z</published>
-    <updated>2018-02-13T09:07:21.118Z</updated>
+    <updated>2018-02-13T09:40:42.847Z</updated>
     
     <content type="html"><![CDATA[<p>关于 Method Swizzling 基本用法可以先看看博主之前的文章 <a href="http://blog.ifelseboyxx.com/2017/01/25/Method-Swizzling/" target="_blank" rel="external">浅谈 Method Swizzling</a>, 这里就不多做介绍了。本文以 <code>UIWebViewDelegate</code> 为例，介绍如何利用 Method Swizzling 来 Hook 系统的 delegate 方法， 主要有如下几个步骤：</p>
 <ul>
@@ -510,7 +510,7 @@
     </summary>
     
     
-      <category term="ObjC" scheme="http://yoursite.com/tags/ObjC/"/>
+      <category term="Objc" scheme="http://yoursite.com/tags/Objc/"/>
     
       <category term="runtime" scheme="http://yoursite.com/tags/runtime/"/>
     
@@ -521,7 +521,7 @@
     <link href="http://yoursite.com/2017/11/15/lock/"/>
     <id>http://yoursite.com/2017/11/15/lock/</id>
     <published>2017-11-15T03:38:01.000Z</published>
-    <updated>2018-02-13T09:03:02.146Z</updated>
+    <updated>2018-02-13T09:38:32.638Z</updated>
     
     <content type="html"><![CDATA[<p>这两天翻看 ibireme 大神 <a href="http://blog.ibireme.com/" target="_blank" rel="external">不再安全的 OSSpinLock</a> 这篇文章，看到文中分析各种锁之间的性能的图表，怀着好奇的心态，学习了下锁：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1899027-eb3ef0d444034362.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="lock_benchmark.png"></p>
@@ -661,7 +661,7 @@
     </summary>
     
     
-      <category term="ObjC" scheme="http://yoursite.com/tags/ObjC/"/>
+      <category term="Objc" scheme="http://yoursite.com/tags/Objc/"/>
     
   </entry>
   
@@ -670,7 +670,7 @@
     <link href="http://yoursite.com/2017/09/06/smooth_tableview/"/>
     <id>http://yoursite.com/2017/09/06/smooth_tableview/</id>
     <published>2017-09-06T15:30:29.000Z</published>
-    <updated>2018-02-13T09:05:26.378Z</updated>
+    <updated>2018-02-13T09:40:16.587Z</updated>
     
     <content type="html"><![CDATA[<p>近些年，App 越来越推崇体验至上，随随便便乱写一通的话已经很难让用户买帐了，顺滑的列表便是其中很重要的一点。如果一个 App 的页面滚动起来总是卡顿卡顿的，轻则被当作反面教材来吐槽或者衬托“我们的 App balabala…”，重则直接卸载。正好最近在优化这一块儿，总结记录下。</p>
 <p>如果说有什么好的博客文章推荐，ibireme  的  <a href="https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/" target="_blank" rel="external">iOS 保持界面流畅的技巧</a> 这篇堪称经典，墙裂推荐反复阅读。这篇文章中讲解了很多的优化点，我自己总结了下收益最大的两个优化点：</p>
@@ -759,7 +759,7 @@
     </summary>
     
     
-      <category term="ObjC" scheme="http://yoursite.com/tags/ObjC/"/>
+      <category term="Objc" scheme="http://yoursite.com/tags/Objc/"/>
     
       <category term="性能优化" scheme="http://yoursite.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     
@@ -770,7 +770,7 @@
     <link href="http://yoursite.com/2017/08/04/ResponderChain/"/>
     <id>http://yoursite.com/2017/08/04/ResponderChain/</id>
     <published>2017-08-04T02:26:23.000Z</published>
-    <updated>2018-02-13T09:03:11.246Z</updated>
+    <updated>2018-02-13T09:38:45.803Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Responder Chain ，也就是响应链，关于这方面的知识因为不是本文重点，还不太理解的可以去看看这篇文章：<a href="http://www.jianshu.com/p/2e074db792ba" target="_blank" rel="external">史上最详细的iOS之事件的传递和响应机制-原理篇</a>。</p>
 <p>在 iOS 中，对象间的交互模式大概有这几种：直接 property 传值、delegate、KVO、block、protocol、多态、Target-Action 等等，本文介绍的是一种基于 UIResponder 对象交互方式，简而言之，就是 通过在 UIResponder上挂一个 category，使得事件和参数可以沿着 responder chain 逐步传递。对于那种 subviews 特别多，事件又需要层层传递的层级视图特别好用，但是，缺点也很明显，必须依赖于 UIResponder 对象。</p>
@@ -809,7 +809,7 @@
     </summary>
     
     
-      <category term="ObjC" scheme="http://yoursite.com/tags/ObjC/"/>
+      <category term="Objc" scheme="http://yoursite.com/tags/Objc/"/>
     
   </entry>
   
@@ -818,7 +818,7 @@
     <link href="http://yoursite.com/2017/07/23/iOS_childViewController/"/>
     <id>http://yoursite.com/2017/07/23/iOS_childViewController/</id>
     <published>2017-07-23T14:40:23.000Z</published>
-    <updated>2018-02-13T09:07:25.167Z</updated>
+    <updated>2018-02-13T09:39:35.604Z</updated>
     
     <content type="html"><![CDATA[<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。</p>
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：</p>
@@ -848,7 +848,7 @@
     </summary>
     
     
-      <category term="ObjC" scheme="http://yoursite.com/tags/ObjC/"/>
+      <category term="Objc" scheme="http://yoursite.com/tags/Objc/"/>
     
   </entry>
   
@@ -857,7 +857,7 @@
     <link href="http://yoursite.com/2017/07/03/UIControlState/"/>
     <id>http://yoursite.com/2017/07/03/UIControlState/</id>
     <published>2017-07-03T09:41:01.000Z</published>
-    <updated>2018-02-13T09:07:23.508Z</updated>
+    <updated>2018-02-13T09:39:42.966Z</updated>
     
     <content type="html"><![CDATA[<p>最近发现关于 <code>UIButton</code> 状态的一个挺有意思的问题，大概就是：</p>
 <p>当一个按钮处于选中状态，也就是 <code>selected</code> 为 <code>YES</code> 时，如果这时候再点击它时，按钮会变成 <code>normal</code> 状态时候的样子！</p>
@@ -881,7 +881,7 @@
     </summary>
     
     
-      <category term="ObjC" scheme="http://yoursite.com/tags/ObjC/"/>
+      <category term="Objc" scheme="http://yoursite.com/tags/Objc/"/>
     
   </entry>
   
@@ -890,7 +890,7 @@
     <link href="http://yoursite.com/2017/04/17/protocol/"/>
     <id>http://yoursite.com/2017/04/17/protocol/</id>
     <published>2017-04-17T15:15:57.000Z</published>
-    <updated>2018-02-13T09:05:37.846Z</updated>
+    <updated>2018-02-13T09:40:28.017Z</updated>
     
     <content type="html"><![CDATA[<p>开始之前先简单说下需求：首先，页面样式由 A 部门负责，但是页面的数据依赖于 B 部门和 C 部门，B、C 都有自己的唯一标识 <code>projectTag</code> 并且都有自己的接口，接口字段都不相同，他们的关系如下图：</p>
 <p><img src="/images/pic.png" alt=""></p>
@@ -932,7 +932,7 @@
     </summary>
     
     
-      <category term="ObjC" scheme="http://yoursite.com/tags/ObjC/"/>
+      <category term="Objc" scheme="http://yoursite.com/tags/Objc/"/>
     
   </entry>
   
@@ -941,7 +941,7 @@
     <link href="http://yoursite.com/2017/02/23/Masonry-Analysis/"/>
     <id>http://yoursite.com/2017/02/23/Masonry-Analysis/</id>
     <published>2017-02-23T13:40:52.000Z</published>
-    <updated>2018-02-13T09:03:50.716Z</updated>
+    <updated>2018-02-13T09:39:26.257Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://github.com/SnapKit/Masonry" target="_blank" rel="external">Masonry</a> 是一个轻量级的用于自动布局（AutoLayout）的第三方框架，以其简洁的使用方式，受到广大开发者的青睐。本篇文章将带你一步步的去了解其实现原理，知其所以然！</p>
 <h3 id="结构概览"><a href="#结构概览" class="headerlink" title="结构概览"></a>结构概览</h3><p><img src="http://p0kmbfoc8.bkt.clouddn.com/Snip20171227_1.png" alt=""></p>
@@ -1115,7 +1115,7 @@
     <link href="http://yoursite.com/2017/01/25/Method-Swizzling/"/>
     <id>http://yoursite.com/2017/01/25/Method-Swizzling/</id>
     <published>2017-01-25T13:28:02.000Z</published>
-    <updated>2018-02-13T09:35:03.961Z</updated>
+    <updated>2018-02-13T09:39:54.194Z</updated>
     
     <content type="html"><![CDATA[<p>如果对 Runtime 有一定了解的话，一定听说过或者用过这个函数：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">OBJC_EXPORT <span class="keyword">void</span> method_exchangeImplementations(Method m1, Method m2)</div></pre></td></tr></table></figure>
@@ -1204,7 +1204,7 @@
     </summary>
     
     
-      <category term="ObjC" scheme="http://yoursite.com/tags/ObjC/"/>
+      <category term="Objc" scheme="http://yoursite.com/tags/Objc/"/>
     
       <category term="runtime" scheme="http://yoursite.com/tags/runtime/"/>
     
@@ -1215,7 +1215,7 @@
     <link href="http://yoursite.com/2017/01/02/Xcode-VC-Template/"/>
     <id>http://yoursite.com/2017/01/02/Xcode-VC-Template/</id>
     <published>2017-01-02T11:46:23.000Z</published>
-    <updated>2018-02-13T09:03:36.241Z</updated>
+    <updated>2018-02-13T09:39:06.847Z</updated>
     
     <content type="html"><![CDATA[<p>话不多说我们先来体验下 :</p>
 <p><img src="/images/VC.gif" alt=""></p>
@@ -1314,7 +1314,7 @@
     </summary>
     
     
-      <category term="ObjC" scheme="http://yoursite.com/tags/ObjC/"/>
+      <category term="Objc" scheme="http://yoursite.com/tags/Objc/"/>
     
   </entry>
   
