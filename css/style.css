@@ -859,7 +859,7 @@ body {
   transition: opacity 0.2s;
   width: 100%;
   z-index: 5000000;
-  background: #2f4255;
+  background: #fffdf5;
   border-top: 1px solid #666673;
 }
 #footer-post a {
@@ -1260,7 +1260,7 @@ article .content .caption {
 .search-input {
   width: 100%;
   font-size: 1.2rem;
-  color: #2c3e50;
+  color: #fffdf5;
   background-color: #1a2734;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -1383,7 +1383,7 @@ code {
   border-radius: 2px;
   border: 1px dotted #666;
   padding: 0 5px;
-/*background: #f8f8f8*/
+/*background: #2c3e50*/
 }
 pre code {
   border: none;
