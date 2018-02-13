@@ -21,7 +21,7 @@
 最上面的几个 category，包含了我们常用的一些方法及属性，例如：
   1- (NSArray *)mas_makeConstraints:(void(NS_NOESCAPE ^)(MASConstraint">
 <meta property="og:image" content="http://p0kmbfoc8.bkt.clouddn.com/Snip20171227_1.png">
-<meta property="og:updated_time" content="2018-02-13T09:39:26.257Z">
+<meta property="og:updated_time" content="2018-02-13T09:42:31.483Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Masonry 源码解析">
 <meta name="twitter:description" content="Masonry 是一个轻量级的用于自动布局（AutoLayout）的第三方框架，以其简洁的使用方式，受到广大开发者的青睐。本篇文章将带你一步步的去了解其实现原理，知其所以然！
@@ -67,9 +67,9 @@
     <span id="nav">
       <ul>
          
-          <li><a href="/">Accueil</a></li>
+          <li><a href="/">Home</a></li>
          
-          <li><a href="/archives/">Articles</a></li>
+          <li><a href="/archives/">Archives</a></li>
         
       </ul>
     </span>
@@ -85,10 +85,10 @@
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
       </ul>
-      <span id="i-prev" class="info" style="display:none;">Article précédent</span>
-      <span id="i-next" class="info" style="display:none;">Article suivant</span>
-      <span id="i-top" class="info" style="display:none;">Retour au début</span>
-      <span id="i-share" class="info" style="display:none;">Partager cette article</span>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
     </span>
     <br/>
     <div id="share" style="display: none">
@@ -137,7 +137,7 @@
       
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/ObjC/">ObjC</a>, <a class="tag-link" href="/tags/源码解析/">源码解析</a>
+        <a class="tag-link" href="/tags/Objc/">Objc</a>, <a class="tag-link" href="/tags/源码解析/">源码解析</a>
     </div>
 
 
@@ -304,7 +304,7 @@
 
     <div class="blog-post-comments">
         <div id="disqus_thread">
-            <noscript>Veuillez activer JavaScript pour voir les réactions.</noscript>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
         </div>
     </div>
 
@@ -318,9 +318,9 @@
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/">Accueil</a></li>
+          <li><a href="/">Home</a></li>
          
-          <li><a href="/archives/">Articles</a></li>
+          <li><a href="/archives/">Archives</a></li>
         
       </ul>
     </div>
@@ -347,9 +347,9 @@
 
     <div id="actions-footer">
       <ul>
-        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> Table des matière</a></li>
-        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Partager</a></li>
-        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Début</a></li>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
         <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
       </ul>
     </div>
@@ -366,9 +366,9 @@
     <nav>
       <ul>
          
-          <li><a href="/">Accueil</a></li>
+          <li><a href="/">Home</a></li>
          
-          <li><a href="/archives/">Articles</a></li>
+          <li><a href="/archives/">Archives</a></li>
         
       </ul>
     </nav>

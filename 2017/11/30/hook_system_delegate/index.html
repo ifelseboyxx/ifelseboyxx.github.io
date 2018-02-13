@@ -18,7 +18,7 @@ Hook  UIWebView 的 delegat">
 
 新建 UIWebView Category
 Hook  UIWebView 的 delegat">
-<meta property="og:updated_time" content="2018-02-13T09:40:42.847Z">
+<meta property="og:updated_time" content="2018-02-13T09:42:43.948Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Method Swizzling 实战：Hook 系统代理方法">
 <meta name="twitter:description" content="关于 Method Swizzling 基本用法可以先看看博主之前的文章 浅谈 Method Swizzling, 这里就不多做介绍了。本文以 UIWebViewDelegate 为例，介绍如何利用 Method Swizzling 来 Hook 系统的 delegate 方法， 主要有如下几个步骤：
@@ -62,9 +62,9 @@ Hook  UIWebView 的 delegat">
     <span id="nav">
       <ul>
          
-          <li><a href="/">Accueil</a></li>
+          <li><a href="/">Home</a></li>
          
-          <li><a href="/archives/">Articles</a></li>
+          <li><a href="/archives/">Archives</a></li>
         
       </ul>
     </span>
@@ -80,10 +80,10 @@ Hook  UIWebView 的 delegat">
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
       </ul>
-      <span id="i-prev" class="info" style="display:none;">Article précédent</span>
-      <span id="i-next" class="info" style="display:none;">Article suivant</span>
-      <span id="i-top" class="info" style="display:none;">Retour au début</span>
-      <span id="i-share" class="info" style="display:none;">Partager cette article</span>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
     </span>
     <br/>
     <div id="share" style="display: none">
@@ -168,7 +168,7 @@ Hook  UIWebView 的 delegat">
 
     <div class="blog-post-comments">
         <div id="disqus_thread">
-            <noscript>Veuillez activer JavaScript pour voir les réactions.</noscript>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
         </div>
     </div>
 
@@ -182,9 +182,9 @@ Hook  UIWebView 的 delegat">
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/">Accueil</a></li>
+          <li><a href="/">Home</a></li>
          
-          <li><a href="/archives/">Articles</a></li>
+          <li><a href="/archives/">Archives</a></li>
         
       </ul>
     </div>
@@ -211,9 +211,9 @@ Hook  UIWebView 的 delegat">
 
     <div id="actions-footer">
       <ul>
-        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> Table des matière</a></li>
-        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Partager</a></li>
-        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Début</a></li>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
         <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
       </ul>
     </div>
@@ -230,9 +230,9 @@ Hook  UIWebView 的 delegat">
     <nav>
       <ul>
          
-          <li><a href="/">Accueil</a></li>
+          <li><a href="/">Home</a></li>
          
-          <li><a href="/archives/">Articles</a></li>
+          <li><a href="/archives/">Archives</a></li>
         
       </ul>
     </nav>
