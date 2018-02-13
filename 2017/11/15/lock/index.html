@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="这两天翻看 ibireme 大神 不再安全的 OSSpinLock 这篇文章，看到文中分析各种锁之间的性能的图表，怀着好奇的心态，学习了下锁：
+
+锁是什么意思？我们在使用多线程的时候多个线程可能会访问同一块资源，这样就很容易引发数据错乱和数据安全等问题，这时候就需要我们保证每次只有一个线程访问这一块资源，锁应运而生。
+OSSpinLock需导入头文件:
+1#import &amp;lt;libkern/O">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 开发中的锁">
+<meta property="og:url" content="http://yoursite.com/2017/11/15/lock/index.html">
+<meta property="og:site_name" content="＃ Zzz：">
+<meta property="og:description" content="这两天翻看 ibireme 大神 不再安全的 OSSpinLock 这篇文章，看到文中分析各种锁之间的性能的图表，怀着好奇的心态，学习了下锁：
+
+锁是什么意思？我们在使用多线程的时候多个线程可能会访问同一块资源，这样就很容易引发数据错乱和数据安全等问题，这时候就需要我们保证每次只有一个线程访问这一块资源，锁应运而生。
+OSSpinLock需导入头文件:
+1#import &amp;lt;libkern/O">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-eb3ef0d444034362.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-da0bbfd046fc7e30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-5f6aeebcb8d9cb00.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-e45133dc53c7b53d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-378750ef97bd0959.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-f051bcdb173e8612.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-48d96143d13a9371.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-ed159b5987a9aaed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-fd930ccf5d969f6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-471bcb7fcc0bcfea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-231a3255007492fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-7ff9328f53551846.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-e587d966e6f34c92.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-f7c07e6e2c031088.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-9502f58fa9244b5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-58b8575d0ba80cb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-95362ad47a95575c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1899027-7e410aff9dba4060.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-01-02T14:09:09.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 开发中的锁">
+<meta name="twitter:description" content="这两天翻看 ibireme 大神 不再安全的 OSSpinLock 这篇文章，看到文中分析各种锁之间的性能的图表，怀着好奇的心态，学习了下锁：
+
+锁是什么意思？我们在使用多线程的时候多个线程可能会访问同一块资源，这样就很容易引发数据错乱和数据安全等问题，这时候就需要我们保证每次只有一个线程访问这一块资源，锁应运而生。
+OSSpinLock需导入头文件:
+1#import &amp;lt;libkern/O">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1899027-eb3ef0d444034362.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/red.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/red.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/red.png">
+          
+        
+    
+    <!-- title -->
+    <title>iOS 开发中的锁</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/11/30/hook_system_delegate/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/09/06/smooth_tableview/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2017/11/15/lock/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2017/11/15/lock/&text=iOS 开发中的锁"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2017/11/15/lock/&title=iOS 开发中的锁"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2017/11/15/lock/&is_video=false&description=iOS 开发中的锁"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=iOS 开发中的锁&body=Check out this article: http://yoursite.com/2017/11/15/lock/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2017/11/15/lock/&title=iOS 开发中的锁"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2017/11/15/lock/&title=iOS 开发中的锁"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2017/11/15/lock/&title=iOS 开发中的锁"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2017/11/15/lock/&title=iOS 开发中的锁"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2017/11/15/lock/&name=iOS 开发中的锁&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#锁是什么意思？"><span class="toc-number">1.</span> <span class="toc-text">锁是什么意思？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#OSSpinLock"><span class="toc-number">1.1.</span> <span class="toc-text">OSSpinLock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dispatch-semaphore-信号量"><span class="toc-number">1.2.</span> <span class="toc-text">dispatch_semaphore 信号量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pthread-mutex"><span class="toc-number">1.3.</span> <span class="toc-text">pthread_mutex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pthread-mutex-recursive"><span class="toc-number">1.4.</span> <span class="toc-text">pthread_mutex(recursive)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSLock"><span class="toc-number">1.5.</span> <span class="toc-text">NSLock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSCondition"><span class="toc-number">1.6.</span> <span class="toc-text">NSCondition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSRecursiveLock"><span class="toc-number">1.7.</span> <span class="toc-text">NSRecursiveLock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#synchronized"><span class="toc-number">1.8.</span> <span class="toc-text">@synchronized</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSConditionLock-条件锁"><span class="toc-number">1.9.</span> <span class="toc-text">NSConditionLock 条件锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文献"><span class="toc-number">1.10.</span> <span class="toc-text">参考文献:</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        iOS 开发中的锁
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">＃ Zzz：</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-11-15T03:38:01.000Z" itemprop="datePublished">2017-11-15</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ObjC/">ObjC</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>这两天翻看 ibireme 大神 <a href="http://blog.ibireme.com/" target="_blank" rel="external">不再安全的 OSSpinLock</a> 这篇文章，看到文中分析各种锁之间的性能的图表，怀着好奇的心态，学习了下锁：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-eb3ef0d444034362.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="lock_benchmark.png"></p>
+<h2 id="锁是什么意思？"><a href="#锁是什么意思？" class="headerlink" title="锁是什么意思？"></a>锁是什么意思？</h2><p>我们在使用多线程的时候多个线程可能会访问同一块资源，这样就很容易引发数据错乱和数据安全等问题，这时候就需要我们保证每次只有一个线程访问这一块资源，<strong>锁</strong>应运而生。</p>
+<h3 id="OSSpinLock"><a href="#OSSpinLock" class="headerlink" title="OSSpinLock"></a>OSSpinLock</h3><p>需导入头文件:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;libkern/OSAtomic.h&gt;</span></span></div></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">__block OSSpinLock oslock = OS_SPINLOCK_INIT;</div><div class="line"><span class="comment">//线程1  </span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程1 准备上锁"</span>);</div><div class="line">        OSSpinLockLock(&amp;oslock);</div><div class="line">        sleep(<span class="number">4</span>);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程1"</span>);</div><div class="line">        OSSpinLockUnlock(&amp;oslock);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程1 解锁成功"</span>);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"--------------------------------------------------------"</span>);</div><div class="line">&#125;);</div><div class="line">    </div><div class="line"><span class="comment">//线程2</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程2 准备上锁"</span>);</div><div class="line">        OSSpinLockLock(&amp;oslock);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程2"</span>);</div><div class="line">        OSSpinLockUnlock(&amp;oslock);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程2 解锁成功"</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-da0bbfd046fc7e30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="OSSpinLock1"></p>
+<p>我们来修改一下代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">__block OSSpinLock oslock = OS_SPINLOCK_INIT;</div><div class="line"><span class="comment">//线程1        </span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">......</div><div class="line"><span class="comment">//OSSpinLockUnlock(&amp;oslock);</span></div><div class="line">......</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-5f6aeebcb8d9cb00.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="OSSpinLock2"></p>
+<p>在  <code>OSSpinLock1</code> 图中可以发现：当我们锁住线程1时，在同时锁住线程2的情况下，线程2会一直等待<strong>（自旋锁不会让等待的进入睡眠状态）</strong>，直到线程1的任务执行完且解锁完毕，线程2会立即执行；而在 <code>OSSpinLock2</code> 图中，因为我们注释掉了线程1中的解锁代码，会绕过线程1，直到调用了线程2的解锁方法才会继续执行线程1中的任务，<strong>正常情况下，<code>lock</code>和<code>unlock</code>最好成对出现</strong>。</p>
+<blockquote>
+<p><strong>OS_SPINLOCK_INIT：</strong> 默认值为 <code>0</code>,在 <code>locked</code> 状态时就会大于 <code>0</code>，<code>unlocked</code>状态下为 <code>0</code><br><strong>OSSpinLockLock(&amp;oslock)：</strong>上锁，参数为 <code>OSSpinLock</code> 地址<br><strong>OSSpinLockUnlock(&amp;oslock)：</strong>解锁，参数为 <code>OSSpinLock</code> 地址<br><strong>OSSpinLockTry(&amp;oslock)</strong>：尝试加锁，可以加锁则<strong>立即加锁</strong>并返回 <code>YES</code>,反之返回 <code>NO</code></p>
+</blockquote>
+<p>这里顺便提一下 <code>trylock</code> 和 <code>lock</code> 使用场景：</p>
+<blockquote>
+<p>当前线程锁失败，也可以继续其它任务，用 trylock 合适<br>当前线程只有锁成功后，才会做一些有意义的工作，那就 lock，没必要轮询 trylock</p>
+</blockquote>
+<h3 id="dispatch-semaphore-信号量"><a href="#dispatch-semaphore-信号量" class="headerlink" title="dispatch_semaphore 信号量"></a>dispatch_semaphore 信号量</h3><p>例子：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">dispatch_semaphore_t signal = dispatch_semaphore_create(<span class="number">1</span>); <span class="comment">//传入值必须 &gt;=0, 若传入为0则阻塞线程并等待timeout,时间到后会执行其后的语句</span></div><div class="line">dispatch_time_t overTime = dispatch_time(DISPATCH_TIME_NOW, <span class="number">3.0</span>f * <span class="built_in">NSEC_PER_SEC</span>);</div><div class="line"></div><div class="line"><span class="comment">//线程1</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程1 等待ing"</span>);</div><div class="line">        dispatch_semaphore_wait(signal, overTime); <span class="comment">//signal 值 -1</span></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程1"</span>);</div><div class="line">        dispatch_semaphore_signal(signal); <span class="comment">//signal 值 +1</span></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程1 发送信号"</span>);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"--------------------------------------------------------"</span>);</div><div class="line">&#125;);</div><div class="line">    </div><div class="line"><span class="comment">//线程2</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程2 等待ing"</span>);</div><div class="line">        dispatch_semaphore_wait(signal, overTime);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程2"</span>);</div><div class="line">        dispatch_semaphore_signal(signal);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程2 发送信号"</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>dispatch_semaphore_create(1)：</strong> 传入值必须 <code>&gt;=0</code>, 若传入为 <code>0</code> 则阻塞线程并等待timeout,时间到后会执行其后的语句<br><strong>dispatch_semaphore_wait(signal, overTime)：</strong>可以理解为 <code>lock</code>,会使得 <code>signal</code> 值 <code>-1</code><br><strong>dispatch_semaphore_signal(signal)：</strong>可以理解为 <code>unlock</code>,会使得 <code>signal</code> 值 <code>+1</code></p>
+</blockquote>
+<p>关于信号量，我们可以用停车来比喻：</p>
+<blockquote>
+<p>停车场剩余4个车位，那么即使同时来了四辆车也能停的下。如果此时来了五辆车，那么就有一辆需要等待。<br><strong>信号量的值（signal）</strong>就相当于剩余车位的数目，<code>dispatch_semaphore_wait</code> 函数就相当于来了一辆车，<code>dispatch_semaphore_signal</code> 就相当于走了一辆车。停车位的剩余数目在初始化的时候就已经指明了（dispatch_semaphore_create（long value）），调用一次 dispatch_semaphore_signal，剩余的车位就增加一个；调用一次 dispatch_semaphore_wait  剩余车位就减少一个；当剩余车位为 0 时，再来车（即调用 dispatch_semaphore_wait）就只能等待。有可能同时有几辆车等待一个停车位。有些车主没有耐心，给自己设定了一段等待时间，这段时间内等不到停车位就走了，如果等到了就开进去停车。而有些车主就像把车停在这，所以就一直等下去。</p>
+</blockquote>
+<p>运行结果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-e45133dc53c7b53d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="初始信号量大于0"></p>
+<p>可以发现，因为我们初始化信号量的时候是大于 <code>0</code> 的，所以并没有阻塞线程，而是直接执行了 线程1 线程2。</p>
+<p>我们把 信号量初始值改为 <code>0</code>:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dispatch_semaphore_t signal = dispatch_semaphore_create(<span class="number">0</span>);</div></pre></td></tr></table></figure>
+<p>运行结果:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-378750ef97bd0959.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="初始信号量为0"></p>
+<p>可以看到这时候我们设置的 <code>overTime</code> 生效了。</p>
+<h3 id="pthread-mutex"><a href="#pthread-mutex" class="headerlink" title="pthread_mutex"></a>pthread_mutex</h3><p>ibireme 在《<a href="http://blog.ibireme.com/" target="_blank" rel="external">不再安全的 OSSpinLock</a>》这篇文章中提到性能最好的 <code>OSSpinLock</code> 已经不再是线程安全的并把自己开源项目中的 <code>OSSpinLock</code> 都替换成了 <code>pthread_mutex</code>。<br>特意去看了下源码，总结了下常见用法：</p>
+<p>使用需导入头文件：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;pthread.h&gt;</span></span></div></pre></td></tr></table></figure>
+<p>例子:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> pthread_mutex_t pLock;</div><div class="line">pthread_mutex_init(&amp;pLock, <span class="literal">NULL</span>);</div><div class="line"><span class="comment">//1.线程1</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程1 准备上锁"</span>);</div><div class="line">        pthread_mutex_lock(&amp;pLock);</div><div class="line">        sleep(<span class="number">3</span>);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程1"</span>);</div><div class="line">        pthread_mutex_unlock(&amp;pLock);</div><div class="line">    &#125;);</div><div class="line">    </div><div class="line"><span class="comment">//1.线程2</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程2 准备上锁"</span>);</div><div class="line">        pthread_mutex_lock(&amp;pLock);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程2"</span>);</div><div class="line">        pthread_mutex_unlock(&amp;pLock);</div><div class="line">    &#125;);</div></pre></td></tr></table></figure>
+<p>运行结果:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-f051bcdb173e8612.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="pthread_mutex"></p>
+<blockquote>
+<p>pthread_mutex 中也有个 <code>pthread_mutex_trylock(&amp;pLock)</code>，和上面提到的 <code>OSSpinLockTry(&amp;oslock)</code> 区别在于，前者可以加锁时返回的是 <code>0</code>，否则返回一个错误提示码；后者返回的 <code>YES</code>和 <code>NO</code>。</p>
+</blockquote>
+<p>这里贴个  <a href="https://github.com/ibireme/YYKit" target="_blank" rel="external">YYKit</a> 中的源码：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-48d96143d13a9371.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="YYKit"></p>
+<h3 id="pthread-mutex-recursive"><a href="#pthread-mutex-recursive" class="headerlink" title="pthread_mutex(recursive)"></a>pthread_mutex(recursive)</h3><p>经过上面几种例子，我们可以发现：加锁后只能有一个线程访问该对象，后面的线程需要排队，并且 lock 和 unlock 是对应出现的，同一线程多次 lock 是不允许的，而递归锁允许同一个线程在未释放其拥有的锁时反复对该锁进行加锁操作。</p>
+<p>例子:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> pthread_mutex_t pLock;</div><div class="line">pthread_mutexattr_t attr;</div><div class="line">pthread_mutexattr_init(&amp;attr); <span class="comment">//初始化attr并且给它赋予默认</span></div><div class="line">pthread_mutexattr_settype(&amp;attr, PTHREAD_MUTEX_RECURSIVE); <span class="comment">//设置锁类型，这边是设置为递归锁</span></div><div class="line">pthread_mutex_init(&amp;pLock, &amp;attr);</div><div class="line">pthread_mutexattr_destroy(&amp;attr); <span class="comment">//销毁一个属性对象，在重新进行初始化之前该结构不能重新使用</span></div><div class="line"></div><div class="line"><span class="comment">//1.线程1</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        <span class="keyword">static</span> <span class="keyword">void</span> (^RecursiveBlock)(<span class="keyword">int</span>);</div><div class="line">        RecursiveBlock = ^(<span class="keyword">int</span> value) &#123;</div><div class="line">            pthread_mutex_lock(&amp;pLock);</div><div class="line">            <span class="keyword">if</span> (value &gt; <span class="number">0</span>) &#123;</div><div class="line">                <span class="built_in">NSLog</span>(<span class="string">@"value: %d"</span>, value);</div><div class="line">                RecursiveBlock(value - <span class="number">1</span>);</div><div class="line">            &#125;</div><div class="line">            pthread_mutex_unlock(&amp;pLock);</div><div class="line">        &#125;;</div><div class="line">        RecursiveBlock(<span class="number">5</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>运行结果:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-ed159b5987a9aaed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="结果"></p>
+<blockquote>
+<p>上面的代码如果我们用 <code>pthread_mutex_init(&amp;pLock, NULL)</code> 初始化会出现死锁的情况，递归锁能很好的避免这种情况的死锁；</p>
+</blockquote>
+<h3 id="NSLock"><a href="#NSLock" class="headerlink" title="NSLock"></a>NSLock</h3><p>NSLock API 很少也很简单:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-fd930ccf5d969f6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NSLock"></p>
+<blockquote>
+<p><strong>lock、unlock</strong>：不多做解释，和上面一样<br><strong>trylock</strong>：能加锁返回 YES 并执行<strong>加锁</strong>操作，相当于 lock，反之返回 NO<br><strong> lockBeforeDate：</strong>这个方法表示会在传入的时间内尝试加锁，若能加锁则执行<strong>加锁</strong>操作并返回 YES，反之返回 NO</p>
+</blockquote>
+<p>例子:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSLock</span> *lock = [<span class="built_in">NSLock</span> new];</div><div class="line"><span class="comment">//线程1</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程1 尝试加速ing..."</span>);</div><div class="line">        [lock lock];</div><div class="line">        sleep(<span class="number">3</span>);<span class="comment">//睡眠5秒</span></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程1"</span>);</div><div class="line">        [lock unlock];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程1解锁成功"</span>);</div><div class="line">&#125;);</div><div class="line"><span class="comment">//线程2</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程2 尝试加速ing..."</span>);</div><div class="line">        <span class="built_in">BOOL</span> x =  [lock lockBeforeDate:[<span class="built_in">NSDate</span> dateWithTimeIntervalSinceNow:<span class="number">4</span>]];</div><div class="line">        <span class="keyword">if</span> (x) &#123;</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"线程2"</span>);</div><div class="line">            [lock unlock];</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"失败"</span>);</div><div class="line">        &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>运行结果:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-471bcb7fcc0bcfea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NSLock_result"></p>
+<h3 id="NSCondition"><a href="#NSCondition" class="headerlink" title="NSCondition"></a>NSCondition</h3><p>我们先来看看 API：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-231a3255007492fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NSCondition"></p>
+<p>看字面意思很好理解:</p>
+<blockquote>
+<p><strong>wait</strong>：进入等待状态<br><strong>waitUntilDate:</strong>：让一个线程等待一定的时间<br><strong>signal</strong>：唤醒一个等待的线程<br><strong>broadcast</strong>：唤醒所有等待的线程</p>
+</blockquote>
+<p>例子:</p>
+<ul>
+<li><strong>等待2秒</strong></li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSCondition</span> *cLock = [<span class="built_in">NSCondition</span> new];</div><div class="line"><span class="comment">//线程1</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"start"</span>);</div><div class="line">        [cLock lock];</div><div class="line">        [cLock waitUntilDate:[<span class="built_in">NSDate</span> dateWithTimeIntervalSinceNow:<span class="number">2</span>]];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程1"</span>);</div><div class="line">        [cLock unlock];</div><div class="line">    &#125;);</div></pre></td></tr></table></figure>
+<p>结果:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-7ff9328f53551846.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="waiting 2秒"></p>
+<ul>
+<li><strong>唤醒一个等待线程</strong></li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSCondition</span> *cLock = [<span class="built_in">NSCondition</span> new];</div><div class="line"><span class="comment">//线程1</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        [cLock lock];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程1加锁成功"</span>);</div><div class="line">        [cLock wait];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程1"</span>);</div><div class="line">        [cLock unlock];</div><div class="line">&#125;);</div><div class="line">    </div><div class="line"><span class="comment">//线程2</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        [cLock lock];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程2加锁成功"</span>);</div><div class="line">        [cLock wait];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程2"</span>);</div><div class="line">        [cLock unlock];</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        sleep(<span class="number">2</span>);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"唤醒一个等待的线程"</span>);</div><div class="line">        [cLock signal];</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>结果:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-e587d966e6f34c92.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="唤醒一个等待的线程"></p>
+<ul>
+<li><strong>唤醒所有等待的线程</strong></li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">.........    </div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        sleep(<span class="number">2</span>);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"唤醒所有等待的线程"</span>);</div><div class="line">        [cLock broadcast];</div><div class="line"> &#125;);</div></pre></td></tr></table></figure>
+<p>运行结果:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-f7c07e6e2c031088.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="唤醒所有的线程"></p>
+<h3 id="NSRecursiveLock"><a href="#NSRecursiveLock" class="headerlink" title="NSRecursiveLock"></a>NSRecursiveLock</h3><p>上面已经大概介绍过了：<br>递归锁可以被同一线程多次请求，而不会引起死锁。这主要是用在循环或递归操作中。</p>
+<p>例子：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSLock</span> *rLock = [<span class="built_in">NSLock</span> new];</div><div class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        <span class="keyword">static</span> <span class="keyword">void</span> (^RecursiveBlock)(<span class="keyword">int</span>);</div><div class="line">        RecursiveBlock = ^(<span class="keyword">int</span> value) &#123;</div><div class="line">            [rLock lock];</div><div class="line">            <span class="keyword">if</span> (value &gt; <span class="number">0</span>) &#123;</div><div class="line">                <span class="built_in">NSLog</span>(<span class="string">@"线程%d"</span>, value);</div><div class="line">                RecursiveBlock(value - <span class="number">1</span>);</div><div class="line">            &#125;</div><div class="line">            [rLock unlock];</div><div class="line">        &#125;;</div><div class="line">        RecursiveBlock(<span class="number">4</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>运行结果:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-9502f58fa9244b5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误信息"></p>
+<p>这段代码是一个典型的死锁情况。在我们的线程中，<code>RecursiveMethod</code> 是递归调用的。所以每次进入这个 block 时，都会去<strong>加一次锁</strong>，而从第二次开始，由于锁已经被使用了且<strong>没有解锁</strong>，所以它<strong>需要等待锁被解除</strong>，这样就导致了死锁，线程被阻塞住了。</p>
+<p>将 NSLock 替换为 NSRecursiveLock：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSRecursiveLock</span> *rLock = [<span class="built_in">NSRecursiveLock</span> new];</div><div class="line">..........</div></pre></td></tr></table></figure>
+<p>运行结果:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-58b8575d0ba80cb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NSRecursiveLock"></p>
+<p>NSRecursiveLock 方法里还提供了两个方法，用法和上面介绍的基本没什么差别，这里不过多介绍了：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)tryLock;</div><div class="line">- (<span class="built_in">BOOL</span>)lockBeforeDate:(<span class="built_in">NSDate</span> *)limit;</div></pre></td></tr></table></figure>
+<h3 id="synchronized"><a href="#synchronized" class="headerlink" title="@synchronized"></a>@synchronized</h3><p>@synchronized 相信大家应该都熟悉，它的用法应该算这些锁中最简单的:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//线程1</span></div><div class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        <span class="keyword">@synchronized</span> (<span class="keyword">self</span>) &#123;</div><div class="line">            sleep(<span class="number">2</span>);</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"线程1"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">    </div><div class="line"><span class="comment">//线程2</span></div><div class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        <span class="keyword">@synchronized</span> (<span class="keyword">self</span>) &#123;</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"线程2"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>有兴趣可以看一下这篇文章 《 <a href="http://ios.jobbole.com/82826/" target="_blank" rel="external">关于 @synchronized，这儿比你想知道的还要多</a>》</p>
+</blockquote>
+<h3 id="NSConditionLock-条件锁"><a href="#NSConditionLock-条件锁" class="headerlink" title="NSConditionLock 条件锁"></a>NSConditionLock 条件锁</h3><p>我们先来看看 API :</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-95362ad47a95575c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NSConditionLock"></p>
+<p>相比于 NSLock 多了个 <code>condition</code> 参数，我们可以理解为一个<strong>条件标示</strong>。</p>
+<p>例子:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSConditionLock</span> *cLock = [[<span class="built_in">NSConditionLock</span> alloc] initWithCondition:<span class="number">0</span>];</div><div class="line"><span class="comment">//线程1</span></div><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        <span class="keyword">if</span>([cLock tryLockWhenCondition:<span class="number">0</span>])&#123;</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"线程1"</span>);</div><div class="line">           [cLock unlockWithCondition:<span class="number">1</span>];</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">             <span class="built_in">NSLog</span>(<span class="string">@"失败"</span>);</div><div class="line">        &#125;</div><div class="line">&#125;);</div><div class="line">    </div><div class="line"><span class="comment">//线程2</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        [cLock lockWhenCondition:<span class="number">3</span>];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程2"</span>);</div><div class="line">        [cLock unlockWithCondition:<span class="number">2</span>];</div><div class="line">&#125;);</div><div class="line">    </div><div class="line"><span class="comment">//线程3</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        [cLock lockWhenCondition:<span class="number">1</span>];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"线程3"</span>);</div><div class="line">        [cLock unlockWithCondition:<span class="number">3</span>];</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>运行结果:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1899027-7e410aff9dba4060.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="result"></p>
+<ul>
+<li>我们在初始化 NSConditionLock 对象时，给了他的标示为 <code>0</code></li>
+<li>执行 <code>tryLockWhenCondition:</code> 时，我们传入的条件标示也是 <code>0</code>,所 <strong>以线程1</strong> 加锁成功</li>
+<li>执行 <code>unlockWithCondition:</code> 时，<strong>这时候会把 <code>condition</code> 由 <code>0</code> 修改为 <code>1</code> </strong></li>
+<li>因为 <code>condition</code>  修改为了  <code>1</code>， 会先走到 <strong>线程3</strong>，然后 <strong>线程3</strong> 又将 <code>condition</code> 修改为 <code>3</code></li>
+<li>最后 走了 <strong>线程2</strong> 的流程</li>
+</ul>
+<blockquote>
+<p>从上面的结果我们可以发现，NSConditionLock 还可以实现任务之间的依赖。</p>
+</blockquote>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献:"></a>参考文献:</h3><p><a href="http://www.cocoachina.com/ios/20150513/11808.html" target="_blank" rel="external">NSRecursiveLock递归锁的使用</a></p>
+<p><a href="http://www.cnblogs.com/snailHL/p/3906112.html" target="_blank" rel="external">关于dispatch_semaphore的使用</a></p>
+<p><a href="http://www.cnblogs.com/huangjianwu/p/4575763.html" target="_blank" rel="external">实现锁的多种方式和锁的高级用法</a></p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#锁是什么意思？"><span class="toc-number">1.</span> <span class="toc-text">锁是什么意思？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#OSSpinLock"><span class="toc-number">1.1.</span> <span class="toc-text">OSSpinLock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dispatch-semaphore-信号量"><span class="toc-number">1.2.</span> <span class="toc-text">dispatch_semaphore 信号量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pthread-mutex"><span class="toc-number">1.3.</span> <span class="toc-text">pthread_mutex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pthread-mutex-recursive"><span class="toc-number">1.4.</span> <span class="toc-text">pthread_mutex(recursive)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSLock"><span class="toc-number">1.5.</span> <span class="toc-text">NSLock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSCondition"><span class="toc-number">1.6.</span> <span class="toc-text">NSCondition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSRecursiveLock"><span class="toc-number">1.7.</span> <span class="toc-text">NSRecursiveLock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#synchronized"><span class="toc-number">1.8.</span> <span class="toc-text">@synchronized</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSConditionLock-条件锁"><span class="toc-number">1.9.</span> <span class="toc-text">NSConditionLock 条件锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文献"><span class="toc-number">1.10.</span> <span class="toc-text">参考文献:</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2017/11/15/lock/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2017/11/15/lock/&text=iOS 开发中的锁"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2017/11/15/lock/&title=iOS 开发中的锁"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2017/11/15/lock/&is_video=false&description=iOS 开发中的锁"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=iOS 开发中的锁&body=Check out this article: http://yoursite.com/2017/11/15/lock/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2017/11/15/lock/&title=iOS 开发中的锁"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2017/11/15/lock/&title=iOS 开发中的锁"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2017/11/15/lock/&title=iOS 开发中的锁"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2017/11/15/lock/&title=iOS 开发中的锁"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2017/11/15/lock/&name=iOS 开发中的锁&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 ifelseboyxx
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
