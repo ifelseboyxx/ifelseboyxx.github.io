@@ -478,7 +478,7 @@
     <link href="http://yoursite.com/2017/11/30/hook_system_delegate/"/>
     <id>http://yoursite.com/2017/11/30/hook_system_delegate/</id>
     <published>2017-11-30T15:41:23.000Z</published>
-    <updated>2018-01-02T14:10:13.135Z</updated>
+    <updated>2018-02-13T06:16:14.087Z</updated>
     
     <content type="html"><![CDATA[<p>关于 Method Swizzling 基本用法可以先看看博主之前的文章 <a href="http://blog.ifelseboyxx.com/2017/01/25/Method-Swizzling/" target="_blank" rel="external">浅谈 Method Swizzling</a>, 这里就不多做介绍了。本文以 <code>UIWebViewDelegate</code> 为例，介绍如何利用 Method Swizzling 来 Hook 系统的 delegate 方法， 主要有如下几个步骤：</p>
 <ul>
