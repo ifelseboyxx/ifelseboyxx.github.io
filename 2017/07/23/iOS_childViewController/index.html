@@ -1,216 +1,146 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
-
-<!-- Head tag -->
+<html lang=zh>
 <head>
-
+    <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--Description-->
-    
-        <meta name="description" content="使用场景在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="使用场景在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。
 代码实现实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：
-1234567891011//添加一">
+1234567891011//添加一个 childViewControllerUIViewController *vc = [UIVie">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈谈 iOS 中的 childViewController">
+<meta property="og:url" content="http://yoursite.com/2017/07/23/iOS_childViewController/index.html">
+<meta property="og:site_name" content="ifelseboyxx">
+<meta property="og:description" content="使用场景在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。
+代码实现实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：
+1234567891011//添加一个 childViewControllerUIViewController *vc = [UIVie">
+<meta property="og:image" content="http://yoursite.com/images/tv_01.gif">
+<meta property="og:updated_time" content="2018-01-02T14:09:42.018Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="谈谈 iOS 中的 childViewController">
+<meta name="twitter:description" content="使用场景在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。
+代码实现实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：
+1234567891011//添加一个 childViewControllerUIViewController *vc = [UIVie">
+<meta name="twitter:image" content="http://yoursite.com/images/tv_01.gif">
     
-
-    <!--Author-->
     
-        <meta name="author" content="ifelseboyxx">
+        
+          
+              <link rel="shortcut icon" href="/images/red.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/red.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/red.png">
+          
+        
     
-
-    <!--Open Graph Title-->
-    
-        <meta property="og:title" content="谈谈 iOS 中的 childViewController"/>
-    
-
-    <!--Open Graph Description-->
-    
-
-    <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="ifelseboyxx&#39;s Blog"/>
-
-    <!--Type page-->
-    
-        <meta property="og:type" content="article" />
-    
-
-    <!--Page Cover-->
-    
-
-        <meta name="twitter:card" content="summary" />
-    
-
-    <!-- Title -->
-    
-    <title>谈谈 iOS 中的 childViewController - ifelseboyxx&#39;s Blog</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
+    <!-- title -->
+    <title>谈谈 iOS 中的 childViewController</title>
+    <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
-
-    <!-- Custom Fonts -->
-    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Gallery -->
-    <link href="//cdn.bootcss.com/featherlight/1.7.1/featherlight.min.css" type="text/css" rel="stylesheet">
-
-    <!-- Google Analytics -->
+    <!-- rss -->
     
-
-
-    <!-- favicon -->
     
-    <link rel="icon" href="/img/red.png">
-    
-	
 </head>
 
-
 <body>
-
-    <!-- Menu -->
     
-        <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">ifelseboyxx {"🤢"}</a>
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/08/04/ResponderChain/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/07/03/UIControlState/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2017/07/23/iOS_childViewController/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2017/07/23/iOS_childViewController/&text=谈谈 iOS 中的 childViewController"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2017/07/23/iOS_childViewController/&title=谈谈 iOS 中的 childViewController"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2017/07/23/iOS_childViewController/&is_video=false&description=谈谈 iOS 中的 childViewController"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=谈谈 iOS 中的 childViewController&body=Check out this article: http://yoursite.com/2017/07/23/iOS_childViewController/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2017/07/23/iOS_childViewController/&title=谈谈 iOS 中的 childViewController"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2017/07/23/iOS_childViewController/&title=谈谈 iOS 中的 childViewController"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2017/07/23/iOS_childViewController/&title=谈谈 iOS 中的 childViewController"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2017/07/23/iOS_childViewController/&title=谈谈 iOS 中的 childViewController"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2017/07/23/iOS_childViewController/&name=谈谈 iOS 中的 childViewController&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
 
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    
-                        <li class="previous" title="基于 ResponderChain 的对象交互方式">
-                            <a href="/2017/08/04/ResponderChain/">&larr; Prev</a>
-                        </li>
-                    
-                </li>
-                <li>
-                    
-                        <li class="next" title="关于 UIControlState 一次神奇的发现">
-                            <a href="/2017/07/03/UIControlState/">Next  &rarr;</a>
-                        </li>
-                    
-                </li>
-
-                
-                    <li>
-                        <a href="/">
-                            
-                                Home
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/archives">
-                            
-                                Archives
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://github.com/ifelseboyxx">
-                            
-                                GitHub
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://juejin.im/user/5a421a5ef265da4320038046">
-                            
-                                掘金
-                            
-                        </a>
-                    </li>
-                
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container -->
-</nav>
-    
-
-    <!-- Main Content -->
-    <!-- Page Header -->
-<!-- Set your background image for this header in your post front-matter: cover -->
-
-
-<header class="intro-header">
-    <div class="container">
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用场景"><span class="toc-number">1.</span> <span class="toc-text">使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码实现"><span class="toc-number">2.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#手动管理-childViewController-的生命周期方法"><span class="toc-number">3.</span> <span class="toc-text">手动管理 childViewController 的生命周期方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于-childViewController-导致导航条穿透效果失效问题"><span class="toc-number">4.</span> <span class="toc-text">关于 childViewController 导致导航条穿透效果失效问题</span></a></li></ol>
     </div>
-</header>
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-preview">
-                <!-- Title -->
-                <a href="/2017/07/23/iOS_childViewController/">
-                    <h2 class="post-title">
-                        谈谈 iOS 中的 childViewController
-                    </h2>
-                </a>
-
-                <!-- Tags -->
-                
-                  
-                        <a href="/tags/ObjC/" rel="tag" class="post-tag">
-                        ObjC
-                      </a>
-                  
-                
-
-                <p class="post-meta">
-                    <!-- Date and Author -->
-                    
-                    2017-07-23
-                </p>
-            </div>
-            <hr>
-        </div>
-    </div>
+  </span>
 </div>
 
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        谈谈 iOS 中的 childViewController
+    </h1>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
 
-            <!-- Gallery -->
-            
 
-            <!-- Post Main Content -->
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。</p>
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ifelseboyxx</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-07-23T14:40:23.000Z" itemprop="datePublished">2017-07-23</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ObjC/">ObjC</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>在 iOS 客户端中，多个 childViewController 的页面是个很常见的交互设计，目前已经广泛运用在各类的 APP 上，比较有代表性的类似网易新闻、今日头条这两个客户端。</p>
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>实现方式网上已经有很多了，这里就直接贴出代码，大概流程如下：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加一个 childViewController</span></div><div class="line"><span class="built_in">UIViewController</span> *vc = [<span class="built_in">UIViewController</span> new];<span class="comment">//子控制器</span></div><div class="line">[<span class="keyword">self</span> addChildViewController:vc];<span class="comment">//添加到父控制器中</span></div><div class="line">vc.view.frame = <span class="comment">/*....*/</span>;<span class="comment">//设置 frame</span></div><div class="line">[<span class="keyword">self</span>.view addSubview:vc.view];<span class="comment">//把子控制器的 view 添加到父控制器的 view 上面</span></div><div class="line">[vc didMoveToParentViewController:<span class="keyword">self</span>];  <span class="comment">//子控制器被通知有了一个父控制器</span></div><div class="line"></div><div class="line"><span class="comment">//移除一个 childViewController</span></div><div class="line">[vc willMoveToParentViewController:<span class="literal">nil</span>];<span class="comment">//子控制器被通知即将解除父子关系</span></div><div class="line">[vc.view removeFromSuperview];<span class="comment">//把子控制器的 view 从到父控制器的 view 上面移除</span></div><div class="line">[vc removeFromParentViewController];<span class="comment">//真正的解除关系,会自己调用 [vc didMoveToParentViewController:nil]</span></div></pre></td></tr></table></figure>
 <p>实现上面部分，childViewController 的生命周期方法也就是 viewWillAppear、viewDidAppear等等这些，是不需要我们关心的，系统内部会自动帮我们调用。</p>
@@ -230,69 +160,100 @@
 <p>大概原理就是系统内部帮我们设置了 UITableView 的 <code>contentInset</code> 以及 <code>contentOffset</code> 属性，往下偏移了一定的高度，并且只有单个层级的情况下才能生效，所谓的单个层级可以理解为在一个 UIViewController 中 放一个 UITableView。一旦我们的界面 <code>addChildViewController:</code> ,就会失效，如果我们希望 childViewController 也能保持这种穿透效果，就需要拿到正确的 <code>topLayoutGuide</code> 以及 <code>bottomLayoutGuide</code>  值，然后设置 <code>contentInset</code> 和 <code>contentOffset</code> 就行了：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIViewController</span> (<span class="title">XXLayoutSupport</span>)</span></div><div class="line"></div><div class="line">- (<span class="keyword">id</span>&lt;<span class="built_in">UILayoutSupport</span>&gt;)xx_navigationBarTopLayoutGuide &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.parentViewController &amp;&amp;</div><div class="line">        ![<span class="keyword">self</span>.parentViewController isKindOfClass:<span class="built_in">UINavigationController</span>.class]) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.parentViewController.xx_navigationBarTopLayoutGuide;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.topLayoutGuide;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">id</span>&lt;<span class="built_in">UILayoutSupport</span>&gt;)xx_navigationBarBottomLayoutGuide &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.parentViewController &amp;&amp;</div><div class="line">        ![<span class="keyword">self</span>.parentViewController isKindOfClass:<span class="built_in">UINavigationController</span>.class]) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.parentViewController.xx_navigationBarBottomLayoutGuide;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.bottomLayoutGuide;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIViewController</span> (<span class="title">FixNavBarPenetrable</span>)</span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)xx_fixNavBarPenetrable &#123;</div><div class="line"> </div><div class="line">    <span class="keyword">if</span>(!<span class="keyword">self</span>.childViewControllers.count) <span class="keyword">return</span>;</div><div class="line">    <span class="built_in">CGFloat</span> statusBarHeight = [[<span class="built_in">UIApplication</span> sharedApplication] statusBarFrame].size.height;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.navigationController) &#123;statusBarHeight = <span class="number">0.0</span>f;&#125;</div><div class="line">    [<span class="keyword">self</span>.childViewControllers enumerateObjectsUsingBlock:^(__kindof <span class="built_in">UIViewController</span> * _Nonnull obj, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> * _Nonnull stop) &#123;</div><div class="line">        [obj.view.subviews enumerateObjectsUsingBlock:^(__kindof <span class="built_in">UIView</span> * _Nonnull v_obj, <span class="built_in">NSUInteger</span> v_idx, <span class="built_in">BOOL</span> * _Nonnull v_stop) &#123;</div><div class="line">            <span class="keyword">if</span> ([v_obj isKindOfClass:[<span class="built_in">UIScrollView</span> <span class="keyword">class</span>]]) &#123;</div><div class="line">                <span class="built_in">UIScrollView</span> *tv = (<span class="built_in">UIScrollView</span> *)v_obj;</div><div class="line">                <span class="keyword">const</span> <span class="built_in">UIEdgeInsets</span> insets = (obj.automaticallyAdjustsScrollViewInsets) ? <span class="built_in">UIEdgeInsetsMake</span>(obj.xx_navigationBarTopLayoutGuide.length - statusBarHeight, <span class="number">0.0</span>f, obj.xx_navigationBarBottomLayoutGuide.length, <span class="number">0.0</span>f) : <span class="built_in">UIEdgeInsetsZero</span>;</div><div class="line">                tv.contentInset = tv.scrollIndicatorInsets = insets;</div><div class="line">                tv.contentOffset = <span class="built_in">CGPointMake</span>(insets.left, -insets.top);</div><div class="line">                *v_stop = <span class="literal">YES</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;];</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
 
-
-                
-            </div>
-
-
-            <!-- Comments -->
-            
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    
-
-
-
-
-                </div>
-            
-        </div>
-    </div>
+  </div>
 </article>
 
-    <!-- Footer -->
-    <!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-                <ul class="list-inline text-center">
-                    
 
-                    
-
-                    
-
-                    
-
-                    
-
-                    
-
-                    
-                </ul>
-                <p class="copyright text-muted">Get busy living, or get busy dying~ <br>Copyright &copy; Hexo-CleanBlog 2016-2018 <br></p>
-            </div>
-        </div>
     </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用场景"><span class="toc-number">1.</span> <span class="toc-text">使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码实现"><span class="toc-number">2.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#手动管理-childViewController-的生命周期方法"><span class="toc-number">3.</span> <span class="toc-text">手动管理 childViewController 的生命周期方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于-childViewController-导致导航条穿透效果失效问题"><span class="toc-number">4.</span> <span class="toc-text">关于 childViewController 导致导航条穿透效果失效问题</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2017/07/23/iOS_childViewController/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2017/07/23/iOS_childViewController/&text=谈谈 iOS 中的 childViewController"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2017/07/23/iOS_childViewController/&title=谈谈 iOS 中的 childViewController"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2017/07/23/iOS_childViewController/&is_video=false&description=谈谈 iOS 中的 childViewController"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=谈谈 iOS 中的 childViewController&body=Check out this article: http://yoursite.com/2017/07/23/iOS_childViewController/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2017/07/23/iOS_childViewController/&title=谈谈 iOS 中的 childViewController"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2017/07/23/iOS_childViewController/&title=谈谈 iOS 中的 childViewController"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2017/07/23/iOS_childViewController/&title=谈谈 iOS 中的 childViewController"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2017/07/23/iOS_childViewController/&title=谈谈 iOS 中的 childViewController"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2017/07/23/iOS_childViewController/&name=谈谈 iOS 中的 childViewController&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 ifelseboyxx
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </nav>
+  </div>
 </footer>
 
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
 
-    <!-- After footer scripts -->
-    
-<!-- jQuery -->
-<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
 
-<!-- Bootstrap -->
-<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- Google Analytics -->
 
-<!-- Gallery -->
-<script src="//cdn.bootcss.com/featherlight/1.7.1/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
 
 <!-- Disqus Comments -->
 
 
-
-</body>
-
-</html>

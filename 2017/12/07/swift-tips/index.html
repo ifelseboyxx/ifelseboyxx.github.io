@@ -1,221 +1,164 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
-
-<!-- Head tag -->
+<html lang=zh>
 <head>
-
+    <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--Description-->
-    
-        <meta name="description" content="以下内容均是笔者学习过程中收集的知识点，顺序比较跳跃，初衷是为了方便查阅，顺便加深记忆。内容会不断更新，如果有什么问题或者有好的 Swift 方面的语法糖或者知识点也可以提出来，我会挑选斟酌后收录，欢迎大家关注～
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="以下内容均是笔者学习过程中收集的知识点，顺序比较跳跃，初衷是为了方便查阅，顺便加深记忆。内容会不断更新，如果有什么问题或者有好的 Swift 方面的语法糖或者知识点也可以提出来，我会挑选斟酌后收录，欢迎大家关注～
 环境：
 
 Swift 4.0Xcode 9.1
 
 最近更新：2018.01.09
 
-取">
-    
+取消 asyncAfter 中延迟的事件for in 和 forEach 的区别访问级别几种遍历方式w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift 知识小集">
+<meta property="og:url" content="http://yoursite.com/2017/12/07/swift-tips/index.html">
+<meta property="og:site_name" content="ifelseboyxx">
+<meta property="og:description" content="以下内容均是笔者学习过程中收集的知识点，顺序比较跳跃，初衷是为了方便查阅，顺便加深记忆。内容会不断更新，如果有什么问题或者有好的 Swift 方面的语法糖或者知识点也可以提出来，我会挑选斟酌后收录，欢迎大家关注～
+环境：
 
-    <!--Author-->
-    
-        <meta name="author" content="ifelseboyxx">
-    
+Swift 4.0Xcode 9.1
 
-    <!--Open Graph Title-->
-    
-        <meta property="og:title" content="Swift 知识小集"/>
-    
+最近更新：2018.01.09
 
-    <!--Open Graph Description-->
+取消 asyncAfter 中延迟的事件for in 和 forEach 的区别访问级别几种遍历方式w">
+<meta property="og:image" content="http://p0kmbfoc8.bkt.clouddn.com/Snip20171207_3.png">
+<meta property="og:image" content="http://p0kmbfoc8.bkt.clouddn.com/Snip20171207_8.png">
+<meta property="og:image" content="http://p0kmbfoc8.bkt.clouddn.com/Snip20171207_7.png">
+<meta property="og:image" content="http://p0kmbfoc8.bkt.clouddn.com/Snip20171207_6.png">
+<meta property="og:updated_time" content="2018-01-09T11:33:42.266Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift 知识小集">
+<meta name="twitter:description" content="以下内容均是笔者学习过程中收集的知识点，顺序比较跳跃，初衷是为了方便查阅，顺便加深记忆。内容会不断更新，如果有什么问题或者有好的 Swift 方面的语法糖或者知识点也可以提出来，我会挑选斟酌后收录，欢迎大家关注～
+环境：
+
+Swift 4.0Xcode 9.1
+
+最近更新：2018.01.09
+
+取消 asyncAfter 中延迟的事件for in 和 forEach 的区别访问级别几种遍历方式w">
+<meta name="twitter:image" content="http://p0kmbfoc8.bkt.clouddn.com/Snip20171207_3.png">
     
-
-    <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="ifelseboyxx&#39;s Blog"/>
-
-    <!--Type page-->
     
-        <meta property="og:type" content="article" />
+        
+          
+              <link rel="shortcut icon" href="/images/red.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/red.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/red.png">
+          
+        
     
-
-    <!--Page Cover-->
-    
-
-        <meta name="twitter:card" content="summary" />
-    
-
-    <!-- Title -->
-    
-    <title>Swift 知识小集 - ifelseboyxx&#39;s Blog</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
+    <!-- title -->
+    <title>Swift 知识小集</title>
+    <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
-
-    <!-- Custom Fonts -->
-    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Gallery -->
-    <link href="//cdn.bootcss.com/featherlight/1.7.1/featherlight.min.css" type="text/css" rel="stylesheet">
-
-    <!-- Google Analytics -->
+    <!-- rss -->
     
-
-
-    <!-- favicon -->
     
-    <link rel="icon" href="/img/red.png">
-    
-	
 </head>
 
-
 <body>
-
-    <!-- Menu -->
     
-        <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">ifelseboyxx {"🤢"}</a>
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/01/02/RxSwift_1/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/11/30/hook_system_delegate/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2017/12/07/swift-tips/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2017/12/07/swift-tips/&text=Swift 知识小集"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2017/12/07/swift-tips/&title=Swift 知识小集"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2017/12/07/swift-tips/&is_video=false&description=Swift 知识小集"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Swift 知识小集&body=Check out this article: http://yoursite.com/2017/12/07/swift-tips/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2017/12/07/swift-tips/&title=Swift 知识小集"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2017/12/07/swift-tips/&title=Swift 知识小集"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2017/12/07/swift-tips/&title=Swift 知识小集"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2017/12/07/swift-tips/&title=Swift 知识小集"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2017/12/07/swift-tips/&name=Swift 知识小集&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
 
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    
-                        <li class="previous" title="RxSwift 入坑-需要知道的基础概念">
-                            <a href="/2018/01/02/RxSwift_1/">&larr; Prev</a>
-                        </li>
-                    
-                </li>
-                <li>
-                    
-                        <li class="next" title="Method Swizzling 实战：Hook 系统代理方法">
-                            <a href="/2017/11/30/hook_system_delegate/">Next  &rarr;</a>
-                        </li>
-                    
-                </li>
-
-                
-                    <li>
-                        <a href="/">
-                            
-                                Home
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/archives">
-                            
-                                Archives
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://github.com/ifelseboyxx">
-                            
-                                GitHub
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://juejin.im/user/5a421a5ef265da4320038046">
-                            
-                                掘金
-                            
-                        </a>
-                    </li>
-                
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container -->
-</nav>
-    
-
-    <!-- Main Content -->
-    <!-- Page Header -->
-<!-- Set your background image for this header in your post front-matter: cover -->
-
-
-<header class="intro-header">
-    <div class="container">
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.1"><span class="toc-number">1.</span> <span class="toc-text"> Associated Object </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.2"><span class="toc-number">2.</span> <span class="toc-text"> Delegate 声明为 weak </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.3"><span class="toc-number">3.</span> <span class="toc-text"> 可选协议和协议扩展 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.4"><span class="toc-number">4.</span> <span class="toc-text"> 单例 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.5"><span class="toc-number">5.</span> <span class="toc-text"> 输出格式化 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.6"><span class="toc-number">6.</span> <span class="toc-text"> Selector </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.7"><span class="toc-number">7.</span> <span class="toc-text"> 将 protocol 的方法声明为 mutating </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.8"><span class="toc-number">8.</span> <span class="toc-text"> 数组遍历 enumerate </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.9"><span class="toc-number">9.</span> <span class="toc-text"> 输入输出参数 inout </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.0"><span class="toc-number">10.</span> <span class="toc-text"> Default 参数 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.1"><span class="toc-number">11.</span> <span class="toc-text"> 延迟加载 lazy </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.2"><span class="toc-number">12.</span> <span class="toc-text"> 编译标记 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.3"><span class="toc-number">13.</span> <span class="toc-text"> 换行符 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.4"><span class="toc-number">14.</span> <span class="toc-text"> 字符串切割 split </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.5"><span class="toc-number">15.</span> <span class="toc-text"> KVC </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.6"><span class="toc-number">16.</span> <span class="toc-text"> Swift 中值类型和引用类型注意点 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.7"><span class="toc-number">17.</span> <span class="toc-text"> KVO </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.8"><span class="toc-number">18.</span> <span class="toc-text"> Swift UIButton 状态的叠加 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.9"><span class="toc-number">19.</span> <span class="toc-text"> Swift 中的 “@synchronized” </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.0"><span class="toc-number">20.</span> <span class="toc-text"> 自定义日志输出 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.1"><span class="toc-number">21.</span> <span class="toc-text"> Swift 中的 “readonly” </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.2"><span class="toc-number">22.</span> <span class="toc-text"> 作用域：do 语句块 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.3"><span class="toc-number">23.</span> <span class="toc-text"> 倒序 reversed() </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.3"><span class="toc-number">24.</span> <span class="toc-text"> 标签语句：指定跳出某个条件语句 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.5"><span class="toc-number">25.</span> <span class="toc-text"> 优雅的定义通知名称 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.6"><span class="toc-number">26.</span> <span class="toc-text"> weakSelf 和 strongSelf </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.7"><span class="toc-number">27.</span> <span class="toc-text"> 几种遍历方式 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.8"><span class="toc-number">28.</span> <span class="toc-text"> 访问级别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.9"><span class="toc-number">29.</span> <span class="toc-text"> for in 和 forEach 的区别 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.0"><span class="toc-number">30.</span> <span class="toc-text"> 取消 asyncAfter 中延迟的事件 </span></a></li></ol>
     </div>
-</header>
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-preview">
-                <!-- Title -->
-                <a href="/2017/12/07/swift-tips/">
-                    <h2 class="post-title">
-                        Swift 知识小集
-                    </h2>
-                </a>
-
-                <!-- Tags -->
-                
-                  
-                        <a href="/tags/Swift/" rel="tag" class="post-tag">
-                        Swift
-                      </a>
-                  
-                
-
-                <p class="post-meta">
-                    <!-- Date and Author -->
-                    
-                    2017-12-07
-                </p>
-            </div>
-            <hr>
-        </div>
-    </div>
+  </span>
 </div>
 
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Swift 知识小集
+    </h1>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
 
-            <!-- Gallery -->
-            
 
-            <!-- Post Main Content -->
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>以下内容均是笔者学习过程中<strong>收集</strong>的知识点，顺序比较跳跃，初衷是为了方便查阅，顺便加深记忆。<strong>内容会不断更新</strong>，如果有什么问题或者有好的 Swift 方面的语法糖或者知识点也可以提出来，我会挑选斟酌后收录，欢迎大家关注～</p>
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ifelseboyxx</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-12-07T13:28:02.000Z" itemprop="datePublished">2017-12-07</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Swift/">Swift</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>以下内容均是笔者学习过程中<strong>收集</strong>的知识点，顺序比较跳跃，初衷是为了方便查阅，顺便加深记忆。<strong>内容会不断更新</strong>，如果有什么问题或者有好的 Swift 方面的语法糖或者知识点也可以提出来，我会挑选斟酌后收录，欢迎大家关注～</p>
 <p><strong>环境：</strong></p>
 <blockquote>
 <p>Swift 4.0<br>Xcode 9.1</p>
@@ -466,69 +409,100 @@ Swift 4.0Xcode 9.1
 
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">let</span> workItem = <span class="type">DispatchWorkItem</span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"test"</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></div><div class="line">        </div><div class="line">        <span class="type">DispatchQueue</span>.main.asyncAfter(deadline: <span class="type">DispatchTime</span>.now() + <span class="number">3</span>, execute: workItem)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// 这里点击取消之前延迟的事情</span></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">touchesBegan</span><span class="params">(<span class="number">_</span> touches: Set&lt;UITouch&gt;, with event: UIEvent?)</span></span> &#123;</div><div class="line">        </div><div class="line">        <span class="built_in">print</span>(workItem.isCancelled ? <span class="string">"取消了"</span> : <span class="string">"未取消"</span>)</div><div class="line">        </div><div class="line">        workItem.cancel()</div><div class="line"></div><div class="line">        <span class="built_in">print</span>(workItem.isCancelled ? <span class="string">"取消了"</span> : <span class="string">"未取消"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 输出：</span></div><div class="line"><span class="comment">// 未取消</span></div><div class="line"><span class="comment">// 取消了</span></div></pre></td></tr></table></figure>
 
-
-                
-            </div>
-
-
-            <!-- Comments -->
-            
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    
-
-
-
-
-                </div>
-            
-        </div>
-    </div>
+  </div>
 </article>
 
-    <!-- Footer -->
-    <!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-                <ul class="list-inline text-center">
-                    
 
-                    
-
-                    
-
-                    
-
-                    
-
-                    
-
-                    
-                </ul>
-                <p class="copyright text-muted">Get busy living, or get busy dying~ <br>Copyright &copy; Hexo-CleanBlog 2016-2018 <br></p>
-            </div>
-        </div>
     </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.1"><span class="toc-number">1.</span> <span class="toc-text"> Associated Object </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.2"><span class="toc-number">2.</span> <span class="toc-text"> Delegate 声明为 weak </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.3"><span class="toc-number">3.</span> <span class="toc-text"> 可选协议和协议扩展 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.4"><span class="toc-number">4.</span> <span class="toc-text"> 单例 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.5"><span class="toc-number">5.</span> <span class="toc-text"> 输出格式化 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.6"><span class="toc-number">6.</span> <span class="toc-text"> Selector </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.7"><span class="toc-number">7.</span> <span class="toc-text"> 将 protocol 的方法声明为 mutating </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.8"><span class="toc-number">8.</span> <span class="toc-text"> 数组遍历 enumerate </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.9"><span class="toc-number">9.</span> <span class="toc-text"> 输入输出参数 inout </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.0"><span class="toc-number">10.</span> <span class="toc-text"> Default 参数 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.1"><span class="toc-number">11.</span> <span class="toc-text"> 延迟加载 lazy </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.2"><span class="toc-number">12.</span> <span class="toc-text"> 编译标记 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.3"><span class="toc-number">13.</span> <span class="toc-text"> 换行符 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.4"><span class="toc-number">14.</span> <span class="toc-text"> 字符串切割 split </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.5"><span class="toc-number">15.</span> <span class="toc-text"> KVC </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.6"><span class="toc-number">16.</span> <span class="toc-text"> Swift 中值类型和引用类型注意点 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.7"><span class="toc-number">17.</span> <span class="toc-text"> KVO </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.8"><span class="toc-number">18.</span> <span class="toc-text"> Swift UIButton 状态的叠加 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.9"><span class="toc-number">19.</span> <span class="toc-text"> Swift 中的 “@synchronized” </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.0"><span class="toc-number">20.</span> <span class="toc-text"> 自定义日志输出 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.1"><span class="toc-number">21.</span> <span class="toc-text"> Swift 中的 “readonly” </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.2"><span class="toc-number">22.</span> <span class="toc-text"> 作用域：do 语句块 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.3"><span class="toc-number">23.</span> <span class="toc-text"> 倒序 reversed() </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.3"><span class="toc-number">24.</span> <span class="toc-text"> 标签语句：指定跳出某个条件语句 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.5"><span class="toc-number">25.</span> <span class="toc-text"> 优雅的定义通知名称 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.6"><span class="toc-number">26.</span> <span class="toc-text"> weakSelf 和 strongSelf </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.7"><span class="toc-number">27.</span> <span class="toc-text"> 几种遍历方式 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.8"><span class="toc-number">28.</span> <span class="toc-text"> 访问级别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.9"><span class="toc-number">29.</span> <span class="toc-text"> for in 和 forEach 的区别 </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.0"><span class="toc-number">30.</span> <span class="toc-text"> 取消 asyncAfter 中延迟的事件 </span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2017/12/07/swift-tips/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2017/12/07/swift-tips/&text=Swift 知识小集"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2017/12/07/swift-tips/&title=Swift 知识小集"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2017/12/07/swift-tips/&is_video=false&description=Swift 知识小集"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Swift 知识小集&body=Check out this article: http://yoursite.com/2017/12/07/swift-tips/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2017/12/07/swift-tips/&title=Swift 知识小集"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2017/12/07/swift-tips/&title=Swift 知识小集"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2017/12/07/swift-tips/&title=Swift 知识小集"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2017/12/07/swift-tips/&title=Swift 知识小集"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2017/12/07/swift-tips/&name=Swift 知识小集&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 ifelseboyxx
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </nav>
+  </div>
 </footer>
 
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
 
-    <!-- After footer scripts -->
-    
-<!-- jQuery -->
-<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
 
-<!-- Bootstrap -->
-<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- Google Analytics -->
 
-<!-- Gallery -->
-<script src="//cdn.bootcss.com/featherlight/1.7.1/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
 
 <!-- Disqus Comments -->
 
 
-
-</body>
-
-</html>
