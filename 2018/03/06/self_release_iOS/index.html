@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="什么叫自释放？可以简单的理解为：对象在生命周期结束后，自动清理回收与其相关的资源。这个清理不仅仅包括对象内存的回收，还包括对象解耦及附属事件的清理等等，例如定时器的停止、通知以及 KVO 对象的监听移除。
+对象内存的回收在开发中，对象管理的基本原则 — 谁创建谁释放。但是在 MRC 中，我们会用 autorelease 来标记一个对象，告诉编辑器，这个对象我不负责释放。此时，这个对象就变成了自释放">
+<meta property="og:type" content="article">
+<meta property="og:title" content="聊聊 iOS 中的自释放">
+<meta property="og:url" content="http://yoursite.com/2018/03/06/self_release_iOS/index.html">
+<meta property="og:site_name" content="＃ TODO：">
+<meta property="og:description" content="什么叫自释放？可以简单的理解为：对象在生命周期结束后，自动清理回收与其相关的资源。这个清理不仅仅包括对象内存的回收，还包括对象解耦及附属事件的清理等等，例如定时器的停止、通知以及 KVO 对象的监听移除。
+对象内存的回收在开发中，对象管理的基本原则 — 谁创建谁释放。但是在 MRC 中，我们会用 autorelease 来标记一个对象，告诉编辑器，这个对象我不负责释放。此时，这个对象就变成了自释放">
+<meta property="og:updated_time" content="2018-03-06T15:21:33.506Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="聊聊 iOS 中的自释放">
+<meta name="twitter:description" content="什么叫自释放？可以简单的理解为：对象在生命周期结束后，自动清理回收与其相关的资源。这个清理不仅仅包括对象内存的回收，还包括对象解耦及附属事件的清理等等，例如定时器的停止、通知以及 KVO 对象的监听移除。
+对象内存的回收在开发中，对象管理的基本原则 — 谁创建谁释放。但是在 MRC 中，我们会用 autorelease 来标记一个对象，告诉编辑器，这个对象我不负责释放。此时，这个对象就变成了自释放">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/red.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/red.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/red.png">
+          
+        
+    
+    <!-- title -->
+    <title>聊聊 iOS 中的自释放</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archives</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2018/01/08/objc_delay/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/03/06/self_release_iOS/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/03/06/self_release_iOS/&text=聊聊 iOS 中的自释放"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/03/06/self_release_iOS/&title=聊聊 iOS 中的自释放"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/03/06/self_release_iOS/&is_video=false&description=聊聊 iOS 中的自释放"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=聊聊 iOS 中的自释放&body=Check out this article: http://yoursite.com/2018/03/06/self_release_iOS/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/03/06/self_release_iOS/&title=聊聊 iOS 中的自释放"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/03/06/self_release_iOS/&title=聊聊 iOS 中的自释放"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/03/06/self_release_iOS/&title=聊聊 iOS 中的自释放"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/03/06/self_release_iOS/&title=聊聊 iOS 中的自释放"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/03/06/self_release_iOS/&name=聊聊 iOS 中的自释放&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#对象内存的回收"><span class="toc-number">1.</span> <span class="toc-text">对象内存的回收</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KVO-的自释放"><span class="toc-number">2.</span> <span class="toc-text">KVO 的自释放</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FBKVOController"><span class="toc-number">2.1.</span> <span class="toc-text">FBKVOController</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ReactiveCocoa"><span class="toc-number">2.2.</span> <span class="toc-text">ReactiveCocoa</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSNotification-的自释放"><span class="toc-number">3.</span> <span class="toc-text">NSNotification 的自释放</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSTimer-的自释放"><span class="toc-number">4.</span> <span class="toc-text">NSTimer 的自释放</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#YYWeakProxy"><span class="toc-number">4.1.</span> <span class="toc-text">YYWeakProxy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YYTimer"><span class="toc-number">4.2.</span> <span class="toc-text">YYTimer</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        聊聊 iOS 中的自释放
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">＃ TODO：</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-03-06T15:19:01.000Z" itemprop="datePublished">2018-03-06</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Objc/">Objc</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>什么叫自释放？可以简单的理解为：对象在生命周期结束后，自动清理回收与其相关的资源。这个清理不仅仅包括对象内存的回收，还包括对象解耦及附属事件的清理等等，例如定时器的停止、通知以及 KVO 对象的监听移除。</p>
+<h2 id="对象内存的回收"><a href="#对象内存的回收" class="headerlink" title="对象内存的回收"></a>对象内存的回收</h2><p>在开发中，对象管理的基本原则 — 谁创建谁释放。但是在 MRC 中，我们会用 <code>autorelease</code> 来标记一个对象，告诉编辑器，这个对象我不负责释放。<strong>此时，这个对象就变成了自释放的对象，当其不再需要时，系统就会自动回收其内存。</strong> 等到了 ARC 时代，基本上所有对象对于我们来说都是自释放对象，我们不需要再处处留意内存泄漏问题，可以更专注于业务逻辑上。</p>
+<h2 id="KVO-的自释放"><a href="#KVO-的自释放" class="headerlink" title="KVO 的自释放"></a>KVO 的自释放</h2><p>iOS 开发中，我们使用 KVO 监听对象某个 <code>keyPath</code> 时，需要在<strong>被监听的对象释放前</strong>移除对应的 <code>keyPath</code> 监听：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Person *person = [Person new];</div><div class="line"><span class="keyword">self</span>.person = person;</div><div class="line">[<span class="keyword">self</span>.person addObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@"name"</span> options:<span class="built_in">NSKeyValueObservingOptionOld</span> | <span class="built_in">NSKeyValueObservingOptionNew</span> context:<span class="literal">nil</span>];</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)dealloc &#123;</div><div class="line">	[<span class="keyword">self</span>.person removeObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@"name"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果我们一不小心忘了移除对应的监听，会得到这样的错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'An instance 0x17000c2c0 of class Person was deallocated while key value observers were still registered with it. Current observation info: &lt;NSKeyValueObservationInfo 0x17003c9e0&gt;(</div><div class="line">&lt;NSKeyValueObservance 0x170243de0: Observer: 0x129d053b0, Key path: name, Options: &lt;New: YES, Old: YES, Prior: NO&gt; Context: 0x0, Property: 0x170243db0&gt;)'</div></pre></td></tr></table></figure>
+<h3 id="FBKVOController"><a href="#FBKVOController" class="headerlink" title="FBKVOController"></a>FBKVOController</h3><p>我们不由的产生疑问： 对象的 <code>dealloc</code> 函数只做了<code>removeObserver:forKeyPath:</code> 一件事，能不能不每次都写呢？<a href="https://github.com/facebook/KVOController" target="_blank" rel="external">FBKVOController</a> 也许会是一个不错的选择：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Person *person = [Person new];</div><div class="line"><span class="keyword">self</span>.person = person;</div><div class="line"></div><div class="line">[<span class="keyword">self</span>.KVOController observe:person keyPath:<span class="string">@"name"</span> options:<span class="built_in">NSKeyValueObservingOptionOld</span> | <span class="built_in">NSKeyValueObservingOptionNew</span> block:^(<span class="keyword">id</span>  _Nullable observer, <span class="keyword">id</span>  _Nonnull object, <span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSKeyValueChangeKey</span>,<span class="keyword">id</span>&gt; * _Nonnull change) &#123;</div><div class="line">	<span class="built_in">NSString</span> *new = change[<span class="built_in">NSKeyValueChangeNewKey</span>];</div><div class="line">	<span class="built_in">NSString</span> *old = change[<span class="built_in">NSKeyValueChangeOldKey</span>];</div><div class="line">	<span class="built_in">NSLog</span>(<span class="string">@"%@  %@"</span>,new,old);</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p>抛开烦人的 <code>removeObserver:forKeyPath:</code>，更加简明清晰的满足了需求。</p>
+<p>那么，<a href="https://github.com/facebook/KVOController" target="_blank" rel="external">FBKVOController</a>  是如何做到自释放的呢？<strong>其内部将观察者绑定到 <code>FBKVOController</code> 这个第三者上，<code>FBKVOController</code> 会随着观察者的释放而释放。最后，<code>FBKVOController</code> 在自己的 <code>dealloc</code> 方法中，通过 <code>_FBKVOSharedController</code> 这个单例来移除监听。</strong></p>
+<h3 id="ReactiveCocoa"><a href="#ReactiveCocoa" class="headerlink" title="ReactiveCocoa"></a>ReactiveCocoa</h3><p>除了 FBKVOController，<a href="https://github.com/ReactiveCocoa/ReactiveObjC/tree/3.1.0" target="_blank" rel="external">ReactiveCocoa</a> 也同样支持 KVO 的自释放：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Person *person = [Person new];</div><div class="line"><span class="keyword">self</span>.person = person;</div><div class="line"></div><div class="line">[[<span class="keyword">self</span>.person rac_valuesAndChangesForKeyPath:<span class="string">@"name"</span>  options:<span class="built_in">NSKeyValueObservingOptionOld</span> | <span class="built_in">NSKeyValueObservingOptionNew</span>  observer:<span class="keyword">self</span>] subscribeNext:^(RACTwoTuple&lt;<span class="keyword">id</span>,<span class="built_in">NSDictionary</span> *&gt; * _Nullable x) &#123;</div><div class="line">	<span class="built_in">NSLog</span>(<span class="string">@"%@ %@"</span>,x.second[<span class="string">@"old"</span>],x.second[<span class="string">@"new"</span>]);</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p>ReactiveCocoa 和 FBKVOController 略有不同，ReactiveCocoa 是通过<strong>监听观察者的 <code>dealloc</code> 方法</strong>，并通过 <code>RACKVOTrampoline</code> 这个对象来管理对象 KVO 监听的添加/移除。</p>
+<blockquote>
+<p>⚠️ 经测试，在 iOS 11 中，系统已经帮我们做了 KVO 的 <code>keyPath</code> 移除操作。遗憾的是，iOS 11 以下，不移除仍然存在问题！</p>
+</blockquote>
+<h2 id="NSNotification-的自释放"><a href="#NSNotification-的自释放" class="headerlink" title="NSNotification 的自释放"></a>NSNotification 的自释放</h2><p>通常，我们使用通知时是这样的：</p>
+ <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 添加</span></div><div class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span>  selector:<span class="keyword">@selector</span>(respondsToNotification:) name:<span class="string">@"test0"</span> object:<span class="literal">nil</span>];</div><div class="line"><span class="comment">// 发送</span></div><div class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:<span class="string">@"test0"</span> object:<span class="literal">nil</span>];</div><div class="line"><span class="comment">// 移除</span></div><div class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] removeObserver:<span class="keyword">self</span> name:<span class="string">@"test0"</span> object:<span class="literal">nil</span>];</div></pre></td></tr></table></figure>
+<p>关于移除操作，根据不同的业务场景，有的是放在 <code>dealloc</code> 方法中，有的是 <code>viewWillDisappear:</code> 方法中。然而，在 iOS 8 及以上版本中，我们已经不需要再手动移除通知了，大家可以用以下代码测试下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSNotificationCenter</span> (<span class="title">NS</span>)</span></div><div class="line"></div><div class="line">+ (<span class="keyword">void</span>)load &#123;</div><div class="line">	Method origin = class_getInstanceMethod([<span class="keyword">self</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(removeObserver:));</div><div class="line">	Method current = class_getInstanceMethod([<span class="keyword">self</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(_removeObserver:));</div><div class="line">	method_exchangeImplementations(origin, current);</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)_removeObserver:(<span class="keyword">id</span>)observer &#123;</div><div class="line">	<span class="built_in">NSLog</span>(<span class="string">@"调用移除通知方法: %@"</span>, observer);</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>这应该是苹果在 iOS 11  中的一次优化。</p>
+<h2 id="NSTimer-的自释放"><a href="#NSTimer-的自释放" class="headerlink" title="NSTimer 的自释放"></a>NSTimer 的自释放</h2><p>通常我们是这样使用定时器：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSTimer</span> *timer;</div><div class="line"></div><div class="line"><span class="keyword">self</span>.timer = [<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:<span class="number">1.0</span>f target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(timerTest) userInfo:<span class="literal">nil</span> repeats:<span class="literal">YES</span>];</div></pre></td></tr></table></figure>
+<p>定时器<strong>内部</strong>会 <code>strong</code>  <code>target</code>，而 <code>self</code> 也就是 <code>target</code> 又 <code>strong</code> 了定时器，这样就造成了循环引用，导致 <code>self</code> 无法释放。想要打破，我们只有<strong>主动</strong>调用 <code>invalidate</code> 方法。目前解决这种问题的方法有两种方式：</p>
+<ul>
+<li>使用 <code>weak proxy</code>，持有弱引用 <code>target</code> ，转发消息到 <code>target</code>。<a href="https://github.com/ibireme/YYKit/blob/master/YYKit/Utility/YYWeakProxy.h" target="_blank" rel="external">YYWeakProxy</a> 是个不错的选择。</li>
+<li>使用 <code>dispatch_source</code> 自己实现一个定时器。<a href="https://github.com/ibireme/YYKit/blob/master/YYKit/Utility/YYTimer.h" target="_blank" rel="external">YYTimer</a> 是个不错的选择。</li>
+</ul>
+<h3 id="YYWeakProxy"><a href="#YYWeakProxy" class="headerlink" title="YYWeakProxy"></a>YYWeakProxy</h3><p>YYWeakProxy 是 NSProxy 的子类，其内持有了 <code>weak</code> <code>target</code>，利用消息转发机制，将消息转发到传进来的 <code>target</code>：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nullable</span>, <span class="keyword">nonatomic</span>, <span class="keyword">weak</span>, <span class="keyword">readonly</span>) <span class="keyword">id</span> target;</div></pre></td></tr></table></figure>
+<p>这样，当 <code>self</code> 引用计数为 <code>0</code> 时，<code>target</code> 将为 <code>nil</code>，这样就打破了 <code>self</code> 和 <code>NSTimer</code> 之间的循环引用，<code>self</code> 也就得以释放。</p>
+<p>然而，虽然 <code>self</code> 和 <code>NSTimer</code> 之间循环引用打破了，却又造成了 <code>YYWeakProxy</code> 和 <code>NSTimer</code> 之间的循环引用，导致 <code>YYWeakProxy</code> 的内存泄漏。按照作者的意思，与其泄漏一个可能很重的 <code>self</code>，不如泄漏一个轻量的 <code>YYWeakProxy</code>。</p>
+<h3 id="YYTimer"><a href="#YYTimer" class="headerlink" title="YYTimer"></a>YYTimer</h3><p>YYTimer 可以彻底的解决内存泄漏问题，缺点是实现相对复杂。 其内部是使用 GCD 的 <code>dispatch_source</code> 来实现的，关于 <code>dispatch_source</code> 使用如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 队列</span></div><div class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_get_main_queue();</div><div class="line"><span class="comment">// 创建 dispatch_source</span></div><div class="line">dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, <span class="number">0</span>, <span class="number">0</span>, queue);</div><div class="line"><span class="comment">// 声明成员变量</span></div><div class="line"><span class="keyword">self</span>.timer = timer;</div><div class="line"><span class="comment">// 设置两秒后触发</span></div><div class="line">dispatch_time_t startTime = dispatch_time(DISPATCH_TIME_NOW, <span class="number">3.0</span> * <span class="built_in">NSEC_PER_SEC</span>);</div><div class="line"><span class="comment">// 设置下次触发事件为 DISPATCH_TIME_FOREVER</span></div><div class="line">dispatch_time_t nextTime = DISPATCH_TIME_FOREVER;</div><div class="line"><span class="comment">// 设置精确度</span></div><div class="line">dispatch_time_t leeway = <span class="number">0.1</span> * <span class="built_in">NSEC_PER_SEC</span>;</div><div class="line"><span class="comment">// 配置时间</span></div><div class="line">dispatch_source_set_timer(timer, startTime, nextTime, leeway);</div><div class="line"><span class="comment">// 回调</span></div><div class="line">dispatch_source_set_event_handler(timer, ^&#123;</div><div class="line">	<span class="comment">// ...</span></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 激活</span></div><div class="line">dispatch_resume(timer);</div></pre></td></tr></table></figure>
+<p>需要取消的话：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dispatch_source_cancel(<span class="keyword">self</span>.timer);</div></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archives</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#对象内存的回收"><span class="toc-number">1.</span> <span class="toc-text">对象内存的回收</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KVO-的自释放"><span class="toc-number">2.</span> <span class="toc-text">KVO 的自释放</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FBKVOController"><span class="toc-number">2.1.</span> <span class="toc-text">FBKVOController</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ReactiveCocoa"><span class="toc-number">2.2.</span> <span class="toc-text">ReactiveCocoa</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSNotification-的自释放"><span class="toc-number">3.</span> <span class="toc-text">NSNotification 的自释放</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSTimer-的自释放"><span class="toc-number">4.</span> <span class="toc-text">NSTimer 的自释放</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#YYWeakProxy"><span class="toc-number">4.1.</span> <span class="toc-text">YYWeakProxy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YYTimer"><span class="toc-number">4.2.</span> <span class="toc-text">YYTimer</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/03/06/self_release_iOS/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/03/06/self_release_iOS/&text=聊聊 iOS 中的自释放"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/03/06/self_release_iOS/&title=聊聊 iOS 中的自释放"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/03/06/self_release_iOS/&is_video=false&description=聊聊 iOS 中的自释放"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=聊聊 iOS 中的自释放&body=Check out this article: http://yoursite.com/2018/03/06/self_release_iOS/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/03/06/self_release_iOS/&title=聊聊 iOS 中的自释放"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/03/06/self_release_iOS/&title=聊聊 iOS 中的自释放"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/03/06/self_release_iOS/&title=聊聊 iOS 中的自释放"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/03/06/self_release_iOS/&title=聊聊 iOS 中的自释放"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/03/06/self_release_iOS/&name=聊聊 iOS 中的自释放&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 ifelseboyxx
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archives</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'ifelseboyxx';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

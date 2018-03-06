@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/01/02/Xcode-VC-Template/</loc>
+    
+    <lastmod>2018-03-06T15:23:13.270Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/03/06/self_release_iOS/</loc>
+    
+    <lastmod>2018-03-06T15:21:33.506Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/11/30/hook_system_delegate/</loc>
     
     <lastmod>2018-02-13T10:07:20.159Z</lastmod>
@@ -54,13 +68,6 @@
     <loc>http://yoursite.com/2017/02/23/Masonry-Analysis/</loc>
     
     <lastmod>2018-02-13T10:06:58.288Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/01/02/Xcode-VC-Template/</loc>
-    
-    <lastmod>2018-02-13T10:06:52.330Z</lastmod>
     
   </url>
   
